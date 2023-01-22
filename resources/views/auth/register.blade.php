@@ -1,7 +1,7 @@
 @include('header')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" style="margin: 0; padding: 0;">
             <div class="left-sidebar">
                 <h2 class="text-capitalize fs-4 fw-bold">Model name</h2>
                 <p style="margin-top: -5px;">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-md-10">
-            <div class="right-sidebar">
+            <div class="right-sidebar mt-5">
 
                 <div class="row">
                     <div class="col-md-6">

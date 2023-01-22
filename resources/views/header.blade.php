@@ -49,9 +49,10 @@
 
             .left-sidebar {
                 text-align: center;
-                border: 3px solid #000000;
+                /*border: 3px solid #000000;*/
                 padding: 15px;
                 min-height: 100vh;
+                background-color: #f0f0f0;
             }
 
             ul {
