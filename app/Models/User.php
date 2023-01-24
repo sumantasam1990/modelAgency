@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'state',
+        'city',
+        'district',
+        'wp',
+        'gender',
+        'civil',
     ];
 
     /**
@@ -41,4 +47,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function portfolios(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(portfolio::class);
+    }
+
+    public function links(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function interest(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Interest::class);
+    }
 }

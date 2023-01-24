@@ -5,16 +5,17 @@
 
         </div>
         <div class="col-md-4 box h-100">
+            @include('alert')
             <h1 class="fs-2 fw-bold text-capitalize">Access your model panel</h1>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group mb-3">
                     <label>Email*</label>
-                    <input type="email" name="_email" class="form-control" placeholder="eg. john@example.com">
+                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com">
                 </div>
                 <div class="form-group">
                     <label>Password*</label>
-                    <input type="password" name="_password" class="form-control">
+                    <input type="password" name="password" class="form-control">
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-8 mt-4">
