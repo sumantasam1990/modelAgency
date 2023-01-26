@@ -24,6 +24,7 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::post('links/post', [\App\Http\Controllers\portfolioController::class, 'links_post'])->name('links.post');
     Route::get('delete/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'delete_photo'])->name('delete.photo');
     Route::post('add/interest', [\App\Http\Controllers\portfolioController::class, 'add_interest'])->name('add.interest');
+    Route::get('contests/vote', [\App\Http\Controllers\ContestsController::class, 'index_vote'])->name('contest.vote');
 
 
     Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

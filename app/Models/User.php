@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->hasMany(portfolio::class);
     }
 
+    public function portfolio(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(portfolio::class);
+    }
+
     public function links(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Link::class);
@@ -61,5 +66,10 @@ class User extends Authenticatable
     public function interest(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Interest::class);
+    }
+
+    public function contestes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Contest::class, 'contest_participants');
     }
 }

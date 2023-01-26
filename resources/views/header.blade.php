@@ -10,13 +10,16 @@
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         @vite(['resources/js/app.js'])
-    </head>
-    <body class="antialiased bg-light">
+        @livewireStyles
 
-    @auth()
+    </head>
+    <body class="antialiased bg-light" id="html_body">
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2" style="margin: 0; padding: 0;">
+                @auth()
                 <div class="left-sidebar">
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">Maria Doe</h2>
                     <p style="margin-top: -5px;">
@@ -24,34 +27,45 @@
                     </p>
 
                     <ul class="mt-5">
-                        <li><a href=""><i class="fa-solid fa-heart"></i> &nbsp; Contest</a> </li>
 
-                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href=""><i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio</a> </li>
+                        <div class="dropdown mb-3 {{ (request()->is('model/contests/vote')) ? 'active' : '' }}">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-heart"></i> &nbsp; Contests
+                            </a>
 
-{{--                        <div class="dropdown">--}}
-{{--                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                                Dropdown link--}}
-{{--                            </a>--}}
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>
+                                <li><a class="dropdown-item" href="#">My Contests</a></li>
+                                <li><a class="dropdown-item" href="#">My Results</a></li>
+                                <li><a class="dropdown-item" href="#">Winners</a></li>
+                            </ul>
+                        </div>
 
-{{--                            <ul class="dropdown-menu">--}}
-{{--                                <li><a class="dropdown-item" href="#">Action</a></li>--}}
-{{--                                <li><a class="dropdown-item" href="#">Another action</a></li>--}}
-{{--                                <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
+                        <div class="dropdown mb-3 {{ (request()->is('model/portfolio')) ? 'active' : '' }}">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{route('portfolio')}}">Photos</a></li>
+                                <li><a class="dropdown-item" href="#">Links</a></li>
+                                <li><a class="dropdown-item" href="#">Interests</a></li>
+                            </ul>
+                        </div>
 
                         <li><a href=""><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
                         <li><a href=""><i class="fa-solid fa-credit-card"></i> &nbsp; Subscription</a> </li>
-                        @if(Auth::check())
+                        @auth()
                             <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
                         @else
                             <li class="active"><a href="{{route('register')}}"><i class="fa-solid fa-user-plus"></i> &nbsp; Register</a> </li>
                             <li><a href="{{route('login')}}"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In</a> </li>
-                        @endif
+                        @endauth
 
                     </ul>
 
                 </div>
+                @endauth
             </div>
 
             <div class="col-md-10">
@@ -64,7 +78,17 @@
             </div>
         </div>
     </div>
-    @endauth
+
+    @livewireScripts
+
+    <script>
+        function voteup(str)
+        {
+            document.getElementById('overlay_'+str).style.display = "block";
+            //document.getElementById('html_body').style.pointerEvents = "none";
+        }
+    </script>
+
 
     </body>
 </html>
