@@ -3,14 +3,15 @@
 namespace App\Services;
 
 use App\Models\Contest;
-use App\Models\User;
+use App\Models\ContestVotingResult;
 use Illuminate\Support\Facades\Auth;
 
 class ContestService
 {
     public function getContest()
     {
-        $data = Contest::with('users.portfolio')->take(1)->get();
+        $getAlreadyVotedUsers = ContestVotingResult::where('user_id', Auth::user()->id)->select('contest_id')->get();
+        $data = Contest::with('users.portfolio')->whereNotIn('id', $getAlreadyVotedUsers)->take(1)->get();
 
         return $data;
     }

@@ -18,4 +18,14 @@ class Contest extends Model
     {
         return $this->belongsToMany(User::class, 'contest_participants')->inRandomOrder()->limit(2);
     }
+
+    public function voting_results(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ContestVotingResult::class);
+    }
+
+//    public function scopeNotInVote($query)
+//    {
+//        return $query->whereNotIn('user_id', );
+//    }
 }

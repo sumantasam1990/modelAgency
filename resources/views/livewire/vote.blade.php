@@ -9,7 +9,7 @@
 
                 @foreach($data[0]->users as $model)
                     <div class="vote-container" style="pointer-events: {{$disabled ? 'none' : 'bounding-box'}}">
-                        <img onclick="voteup({{$model->portfolio->id}})" style="cursor: pointer;" wire:click.stop.debounce.1050ms="voteup" src="{{asset('storage/image/' . $model->portfolio->file_name . '.' . $model->portfolio->ext)}}" class="img-fluid img-thumbnail image" alt="">
+                        <img onclick="voteup({{$model->portfolio->id}})" style="cursor: pointer;" wire:click.stop.debounce.250ms="voteup({{$d->id}},{{$model->id}})" src="{{asset('storage/image/' . $model->portfolio->file_name . '.' . $model->portfolio->ext)}}" class="img-fluid img-thumbnail image" alt="">
                         <div class="overlay" id="overlay_{{$model->portfolio->id}}" style="display: none;">
                             <a href="#" class="icon" title="User Profile">
                                 <i class="fa-solid fa-heart"></i>
