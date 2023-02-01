@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('file_name')->unique();
             $table->string('ext');
+            $table->integer('profile_photo')->default(0)->index();
+            $table->integer('contest_photo')->default(0)->index();
             $table->timestamps();
         });
     }

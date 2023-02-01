@@ -25,12 +25,12 @@
                         {{auth()->user()->name}}
                     </h2>
                     <p style="margin-top: -5px;">
-                        <a class=" fs-6 fw-bold text-decoration-none text-capitalize" href="" style="color: #d2d2d2; margin-left: 20px;">My profile &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
+                        <a class=" fs-6 fw-bold text-decoration-none text-capitalize" href="{{route('profile', [auth()->user()->username])}}" style="color: #d2d2d2; margin-left: 20px;">My profile &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
                     </p>
 
                     <ul class="mt-5">
 
-                        <div class="dropdown mb-3 {{ (request()->is('model/contests/vote')) ? 'active' : '' }}">
+                        <div class="dropdown mb-3 {{ request()->is('model/contests/vote') ? 'active' : (request()->is('model/winners') ? 'active' : (request()->is('model/my/contest') ? 'active' : '')) }}">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-heart"></i> &nbsp; Contests
                             </a>
@@ -39,7 +39,7 @@
                                 <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>
                                 <li><a class="dropdown-item" href="{{route('my.contests')}}">My Contests</a></li>
                                 <li><a class="dropdown-item" href="#">My Results</a></li>
-                                <li><a class="dropdown-item" href="#">Winners</a></li>
+                                <li><a class="dropdown-item" href="{{route('winners')}}">Winners</a></li>
                             </ul>
                         </div>
 

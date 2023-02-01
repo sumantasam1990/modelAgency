@@ -70,7 +70,8 @@ class AuthController extends Controller
             'wp' => $data['_wp'],
             'gender' => $data['_gender'],
             'civil' => $data['_civil_status'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'username' => $data['_name']
         ]);
     }
 

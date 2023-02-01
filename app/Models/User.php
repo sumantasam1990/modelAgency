@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'wp',
         'gender',
         'civil',
+        'username',
     ];
 
     /**
@@ -48,6 +51,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected function username(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Str::slug($value),
+            set: fn ($value) => Str::slug($value),
+        );
+    }
+
     public function portfolios(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(portfolio::class);
@@ -55,7 +66,7 @@ class User extends Authenticatable
 
     public function portfolio(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(portfolio::class);
+        return $this->hasOne(portfolio::class)->where('profile_photo', 1);
     }
 
     public function links(): \Illuminate\Database\Eloquent\Relations\HasMany

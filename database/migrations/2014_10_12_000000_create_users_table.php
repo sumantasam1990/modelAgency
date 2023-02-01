@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('civil');
             $table->rememberToken();
+            $table->string('username')->unique()->index();
             $table->timestamps();
         });
     }

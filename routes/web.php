@@ -26,7 +26,12 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::post('add/interest', [\App\Http\Controllers\portfolioController::class, 'add_interest'])->name('add.interest');
     Route::get('contests/vote', [\App\Http\Controllers\ContestsController::class, 'index_vote'])->name('contest.vote');
     Route::get('my/contest', [\App\Http\Controllers\ContestsController::class, 'my_contests'])->name('my.contests');
+    Route::get('winners', [\App\Http\Controllers\ContestsController::class, 'winners'])->name('winners');
+    Route::get('winners/search', [\App\Http\Controllers\ContestsController::class, 'winner_search'])->name('winner.search');
+
 
 
     Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile');

@@ -12,12 +12,11 @@
                                 <div class="flex-grow-1 ms-3">
                                     <h4>{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
                                     This contest is starting on <span class="fw-bold">{{$contest['start']}}</span>.
-
                                     <hr />
                                     <div class="row">
                                         @foreach($contest['winners'] as $winner)
                                         <div class="col-md-4">
-                                            Winner: <span class="fw-bold">{{$winner['user_name']}}</span>  <br> Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
+
                                         </div>
                                         @endforeach
                                     </div>
