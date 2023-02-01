@@ -21,7 +21,9 @@
             <div class="col-md-2" style="margin: 0; padding: 0;">
                 @auth()
                 <div class="left-sidebar">
-                    <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">Maria Doe</h2>
+                    <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
+                        {{auth()->user()->name}}
+                    </h2>
                     <p style="margin-top: -5px;">
                         <a class=" fs-6 fw-bold text-decoration-none text-capitalize" href="" style="color: #d2d2d2; margin-left: 20px;">My profile &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
                     </p>
@@ -35,7 +37,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>
-                                <li><a class="dropdown-item" href="#">My Contests</a></li>
+                                <li><a class="dropdown-item" href="{{route('my.contests')}}">My Contests</a></li>
                                 <li><a class="dropdown-item" href="#">My Results</a></li>
                                 <li><a class="dropdown-item" href="#">Winners</a></li>
                             </ul>
@@ -82,10 +84,32 @@
     @livewireScripts
 
     <script>
+        let thing;
+
+        // Livewire.hook('message.sent', () => {
+        //     thing.animate([
+        //         {opacity: 1, transform: 'scale(1)'},
+        //         {opacity: 0.5, transform: 'scale(0.5)'},
+        //         {opacity: 0, transform: 'scale(0)'},
+        //     ], {duration: 850, easing: 'ease-out'});
+        // });
+
+        Livewire.hook('message.received', () => {
+            thing = document.querySelector('[vote-anim]');
+
+        });
+
+        Livewire.hook('message.processed', () => {
+            thing.animate([
+                {opacity: 0, transform: 'scale(0)'},
+                {opacity: 0.5, transform: 'scale(0.5)'},
+                {opacity: 1, transform: 'scale(1)'},
+            ], {duration: 1000, easing: 'ease-in'});
+        });
+
         function voteup(str)
         {
             document.getElementById('overlay_'+str).style.display = "block";
-            //document.getElementById('html_body').style.pointerEvents = "none";
         }
     </script>
 

@@ -1,6 +1,6 @@
 <div>
     @foreach($data as $d)
-        <div class="voting mt-2">
+        <div vote-anim class="voting mt-2">
             <h4 class="fw-bold fs-3">
                 {{$d->title}}
             </h4>

@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Contest::class, 'contest_participants');
     }
+
+    public function results(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ContestVotingResult::class, 'whom_vote');
+    }
 }

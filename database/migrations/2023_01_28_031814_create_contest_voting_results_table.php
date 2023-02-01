@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('contest_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('whom_vote')->index();
+            $table->bigInteger('vote_count')->default(0)->index();
             $table->timestamps();
         });
     }

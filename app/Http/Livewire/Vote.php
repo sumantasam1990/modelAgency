@@ -16,18 +16,8 @@ class Vote extends Component
         return view('livewire.vote', compact('data'));
     }
 
-    public function voteup($contestId, $modelId)
+    public function voteup(ContestService $contestService, $contestId, $modelId)
     {
-        $this->disabled = true;
-        $voting = new ContestVotingResult;
-        $voting->contest_id = $contestId;
-        $voting->user_id = Auth::user()->id;
-        $voting->whom_vote = $modelId;
-        $voting->save();
-
-        if($voting->id)
-        {
-            $this->disabled = false;
-        }
+        $contestService->vote($contestId, $modelId);
     }
 }
