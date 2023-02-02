@@ -38,7 +38,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>
                                 <li><a class="dropdown-item" href="{{route('my.contests')}}">My Contests</a></li>
-                                <li><a class="dropdown-item" href="#">My Results</a></li>
+                                <li><a class="dropdown-item" href="{{route('my.results')}}">My Results</a></li>
                                 <li><a class="dropdown-item" href="{{route('winners')}}">Winners</a></li>
                             </ul>
                         </div>

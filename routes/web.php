@@ -28,6 +28,7 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::get('my/contest', [\App\Http\Controllers\ContestsController::class, 'my_contests'])->name('my.contests');
     Route::get('winners', [\App\Http\Controllers\ContestsController::class, 'winners'])->name('winners');
     Route::get('winners/search', [\App\Http\Controllers\ContestsController::class, 'winner_search'])->name('winner.search');
+    Route::get('my/results', [\App\Http\Controllers\ContestsController::class, 'my_results'])->name('my.results');
 
 
 

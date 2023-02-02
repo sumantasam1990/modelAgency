@@ -58,6 +58,12 @@
                                                 <p class="mt-3">
                                                     <span class="fw-bold">{{$winner['user_name']}}</span>  <br> Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
                                                 </p>
+                                                <p>
+                                                    <span class="badge bg-warning fw-bold fs-6">
+                                                        <i class="fa-solid fa-trophy"></i>
+                                                        Winner
+                                                    </span>
+                                                </p>
                                             </div>
                                         @endforeach
                                     </div>

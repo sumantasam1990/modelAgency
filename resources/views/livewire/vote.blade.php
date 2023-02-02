@@ -3,6 +3,9 @@
         <p class="fw-bold">
             Right now we don't have any contest open.
         </p>
+        <p>
+            <i class="fa-solid fa-check-to-slot fs-1"></i>
+        </p>
     @endif
     @foreach($data as $d)
         <div vote-anim class="voting mt-2">
