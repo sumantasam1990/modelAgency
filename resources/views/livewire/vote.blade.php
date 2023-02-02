@@ -1,4 +1,9 @@
 <div>
+    @if(count($data) === 0)
+        <p class="fw-bold">
+            Right now we don't have any contest open.
+        </p>
+    @endif
     @foreach($data as $d)
         <div vote-anim class="voting mt-2">
             <h4 class="fw-bold fs-3">

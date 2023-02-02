@@ -8,12 +8,20 @@
                 <form action="{{route('upload.image')}}" method="post" enctype="multipart/form-data">
                     @csrf
 
-                    <input type="file" name="image" class="form-control">
+                    <input type="file" name="image" class="form-control" onchange="showPreview(event)">
+                    <small class="fw-bold text-black-50">* Try to upload 300X300 photo for better ranking.</small>
+
+                    <h4 class="fs-6 fw-bold text-black-50 p-1">Preview</h4>
+                    <div class="preview">
+                        <img id="file-preview">
+                    </div>
 
                     <div class="d-grid gap-2 mx-auto col-4 mt-3">
                         <button type="submit" class="btn btn-dark">Upload Photo</button>
                     </div>
                 </form>
+
+
 
                 <div class="uploaded-images mt-5">
                     <div class="row">
@@ -112,3 +120,14 @@
     </div>
 
 @endsection
+
+<script>
+    function showPreview(event){
+        if(event.target.files.length > 0){
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("file-preview");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+</script>

@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->hasOne(portfolio::class)->where('profile_photo', 1);
     }
 
+    public function portfolio_without_profile_photo(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(portfolio::class);
+    }
+
     public function links(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Link::class);
