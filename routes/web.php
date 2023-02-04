@@ -36,3 +36,12 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
 });
 
 Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile');
+
+
+// admin routes
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('add/category', [\App\Http\Controllers\AdminController::class, 'add_category'])->name('add.category');
+    Route::post('add/category/post', [\App\Http\Controllers\AdminController::class, 'add_category_post'])->name('add.category.post');
+
+});
