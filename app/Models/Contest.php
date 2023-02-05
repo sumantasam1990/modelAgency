@@ -38,6 +38,11 @@ class Contest extends Model
         return $this->hasMany(ContestVotingResult::class);
     }
 
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 //    public function scopeNotInVote($query)
 //    {
 //        return $query->whereNotIn('user_id', );

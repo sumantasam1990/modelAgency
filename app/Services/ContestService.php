@@ -95,7 +95,7 @@ class ContestService
             ->whereYear('contests.start', $year)
             ->where('portfolios.profile_photo', 1)
             ->groupBy('contest_id', 'whom_vote')
-            ->orderBy('contest_id')
+            ->orderByDesc('contest_id')
             ->orderByDesc('total_votes')
             ->get()
             ->groupBy('contest_id')

@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('title')->index();
             $table->dateTime('start')->index();
+            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->date('end')->index();
+            $table->double('prize_first')->index();
+            $table->double('prize_second')->index();
+            $table->double('prize_third')->index();
             $table->timestamps();
         });
     }

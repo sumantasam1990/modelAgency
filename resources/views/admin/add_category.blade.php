@@ -124,6 +124,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            @foreach($data as $d)
+                <div class="sec-box mb-2">
+                    <h4 class="fw-bold fs-4">{{$d->title}}</h4>
+                    <p class="text-black-50">
+                        age: <span class="fw-bold">{{$d->age}}</span>, height: <span class="fw-bold">{{$d->height}}</span>, gender: <span class="fw-bold">{{$d->gender}}</span>, skin color: <span class="fw-bold">{{$d->skin_color}}</span>, hair color: <span class="fw-bold">{{$d->hair_color}}</span>
+                    </p>
+                    <p class="d-flex flex-column align-items-end">
+                        <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" href="{{route('category.delete', [$d->id])}}">Delete</a>
+                    </p>
+                </div>
+            @endforeach
+        </div>
     </div>
 
 @endsection

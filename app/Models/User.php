@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ContestVotingResult::class, 'whom_vote');
     }
+
+    public function configures(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Configure::class);
+    }
 }

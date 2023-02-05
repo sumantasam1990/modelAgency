@@ -22,6 +22,7 @@ class ContestsController extends Controller
     {
         $myContests = $contestService->userContestPhoto();
         $results_s = $contestService->my_contests();
+
         return view('contests.my-contest', compact('myContests', 'results_s'));
     }
 

@@ -43,5 +43,9 @@ Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'prof
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('add/category', [\App\Http\Controllers\AdminController::class, 'add_category'])->name('add.category');
     Route::post('add/category/post', [\App\Http\Controllers\AdminController::class, 'add_category_post'])->name('add.category.post');
+    Route::get('category/delete/{id}', [\App\Http\Controllers\AdminController::class, 'category_delete'])->name('category.delete');
+    Route::get('add/contest', [\App\Http\Controllers\AdminController::class, 'add_contest'])->name('add.contest');
+    Route::post('add/contest/post', [\App\Http\Controllers\AdminController::class, 'add_contest_post'])->name('add.contest.post');
+    Route::get('contest/delete/{id}', [\App\Http\Controllers\AdminController::class, 'contest_delete'])->name('contest.delete');
 
 });
