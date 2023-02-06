@@ -81,7 +81,7 @@
                             <p class="text-dark mt-0">
                                 Total Participants: <span class="fw-bold">{{$contest->user_participants_count}}</span>
                             </p>
-                            <p class="">
+                            <p>
                                 <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" href="{{route('contest.delete', [$contest->id])}}">Delete</a>
                             </p>
                         </div>

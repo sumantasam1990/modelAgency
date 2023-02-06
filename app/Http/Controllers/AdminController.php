@@ -55,41 +55,46 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
-        $category = Category::where('id', $request->category)->first();
+        try {
+            $category = Category::where('id', $request->category)->first();
 
-        $user_ids = User::with(['portfolio' => function($query) {
-            $query->select('user_id', 'file_name', 'ext');
-        }])
-            ->select('id')
-            ->whereIn('gender', explode(',', $category->gender))
-            ->whereIn('civil', ['single'])
-            ->whereHas('portfolio', function ($query) {
-                $query->whereNotNull('file_name');
-            })
-            ->get();
+            $user_ids = User::with(['portfolio' => function($query) {
+                $query->select('user_id', 'file_name', 'ext');
+            }])
+                ->select('id')
+                ->whereIn('gender', explode(',', $category->gender))
+                ->whereIn('civil', ['single'])
+                ->whereHas('portfolio', function ($query) {
+                    $query->whereNotNull('file_name');
+                })
+                ->get();
 
-        if(count($user_ids) > 1)
-        {
-            $contest = new Contest;
-
-            $contest->title = $request->contest_name;
-            $contest->start = $request->date_from;
-            $contest->category_id = $request->category;
-            $contest->end = $request->date_to;
-            $contest->prize_first = $request->contest_price_first;
-            $contest->prize_second = $request->contest_price_second;
-            $contest->prize_third = $request->contest_price_third;
-            $contest->save();
-
-            foreach ($user_ids as $uid)
+            if(count($user_ids) > 1)
             {
-                $participants = new ContestParticipants;
-                $participants->contest_id = $contest->id;
-                $participants->user_id = $uid->id;
-                $participants->save();
-            }
+                $contest = new Contest;
 
-            return redirect()->back();
+                $contest->title = $request->contest_name;
+                $contest->start = $request->date_from;
+                $contest->category_id = $request->category;
+                $contest->end = $request->date_to;
+                $contest->prize_first = $request->contest_price_first;
+                $contest->prize_second = $request->contest_price_second;
+                $contest->prize_third = $request->contest_price_third;
+                $contest->save();
+
+                $participants = $user_ids->map(function ($uid) use ($contest) {
+                    return [
+                        'contest_id' => $contest->id,
+                        'user_id' => $uid->id
+                    ];
+                })->toArray();
+
+                ContestParticipants::insert($participants);
+
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
         }
     }
 
@@ -98,5 +103,10 @@ class AdminController extends Controller
         Contest::where('id', $id)->delete();
 
         return redirect()->back();
+    }
+
+    public function winners()
+    {
+
     }
 }
