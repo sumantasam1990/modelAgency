@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\User;
+use App\Services\ContestService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -105,8 +107,43 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function winners()
+    public function winners(ContestService $contestService, Request $request)
     {
+        $data = $contestService->getWinners();
+        return view('admin.winners', compact('data', 'request'));
+    }
 
+    public function contest_dashboard()
+    {
+        $totalParticipantsByCategory = DB::table('contests')
+            ->join('categories', 'contests.category_id', '=', 'categories.id')
+            ->select('categories.title', 'categories.id as category_id',
+                DB::raw('SUM((SELECT COUNT(id) FROM contest_participants WHERE contest_participants.contest_id = contests.id)) as total_participants'),
+                DB::raw('AVG(prize_first) as average_prize_first'),
+                DB::raw('AVG(prize_second) as average_prize_second'),
+                DB::raw('AVG(prize_third) as average_prize_third'))
+            ->groupBy('categories.title')
+            ->get()
+            ->groupBy('title')
+            ->map(function ($contests) {
+                return [
+                    'category_id' => $contests[0]->category_id,
+                    'category_title' => $contests[0]->title,
+                    'total_participants' => $contests->sum('total_participants'),
+                    'average_prize_first' => $contests->avg('average_prize_first'),
+                    'average_prize_second' => $contests->avg('average_prize_second'),
+                    'average_prize_third' => $contests->avg('average_prize_third'),
+                ];
+            })
+            ->toArray();
+
+        return view('admin.contest_dashboard', compact('totalParticipantsByCategory'));
+    }
+
+    public function contest_stats(ContestService $contestService, $cateId)
+    {
+        $stats = $contestService->contestStats($cateId);
+
+        return view('admin.contest_stats', compact('stats'));
     }
 }
