@@ -269,6 +269,43 @@ ul li a:hover {
     opacity: 0.5;
 }
 
+/*
+table animation
+ */
+.table-row {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+/*
+contest div animation from left to right
+ */
+.contest div {
+    animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation-delay: 0.2s;
+    z-index: 1;
+}
+
+@keyframes slide-in-left {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
 @media only screen and (min-width: 320px) and (max-width: 800px) {
 
     .left-sidebar {

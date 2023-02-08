@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr class="fs-5">
@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                 @foreach($totalParticipantsByCategory as $category)
-                    <tr>
+                    <tr class="table-row">
                         <td class="fw-bold">
                             <a class="text-dark" href="{{route('admin.contest.stats', [$category['category_id']])}}">{{$category['category_title']}}</a>
                         </td>
