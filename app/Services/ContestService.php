@@ -178,7 +178,6 @@ class ContestService
             ->groupBy('contest_id', 'contest_voting_results.whom_vote')
             ->get();
 
-        $final_results = [];
         $all_participants = DB::table('contest_participants')
             ->join('users', 'users.id', '=', 'contest_participants.user_id')
             ->leftJoin('portfolios', function ($join) {
@@ -206,6 +205,7 @@ class ContestService
                 ];
             }
         })->groupBy('contest_id')->map(function ($participants, $contest_id) {
+            $participants = $participants->sortByDesc('total_votes');
             return [
                 'contest_id' => $contest_id,
                 'participants' => $participants->toArray()
