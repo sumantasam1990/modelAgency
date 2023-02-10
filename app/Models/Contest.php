@@ -18,6 +18,13 @@ class Contest extends Model
         );
     }
 
+    public function end(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->format('jS F Y'),
+        );
+    }
+
     public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ContestOption::class);

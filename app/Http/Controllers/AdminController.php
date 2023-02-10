@@ -140,10 +140,18 @@ class AdminController extends Controller
         return view('admin.contest_dashboard', compact('totalParticipantsByCategory'));
     }
 
-    public function contest_stats(ContestService $contestService, $cateId)
+    public function category_contests(ContestService $contestService, int $cateId): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $stats = $contestService->contestStats($cateId);
+        $contests = Contest::with(['category'])
+            ->where('category_id', $cateId)
+            ->get();
 
-        return view('admin.contest_stats', compact('stats'));
+        return view('admin.category_contest', compact('contests'));
+    }
+
+    public function contest_stats(ContestService $contestService, int $contestId)
+    {
+        $final_results = $contestService->contestStats($contestId);
+        return view('admin.contest_stats', compact('final_results'));
     }
 }

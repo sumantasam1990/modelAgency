@@ -49,6 +49,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('contest/delete/{id}', [\App\Http\Controllers\AdminController::class, 'contest_delete'])->name('contest.delete');
     Route::get('contest/winners', [\App\Http\Controllers\AdminController::class, 'winners'])->name('admin.winners');
     Route::get('contest/dashboard', [\App\Http\Controllers\AdminController::class, 'contest_dashboard'])->name('admin.contest.dashboard');
+    Route::get('category/contests/{id}', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
     Route::get('contest/stats/{id}', [\App\Http\Controllers\AdminController::class, 'contest_stats'])->name('admin.contest.stats');
 
 });

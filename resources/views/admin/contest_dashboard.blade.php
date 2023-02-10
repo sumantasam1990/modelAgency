@@ -17,7 +17,7 @@
                 @foreach($totalParticipantsByCategory as $category)
                     <tr class="table-row">
                         <td class="fw-bold">
-                            <a class="text-dark" href="{{route('admin.contest.stats', [$category['category_id']])}}">{{$category['category_title']}}</a>
+                            <a class="text-dark" href="{{route('admin.category.contests', [$category['category_id']])}}">{{$category['category_title']}}</a>
                         </td>
                         <td>${{$category['average_prize_first']}}</td>
                         <td>${{$category['average_prize_second']}}</td>
