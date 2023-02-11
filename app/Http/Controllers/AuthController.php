@@ -23,7 +23,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
-            return redirect()->intended('model/portfolio');
+            if($request->email == 'admin@admin.com')
+            {
+                return redirect()->intended('admin/contest/dashboard');
+            }
+            else
+            {
+                return redirect()->intended('model/portfolio');
+            }
+
         }
         return back()->with([
             'err' => 'The provided credentials do not match our records. Please try again.',

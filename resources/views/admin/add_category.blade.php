@@ -1,5 +1,17 @@
-@extends('header')
+@extends('admin.header')
 @section('content')
+    <div class="row admin-secondary-nav">
+        <div class="col-12">
+            <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item {{ (request()->is('admin/contest/dashboard')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-black" href="{{route('admin.contest.dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item {{ (request()->is('admin/contest/winners')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-black" href="{{route('admin.winners')}}">Winners</a></li>
+                    <li class="breadcrumb-item {{ (request()->is('admin/add/contest')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-black" href="{{route('add.contest')}}">Creator</a></li>
+                    <li class="breadcrumb-item {{ (request()->is('admin/add/category')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-black" href="{{route('add.category')}}">Category</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">
