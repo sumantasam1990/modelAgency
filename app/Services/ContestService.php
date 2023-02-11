@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\ContestVotingResult;
@@ -12,6 +13,30 @@ use Illuminate\Support\Facades\DB;
 
 class ContestService
 {
+    public function totalUsers()
+    {
+        return User::where('email', '!=', 'admin@admin.com')->count();
+    }
+
+    public function totalCategories()
+    {
+        return Category::count();
+    }
+
+    public function totalActiveContests()
+    {
+        return Contest::where('end', '>=', Carbon::today()->toDateString())->count();
+    }
+
+    public function totalInactiveContests()
+    {
+        return Contest::where('end', '<', Carbon::today()->toDateString())->count();
+    }
+
+    public function totalParticipants()
+    {
+        return ContestParticipants::distinct('user_id')->count();
+    }
 
     public function userContestPhoto(): object
     {

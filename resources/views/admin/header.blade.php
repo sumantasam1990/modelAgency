@@ -30,7 +30,7 @@
 
                     <ul class="mt-5">
 
-                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href=""><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a> </li>
+                        <li class="{{ (request()->is('admin/stats')) ? 'active' : '' }}"><a href="{{route('admin.stats')}}"><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a> </li>
 
                         <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href=""><i class="fa-solid fa-person"></i> &nbsp; Models</a> </li>
 

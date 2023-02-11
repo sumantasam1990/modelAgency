@@ -154,4 +154,24 @@ class AdminController extends Controller
         $final_results = $contestService->contestStats($contestId);
         return view('admin.contest_stats', compact('final_results'));
     }
+
+    public function stats(ContestService $contestService)
+    {
+        $data = [];
+        $users = $contestService->totalUsers();
+        $categories = $contestService->totalCategories();
+        $activeContests = $contestService->totalActiveContests();
+        $inactiveContests = $contestService->totalInactiveContests();
+        $participants = $contestService->totalParticipants();
+
+        $data = [
+            'users' => $users,
+            'categories' => $categories,
+            'active_contests' => $activeContests,
+            'inactive_contests' => $inactiveContests,
+            'participants' => $participants,
+        ];
+
+        return view('admin.stats', compact('data'));
+    }
 }

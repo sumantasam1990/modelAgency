@@ -51,5 +51,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('contest/dashboard', [\App\Http\Controllers\AdminController::class, 'contest_dashboard'])->name('admin.contest.dashboard');
     Route::get('category/contests/{id}', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
     Route::get('contest/stats/{id}', [\App\Http\Controllers\AdminController::class, 'contest_stats'])->name('admin.contest.stats');
+    Route::get('stats', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats');
 
 });
