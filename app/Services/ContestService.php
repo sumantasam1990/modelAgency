@@ -15,27 +15,27 @@ class ContestService
 {
     public function totalUsers()
     {
-        return User::where('email', '!=', 'admin@admin.com')->count();
+        return User::where('email', '!=', 'admin@admin.com')->count('id');
     }
 
     public function totalCategories()
     {
-        return Category::count();
+        return Category::count('id');
     }
 
     public function totalActiveContests()
     {
-        return Contest::where('end', '>=', Carbon::today()->toDateString())->count();
+        return Contest::where('end', '>=', Carbon::today()->toDateString())->count('id');
     }
 
     public function totalInactiveContests()
     {
-        return Contest::where('end', '<', Carbon::today()->toDateString())->count();
+        return Contest::where('end', '<', Carbon::today()->toDateString())->count('id');
     }
 
     public function totalParticipants()
     {
-        return ContestParticipants::distinct('user_id')->count();
+        return ContestParticipants::distinct('user_id')->count('id');
     }
 
     public function userContestPhoto(): object

@@ -52,5 +52,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('category/contests/{id}', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
     Route::get('contest/stats/{id}', [\App\Http\Controllers\AdminController::class, 'contest_stats'])->name('admin.contest.stats');
     Route::get('stats', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats');
+    Route::get('models', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.models');
+    Route::get('model/info/{id}', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.info');
 
 });

@@ -32,7 +32,7 @@
 
                         <li class="{{ (request()->is('admin/stats')) ? 'active' : '' }}"><a href="{{route('admin.stats')}}"><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a> </li>
 
-                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href=""><i class="fa-solid fa-person"></i> &nbsp; Models</a> </li>
+                        <li class="{{ (request()->is('admin/models')) ? 'active' : '' }}"><a href="{{route('admin.models')}}"><i class="fa-solid fa-person"></i> &nbsp; Models</a> </li>
 
                         <li class="{{ (request()->is('admin/contest/dashboard')) ? 'active' : '' }}"><a href="{{route('admin.contest.dashboard')}}"><i class="fa-solid fa-heart"></i> &nbsp; Contests</a> </li>
                         <li><a href=""><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>

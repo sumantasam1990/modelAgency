@@ -7,6 +7,7 @@ use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\User;
 use App\Services\ContestService;
+use App\Services\ModelsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -155,7 +156,7 @@ class AdminController extends Controller
         return view('admin.contest_stats', compact('final_results'));
     }
 
-    public function stats(ContestService $contestService)
+    public function stats(ContestService $contestService): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $data = [];
         $users = $contestService->totalUsers();
@@ -173,5 +174,19 @@ class AdminController extends Controller
         ];
 
         return view('admin.stats', compact('data'));
+    }
+
+    public function models(Request $request, ModelsService $modelsService, int $id = 0)
+    {
+        $model_info = [];
+
+        $data = $modelsService->alphaOrder($request->query('alpha'));
+
+        if($id > 0)
+        {
+            $model_info = $modelsService->modelInfo($id);
+        }
+
+        return view('admin.models', compact('data', 'model_info'));
     }
 }
