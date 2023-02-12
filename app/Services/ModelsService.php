@@ -17,7 +17,7 @@ class ModelsService
 
     public function modelInfo(int $id)
     {
-        return User::with(['portfolioWithContestPhoto', 'interest'])
+        return User::with(['portfolioWithContestPhoto','portfolios', 'interest'])
             ->whereId($id)
             ->first();
     }

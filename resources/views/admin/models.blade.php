@@ -1,8 +1,110 @@
 @extends('admin.header')
 @section('content')
 
-    <div class="row">
-        <div class="col-2 border"></div>
+    <div class="row" style="position: relative;">
+        <div class="col-2 border sec-box">
+            <h5 class="fs-5 fw-bold text-dark mb-3">Filter</h5>
+            <form>
+                <div class="mb-2">
+                    <select class="form-control">
+                        <option>State</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <select class="form-control">
+                        <option>City</option>
+                    </select>
+                </div>
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Subscribed Models
+                        </label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Registered Models
+                        </label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Approved Models
+                        </label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Hidden Models
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fs-6 fw-bold text-black-50">Gender</h5>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Male
+                        </label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Female
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fs-6 fw-bold text-black-50">Civil Status</h5>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Single
+                        </label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                            Married
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fs-6 fw-bold text-black-50">Age</h5>
+                    <div class="mb-2">
+                        <input type="number" class="form-control" value="18">
+                    </div>
+                    <div class="mb-2">
+                        <input type="number" class="form-control" value="35">
+                    </div>
+                </div>
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fs-6 fw-bold text-black-50">Height</h5>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" value="4'0">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" value="6'0">
+                    </div>
+                </div>
+
+                <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fs-6 fw-bold text-black-50">Weight</h5>
+                    <div class="mb-2">
+                        <input type="number" class="form-control" value="45">
+                    </div>
+                    <div class="mb-2">
+                        <input type="number" class="form-control" value="65">
+                    </div>
+                </div>
+
+
+
+
+
+
+            </form>
+        </div>
         <div class="col-7">
             <div class="row">
                 <div class="col-12">
@@ -24,15 +126,17 @@
                     @endphp
                     <div class="col-md-4 mb-4">
                         <a href="{{route('admin.model.info', $params)}}">
-                            <img src="{{asset('storage/image/' . $d->portfolio->file_name . '.' . $d->portfolio->ext)}}" alt="{{$d->name}}" class="img-thumbnail img-fluid profile-photo">
+                            <div class="image-container">
+                                <img src="{{asset('storage/image/' . $d->portfolio->file_name . '.' . $d->portfolio->ext)}}" alt="{{$d->name}}" class=" img-fluid profile-photo {{$d->id == $request->id ? 'active-img' : 'inactive-img'}}">
+                            </div>
                         </a>
                     </div>
                 @endforeach
             </div>
         </div>
-        <div class="col-3 border sec-box">
-            @if(request()->is('admin/model/info*'))
-                <h5 class="fs-5 text-black-50 text-center">Model Info</h5>
+        @if(request()->is('admin/model/info*'))
+        <div class="col-3 border sec-box" id="right_box" style="height: 100vh; overflow: auto;">
+                <h5 class="fs-5 text-dark fw-bold mb-3">Model Info</h5>
                 <div class="text-center">
                     <img src="{{asset('storage/image/' . $model_info->portfolioWithContestPhoto->file_name . '.' . $model_info->portfolioWithContestPhoto->ext)}}" alt="" class="img-fluid img-thumbnail profile-photo">
                 </div>
@@ -51,8 +155,28 @@
                         {{$model_info->interest?->content}}
                     </p>
                 </div>
-            @endif
+
+                <div class="border row">
+                    @foreach($model_info->portfolios as $gallery)
+                        <div class="col-md-4 mb-1 mt-2">
+                            <img src="{{asset('storage/image/' . $gallery->file_name . '.' . $gallery->ext)}}" alt="" class="img-fluid img-thumbnail gallery-photo">
+                        </div>
+                    @endforeach
+                </div>
         </div>
+        @endif
     </div>
+
+    @if(request()->is('admin/model/info*'))
+    <div class="star-container">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
+    </div>
+    @endif
+
 
 @endsection

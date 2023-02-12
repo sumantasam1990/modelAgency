@@ -187,6 +187,6 @@ class AdminController extends Controller
             $model_info = $modelsService->modelInfo($id);
         }
 
-        return view('admin.models', compact('data', 'model_info'));
+        return view('admin.models', compact('data', 'model_info', 'request'));
     }
 }
