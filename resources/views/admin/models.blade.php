@@ -2,9 +2,10 @@
 @section('content')
 
     <div class="row" style="position: relative;">
-        <div class="col-2 border sec-box">
+        <div class="col-md-2 border sec-box">
             <h5 class="fs-5 fw-bold text-dark mb-3">Filter</h5>
-            <form>
+            <form action="{{route('admin.model.search')}}" method="get">
+                <input type="hidden" name="alpha" value="{{request('alpha')}}">
                 <div class="mb-2">
                     <select class="form-control">
                         <option>State</option>
@@ -24,11 +25,6 @@
                     </div>
                     <div class="mb-2 form-check">
                         <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
-                            Registered Models
-                        </label>
-                    </div>
-                    <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
                             Approved Models
                         </label>
                     </div>
@@ -43,12 +39,12 @@
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
                     <h5 class="fs-6 fw-bold text-black-50">Gender</h5>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                        <input type="checkbox" class="form-check-input" name="gender[]" value="male" {{isset(request('gender')[0]) && in_array('male', request('gender')) ? 'checked' : ''}}> <label class="form-check-label" for="flexCheckDefault">
                             Male
                         </label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                        <input type="checkbox" class="form-check-input" name="gender[]" value="female" {{isset(request('gender')[0]) && in_array('female', request('gender')) ? 'checked' : ''}}> <label class="form-check-label" for="flexCheckDefault">
                             Female
                         </label>
                     </div>
@@ -57,12 +53,12 @@
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
                     <h5 class="fs-6 fw-bold text-black-50">Civil Status</h5>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                        <input type="checkbox" class="form-check-input" name="civil[]" value="single" {{isset(request('civil')[0]) && in_array('single', request('civil')) ? 'checked' : ''}}> <label class="form-check-label" for="flexCheckDefault">
                             Single
                         </label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input"> <label class="form-check-label" for="flexCheckDefault">
+                        <input type="checkbox" class="form-check-input" name="civil[]" value="married" {{isset(request('civil')[0]) && in_array('married', request('civil')) ? 'checked' : ''}}> <label class="form-check-label" for="flexCheckDefault">
                             Married
                         </label>
                     </div>
@@ -99,13 +95,16 @@
                 </div>
 
 
+                <div class="d-grid gap-2 col-12">
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </div>
 
 
 
 
             </form>
         </div>
-        <div class="col-7">
+        <div class="col-md-6">
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex flex-row justify-content-between flex-wrap">
@@ -135,7 +134,7 @@
             </div>
         </div>
         @if(request()->is('admin/model/info*'))
-        <div class="col-3 border sec-box" id="right_box" style="height: 100vh; overflow: auto;">
+        <div class="col-md-4 border sec-box" id="right_box" style="height: 100vh; overflow: auto;">
                 <h5 class="fs-5 text-dark fw-bold mb-3">Model Info</h5>
                 <div class="text-center">
                     <img src="{{asset('storage/image/' . $model_info->portfolioWithContestPhoto->file_name . '.' . $model_info->portfolioWithContestPhoto->ext)}}" alt="" class="img-fluid img-thumbnail profile-photo">
@@ -169,11 +168,12 @@
 
     @if(request()->is('admin/model/info*'))
     <div class="star-container">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
+
+        <a class="text-dark" href="{{route('admin.model.rate', [1])}}"><i class="fa-regular fa-star"></i></a>
+        <a class="text-dark" href="{{route('admin.model.rate', [2])}}"><i class="fa-regular fa-star"></i></a>
+        <a class="text-dark" href="{{route('admin.model.rate', [3])}}"><i class="fa-regular fa-star"></i></a>
+        <a class="text-dark" href="{{route('admin.model.rate', [4])}}"><i class="fa-regular fa-star"></i></a>
+        <a class="text-dark" href="{{route('admin.model.rate', [5])}}"><i class="fa-regular fa-star"></i></a>
         <i class="fas fa-heart"></i>
     </div>
     @endif

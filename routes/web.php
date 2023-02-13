@@ -54,5 +54,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('stats', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats');
     Route::get('models', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.models');
     Route::get('model/info/{id}', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.info');
+    Route::get('model/search', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.search');
+    Route::get('model/rating/{rate}', [\App\Http\Controllers\AdminController::class, 'model_rate'])->name('admin.model.rate');
 
 });

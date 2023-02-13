@@ -7,6 +7,43 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Contest
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $start
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $category_id
+ * @property string $end
+ * @property float $prize_first
+ * @property float $prize_second
+ * @property float $prize_third
+ * @property-read \App\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestOption> $options
+ * @property-read int|null $options_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user_participants
+ * @property-read int|null $user_participants_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $voting_results
+ * @property-read int|null $voting_results_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest wherePrizeFirst($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest wherePrizeSecond($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest wherePrizeThird($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contest whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Contest extends Model
 {
     use HasFactory;

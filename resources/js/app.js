@@ -28,10 +28,10 @@ window.addEventListener('scroll', function() {
 
     if (currentPosition < previousPosition) {
         starContainer.classList.remove('hidden');
-        rightBox.classList.remove('hidden');
+        //rightBox.classList.remove('hidden');
     } else {
         starContainer.classList.add('hidden');
-        rightBox.classList.add('hidden');
+        //rightBox.classList.add('hidden');
     }
 
     previousPosition = currentPosition;

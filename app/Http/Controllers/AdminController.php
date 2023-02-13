@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
+use App\Models\ModelInfo;
 use App\Models\User;
 use App\Services\ContestService;
 use App\Services\ModelsService;
@@ -180,13 +181,27 @@ class AdminController extends Controller
     {
         $model_info = [];
 
-        $data = $modelsService->alphaOrder($request->query('alpha'));
+        $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
 
         if($id > 0)
         {
             $model_info = $modelsService->modelInfo($id);
         }
 
+        return $model_info;
+
         return view('admin.models', compact('data', 'model_info', 'request'));
+    }
+
+    public function model_rate(int $rate): \Illuminate\Http\RedirectResponse
+    {
+        $rating = new ModelInfo;
+
+        $rating->user_id = auth()->user()->id;
+        $rating->key = 'rate';
+        $rating->value = $rate;
+        $rating->save();
+
+        return redirect()->back();
     }
 }
