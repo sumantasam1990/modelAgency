@@ -179,28 +179,34 @@ class AdminController extends Controller
 
     public function models(Request $request, ModelsService $modelsService, int $id = 0)
     {
-        $model_info = [];
-
         $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
 
-        if($id > 0)
-        {
-            $model_info = $modelsService->modelInfo($id);
-        }
-
-        return $model_info;
-
-        return view('admin.models', compact('data', 'model_info', 'request'));
+        return view('admin.models', compact('data', 'request'));
     }
 
-    public function model_rate(int $rate): \Illuminate\Http\RedirectResponse
+    public function models_info(ModelsService $modelsService, int $id)
     {
-        $rating = new ModelInfo;
+        $model_info = $modelsService->modelInfo($id);
 
-        $rating->user_id = auth()->user()->id;
-        $rating->key = 'rate';
-        $rating->value = $rate;
-        $rating->save();
+        return view('admin.models_info', compact('model_info'));
+    }
+
+    public function model_rate(int $rate, int $uid): \Illuminate\Http\RedirectResponse
+    {
+        ModelInfo::updateOrInsert(
+            ['user_id' => $uid, 'key' => 'rate'],
+            ['user_id' => $uid, 'key' => 'rate', 'value' => $rate]
+        );
+
+        return redirect()->back();
+    }
+
+    public function model_heart(int $status, int $uid): \Illuminate\Http\RedirectResponse
+    {
+        ModelInfo::updateOrInsert(
+            ['user_id' => $uid, 'key' => 'love'],
+            ['user_id' => $uid, 'key' => 'love', 'value' => $status]
+        );
 
         return redirect()->back();
     }

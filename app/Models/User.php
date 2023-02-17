@@ -165,6 +165,11 @@ class User extends Authenticatable
 
     public function modelInfos(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ModelInfo::class);
+        return $this->hasMany(ModelInfo::class)->where('key', 'rate');
+    }
+
+    public function model_info_love(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ModelInfo::class)->where('key', 'love');
     }
 }

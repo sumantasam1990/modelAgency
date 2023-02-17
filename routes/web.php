@@ -53,8 +53,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('contest/stats/{id}', [\App\Http\Controllers\AdminController::class, 'contest_stats'])->name('admin.contest.stats');
     Route::get('stats', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats');
     Route::get('models', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.models');
-    Route::get('model/info/{id}', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.info');
+    Route::get('model/info/{id}', [\App\Http\Controllers\AdminController::class, 'models_info'])->name('admin.model.info');
     Route::get('model/search', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.search');
-    Route::get('model/rating/{rate}', [\App\Http\Controllers\AdminController::class, 'model_rate'])->name('admin.model.rate');
+    Route::get('model/rating/{rate}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_rate'])->name('admin.model.rate');
+    Route::get('model/heart/{status}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_heart'])->name('admin.model.heart');
 
 });

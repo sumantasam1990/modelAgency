@@ -99,9 +99,6 @@
                     <button type="submit" class="btn btn-dark">Search</button>
                 </div>
 
-
-
-
             </form>
         </div>
         <div class="col-md-6">
@@ -116,67 +113,88 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="row admin-secondary-nav">
+                <div class="col-12">
+                    <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                        <ol class="breadcrumb d-flex flex-row justify-content-start align-content-center align-items-center">
+                            <li class="breadcrumb-item"><a class="text-decoration text-light btn  {{ (request()->is('admin/model*')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('admin.models', request()->query())}}">Photos</a></li>
+                            <li class="breadcrumb-item {{ (request()->is('admin/contest/winners')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('admin.winners')}}">About</a></li>
+                            <li class="breadcrumb-item {{ (request()->is('admin/add/contest')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('add.contest')}}">Notes</a></li>
+                            <li class="breadcrumb-item {{ (request()->is('admin/add/category')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('add.category')}}">Config</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+
             <div class="row">
             @foreach($data as $d)
                     @php
                         $existingQuery = request()->query();
-                        $routeParams = [$d->id];
+                        $routeParams = [$d['uid']];
                         $params = array_merge($routeParams, $existingQuery);
                     @endphp
-                    <div class="col-md-4 mb-4">
-                        <a href="{{route('admin.model.info', $params)}}">
-                            <div class="image-container">
-                                <img src="{{asset('storage/image/' . $d->portfolio->file_name . '.' . $d->portfolio->ext)}}" alt="{{$d->name}}" class=" img-fluid profile-photo {{$d->id == $request->id ? 'active-img' : 'inactive-img'}}">
+
+                        @foreach($data[0]['portfolios'] as $gallery)
+                            <div class="col-md-3 mb-4 mt-2">
+                                <img src="{{asset('storage/image/' . $gallery['file_name'] . '.' . $gallery['ext'])}}" alt="" class="img-fluid img-thumbnail profile-photo">
                             </div>
-                        </a>
-                    </div>
+                        @endforeach
+
                 @endforeach
             </div>
         </div>
-        @if(request()->is('admin/model/info*'))
-        <div class="col-md-4 border sec-box" id="right_box" style="height: 100vh; overflow: auto;">
+{{--        @if(request()->is('admin/model/info*'))--}}
+        <div class="col-md-4 border sec-box" id="right-box" style="height: 100vh; overflow: auto;">
                 <h5 class="fs-5 text-dark fw-bold mb-3">Model Info</h5>
                 <div class="text-center">
-                    <img src="{{asset('storage/image/' . $model_info->portfolioWithContestPhoto->file_name . '.' . $model_info->portfolioWithContestPhoto->ext)}}" alt="" class="img-fluid img-thumbnail profile-photo">
+                    <img src="{{asset('storage/image/' . $data[0]['portfolioWithContestPhoto']['file_name'] . '.' . $data[0]['portfolioWithContestPhoto']['ext'])}}" alt="" class="img-fluid img-thumbnail profile-photo">
                 </div>
                 <div class="info mt-2 mb-3 p-3">
-                    <p class="mb-0">Name: <span class="fw-bold">{{$model_info->name}}</span></p>
-                    <p class="mb-0">Email: <span class="fw-bold">{{$model_info->email}}</span></p>
-                    <p class="mb-0">Gender: <span class="fw-bold">{{$model_info->gender}}</span></p>
-                    <p class="mb-0">State: <span class="fw-bold">{{$model_info->state}}</span></p>
-                    <p class="mb-0">City: <span class="fw-bold">{{$model_info->city}}</span></p>
-                    <p class="mb-0">Civil Stats: <span class="fw-bold">{{$model_info->civil}}</span></p>
-                    <p class="mb-0">WhatsApp: <span class="fw-bold">{{$model_info->wp}}</span></p>
+                    <p class="mb-0">Name: <span class="fw-bold">{{$data[0]['name']}}</span></p>
+                    <p class="mb-0">Email: <span class="fw-bold">{{$data[0]['email']}}</span></p>
+                    <p class="mb-0">Gender: <span class="fw-bold">{{$data[0]['gender']}}</span></p>
+                    <p class="mb-0">State: <span class="fw-bold">{{$data[0]['state']}}</span></p>
+                    <p class="mb-0">City: <span class="fw-bold">{{$data[0]['city']}}</span></p>
+                    <p class="mb-0">Civil Stats: <span class="fw-bold">{{$data[0]['civil']}}</span></p>
+                    <p class="mb-0">WhatsApp: <span class="fw-bold">{{$data[0]['wp']}}</span></p>
                 </div>
                 <div class="notes p-3">
                     <h6 class="fs-6 text-black-50 fw-bold">Notes/Interest</h6>
                     <p>
-                        {{$model_info->interest?->content}}
+                        {{$data[0]['interest']}}
                     </p>
                 </div>
-
-                <div class="border row">
-                    @foreach($model_info->portfolios as $gallery)
-                        <div class="col-md-4 mb-1 mt-2">
-                            <img src="{{asset('storage/image/' . $gallery->file_name . '.' . $gallery->ext)}}" alt="" class="img-fluid img-thumbnail gallery-photo">
-                        </div>
-                    @endforeach
-                </div>
         </div>
-        @endif
+{{--        @endif--}}
     </div>
 
-    @if(request()->is('admin/model/info*'))
+
     <div class="star-container">
+        @for($i=1; $i<=5; $i++)
+            @if ($i <= $data[0]['infos'][0]['rating'])
+                <a class="text-warning" href="{{route('admin.model.rate', [$i, $data[0]['uid']])}}"><i class="fa-solid fa-star"></i></a>
+            @else
+                <a class="text-dark" href="{{route('admin.model.rate', [$i, $data[0]['uid']])}}"><i class="fa-regular fa-star"></i></a>
+            @endif
+        @endfor
 
-        <a class="text-dark" href="{{route('admin.model.rate', [1])}}"><i class="fa-regular fa-star"></i></a>
-        <a class="text-dark" href="{{route('admin.model.rate', [2])}}"><i class="fa-regular fa-star"></i></a>
-        <a class="text-dark" href="{{route('admin.model.rate', [3])}}"><i class="fa-regular fa-star"></i></a>
-        <a class="text-dark" href="{{route('admin.model.rate', [4])}}"><i class="fa-regular fa-star"></i></a>
-        <a class="text-dark" href="{{route('admin.model.rate', [5])}}"><i class="fa-regular fa-star"></i></a>
-        <i class="fas fa-heart"></i>
+        @if($data[0]['love'] > 0)
+                <a class="text-danger" href="{{route('admin.model.heart', [0, $data[0]['uid']])}}"><i class="fa-solid fa-heart"></i></a>
+            @else
+                <a class="text-dark" href="{{route('admin.model.heart', [1, $data[0]['uid']])}}"><i class="fa-regular fa-heart"></i></a>
+        @endif
+
+            @php
+                $queryParams = request()->query();
+                unset($queryParams['page']);
+                $url_prev_query_string = http_build_query($queryParams);
+            @endphp
+            <a href="{{$data[0]['prev_page_url'] == '' ? '#' : $data[0]['prev_page_url'] . '&' .$url_prev_query_string }}" class="text-dark {{$data[0]['prev_page_url'] == '' ? 'text-black-50' : ''}}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+            <a href="{{$data[0]['next_page_url'] == '' ? '#' : $data[0]['next_page_url'] . '&' . $url_prev_query_string}}" class="text-dark {{$data[0]['next_page_url'] == '' ? 'text-black-50' : ''}}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+
     </div>
-    @endif
-
 
 @endsection
