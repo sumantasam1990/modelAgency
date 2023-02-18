@@ -238,6 +238,39 @@ class ContestService
         })->values()->toArray();
     }
 
+    public function getAdminModelConfigData($uid): array
+    {
+        $contestWon = DB::table('contest_voting_results')
+            ->join('users', 'users.id', '=', 'contest_voting_results.whom_vote')
+            ->join('contests', 'contests.id', '=', 'contest_voting_results.contest_id')
+            ->select('contest_id')
+            ->where('users.id', $uid)
+            ->where('contest_voting_results.vote_count', '>', 0)
+            ->where('contests.end', '<', Carbon::today()->format('Y-m-d'))
+            ->groupBy('contest_id')
+            ->havingRaw('SUM(vote_count) > 0')
+            ->distinct()
+            ->count();
+
+        $participatedContests = DB::table('contest_voting_results')
+            ->join('users', 'users.id', '=', 'contest_voting_results.whom_vote')
+            ->where('users.id', $uid)
+            ->where('contest_voting_results.vote_count', '>', 0)
+            ->select('contest_id')
+            ->distinct()
+            ->count();
+
+        $userInfo = User::whereId($uid)
+            ->select('created_at')
+            ->first();
+
+        return [
+            'contest_won' => $contestWon,
+            'contest_total' => $participatedContests,
+            'user_registration' => $userInfo->created_at,
+        ];
+    }
+
     public function contestStats_backup($cateId, $month = '', $year = '')
     {
 //        if($month == '') {

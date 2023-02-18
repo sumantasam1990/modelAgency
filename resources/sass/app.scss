@@ -320,6 +320,11 @@ contest div animation from left to right
     border: 1px solid #ccc;
 }
 
+.star-container a:hover {
+    scale: 1.8;
+    transition: all 0.2s linear;
+}
+
 .star-container {
     position: fixed;
     bottom: 20px;
@@ -336,6 +341,7 @@ contest div animation from left to right
     opacity: 1;
     transition: all 0.5s ease;
     padding: 12px;
+    scale: 1;
 }
 
 .star-container.hidden {
@@ -399,8 +405,8 @@ contest div animation from left to right
     }
 
     .profile-photo {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 250px;
         object-fit: cover;
         overflow: hidden;
         border: 2px solid #444;

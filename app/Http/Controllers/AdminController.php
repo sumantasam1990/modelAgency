@@ -210,4 +210,19 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+    public function model_status(int $uid, int $status): \Illuminate\Http\RedirectResponse
+    {
+        if($status === 1)
+        {
+            User::whereId($uid)
+                ->update(['status' => 1]); // Approve
+        } else
+        {
+            User::whereId($uid)
+                ->update(['status' => 2]); // Hide
+        }
+
+        return redirect()->back();
+    }
 }

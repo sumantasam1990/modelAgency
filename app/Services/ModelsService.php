@@ -68,6 +68,7 @@ class ModelsService
 
             return [
                 'uid' => $user->id,
+                'user_status' => $user->status,
                 'name' => $user->name,
                 'email' => $user->email,
                 'gender' => $user->gender,

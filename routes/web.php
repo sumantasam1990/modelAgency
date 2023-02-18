@@ -57,5 +57,15 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('model/search', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.model.search');
     Route::get('model/rating/{rate}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_rate'])->name('admin.model.rate');
     Route::get('model/heart/{status}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_heart'])->name('admin.model.heart');
+    Route::get('model/status/{uid}/{status}', [\App\Http\Controllers\AdminController::class, 'model_status'])->name('admin.model.status');
+
+
+
+
+});
+
+
+// testing query
+Route::get('/test/query', function () {
 
 });

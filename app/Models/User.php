@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -115,6 +116,13 @@ class User extends Authenticatable
         return Attribute::make(
             get: fn ($value) => Str::slug($value),
             set: fn ($value) => Str::slug($value),
+        );
+    }
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->format('jS F Y'),
         );
     }
 

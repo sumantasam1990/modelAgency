@@ -117,12 +117,16 @@
 
             <div class="row admin-secondary-nav">
                 <div class="col-12">
+
                     <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                         <ol class="breadcrumb d-flex flex-row justify-content-start align-content-center align-items-center">
                             <li class="breadcrumb-item"><a class="text-decoration text-light btn  {{ (request()->is('admin/model*')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('admin.models', request()->query())}}">Photos</a></li>
-                            <li class="breadcrumb-item {{ (request()->is('admin/contest/winners')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('admin.winners')}}">About</a></li>
+
+                            @livewire('show-user-modal', ['userId' => $data[0]['uid']])
+
                             <li class="breadcrumb-item {{ (request()->is('admin/add/contest')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('add.contest')}}">Notes</a></li>
-                            <li class="breadcrumb-item {{ (request()->is('admin/add/category')) ? 'active-admin' : '' }}" aria-current="page"><a class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}" href="{{route('add.category')}}">Config</a></li>
+
+                            @livewire('config-modal', ['userId' => $data[0]['uid']])
                         </ol>
                     </nav>
                 </div>
@@ -138,7 +142,7 @@
                     @endphp
 
                         @foreach($data[0]['portfolios'] as $gallery)
-                            <div class="col-md-3 mb-4 mt-2">
+                            <div class="col-md-3 col-6 mb-4 mt-2 col-lg-4 col-xl-4 col-xxl-4 col-sm-6">
                                 <img src="{{asset('storage/image/' . $gallery['file_name'] . '.' . $gallery['ext'])}}" alt="" class="img-fluid img-thumbnail profile-photo">
                             </div>
                         @endforeach
@@ -195,6 +199,18 @@
             <a href="{{$data[0]['prev_page_url'] == '' ? '#' : $data[0]['prev_page_url'] . '&' .$url_prev_query_string }}" class="text-dark {{$data[0]['prev_page_url'] == '' ? 'text-black-50' : ''}}"><i class="fa-solid fa-circle-chevron-left"></i></a>
             <a href="{{$data[0]['next_page_url'] == '' ? '#' : $data[0]['next_page_url'] . '&' . $url_prev_query_string}}" class="text-dark {{$data[0]['next_page_url'] == '' ? 'text-black-50' : ''}}"><i class="fa-solid fa-circle-chevron-right"></i></a>
 
+            @if($data[0]['user_status'] === 1)
+                <i class="fa-solid fa-circle-check text-success fs-2"></i>
+            @elseif($data[0]['user_status'] === 2)
+                <i class="fa-solid fa-circle-xmark text-danger fs-2"></i>
+            @else
+                <a href="{{route('admin.model.status', [$data[0]['uid'], 1])}}"><i class="fa-solid fa-circle-check text-success "></i></a>
+                <a href="{{route('admin.model.status', [$data[0]['uid'], 2])}}"><i class="fa-solid fa-circle-xmark text-danger "></i></a>
+            @endif
+
+
     </div>
 
+
 @endsection
+
