@@ -179,9 +179,13 @@ class AdminController extends Controller
 
     public function models(Request $request, ModelsService $modelsService, int $id = 0)
     {
+        $states = DB::table('tb_estados')
+            ->select('id', 'uf', 'nome')
+            ->get();
+
         $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
 
-        return view('admin.models', compact('data', 'request'));
+        return view('admin.models', compact('data', 'request', 'states'));
     }
 
     public function models_info(ModelsService $modelsService, int $id)

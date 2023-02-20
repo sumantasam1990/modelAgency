@@ -8,20 +8,6 @@ class ModelsService
 {
     public function alphaOrder($request, $letter = '')
     {
-//        $query = User::with(['portfolioWithContestPhoto','portfolios', 'interest', 'modelInfos', 'model_info_love', 'portfolio'])
-//            ->where('name', 'like', $letter . '%')
-//            ->where('email', '!=', 'admin@admin.com')
-//            ->orderBy('name');
-//
-//        if (isset($request['gender'])) {
-//            $query->whereIn('gender', $request['gender']);
-//        }
-//        if (isset($request['civil'])) {
-//            $query->whereIn('civil', $request['civil']);
-//        }
-//
-//        return $query->paginate(1);
-        //---------------------------------------
         $users = User::with(['portfolioWithContestPhoto','portfolios', 'interest', 'modelInfos', 'model_info_love', 'portfolio'])
             ->where('name', 'like', $letter . '%')
             ->where('email', '!=', 'admin@admin.com')
@@ -33,8 +19,31 @@ class ModelsService
         if (isset($request['civil'])) {
             $users->whereIn('civil', $request['civil']);
         }
+        if (isset($request['filter_one'])) {
+            $users->where('subscribed', $request['filter_one']);
+        }
+        if (isset($request['filter_two'])) {
+            $users->where('status', $request['filter_two']);
+        }
+        if (isset($request['state'])) {
+            $users->whereIn('state', $request['state']);
+        }
+        if (isset($request['city'])) {
+            $users->whereIn('city', $request['city']);
+        }
+        if (isset($request['keyword']) && $request['keyword'] != '') {
+            $users->where(function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request['keyword'] . '%')
+                    ->orWhere('email', 'like', '%' . $request['keyword'] . '%')
+                    ->orWhere('wp', 'like', '%' . $request['keyword'] . '%');
+            });
+        }
 
         $users = $users->paginate(1);
+
+        if(count($users) === 0) {
+            return [];
+        }
 
         $nextPageUrl = $users->nextPageUrl();
         $prevPageUrl = $users->previousPageUrl();
