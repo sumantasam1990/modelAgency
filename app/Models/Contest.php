@@ -42,6 +42,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Contest whereStart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contest whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contest whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestOption> $options
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user_participants
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $voting_results
  * @mixin \Eloquent
  */
 class Contest extends Model

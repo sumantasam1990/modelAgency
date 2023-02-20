@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminNote;
 use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\ModelInfo;
+use App\Models\SaveFilter;
 use App\Models\User;
 use App\Services\ContestService;
 use App\Services\ModelsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -157,35 +160,57 @@ class AdminController extends Controller
         return view('admin.contest_stats', compact('final_results'));
     }
 
-    public function stats(ContestService $contestService): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function stats(ContestService $contestService, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $data = [];
-        $users = $contestService->totalUsers();
-        $categories = $contestService->totalCategories();
-        $activeContests = $contestService->totalActiveContests();
-        $inactiveContests = $contestService->totalInactiveContests();
-        $participants = $contestService->totalParticipants();
+        $time_from = Carbon::today()->format('Y-m-d');
+        $time_to = Carbon::today()->format('Y-m-d');
+
+        if ($request->isMethod('post')) {
+            if ($request->time == '1x') {
+                $time_from = Carbon::today()->format('Y-m-d');
+                $time_to = Carbon::today()->format('Y-m-d');
+            } elseif ($request->time == '2x') {
+                $time_from = Carbon::now()->startOfMonth()->format('Y-m-d');
+                $time_to = Carbon::now()->endOfMonth()->format('Y-m-d');
+            } elseif ($request->time == '3x') {
+                $time_from = Carbon::now()->startOfWeek()->format('Y-m-d');
+                $time_to = Carbon::now()->endOfWeek()->format('Y-m-d');
+            }
+        }
+        $users = $contestService->totalUsers($time_from, $time_to);
+        $totalSubscribers = $contestService->totalSubscribers($time_from, $time_to);
+
+//        $categories = $contestService->totalCategories();
+//        $activeContests = $contestService->totalActiveContests();
+//        $inactiveContests = $contestService->totalInactiveContests();
+//        $participants = $contestService->totalParticipants();
 
         $data = [
             'users' => $users,
-            'categories' => $categories,
-            'active_contests' => $activeContests,
-            'inactive_contests' => $inactiveContests,
-            'participants' => $participants,
+            'total_subscribers' => $totalSubscribers,
+//            'categories' => $categories,
+//            'active_contests' => $activeContests,
+//            'inactive_contests' => $inactiveContests,
+//            'participants' => $participants,
         ];
 
         return view('admin.stats', compact('data'));
     }
 
-    public function models(Request $request, ModelsService $modelsService, int $id = 0)
+    public function models(Request $request, ModelsService $modelsService, int $id = 0): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $states = DB::table('tb_estados')
-            ->select('id', 'uf', 'nome')
-            ->get();
+        $data = [];
+        $admin_note = [];
 
-        $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
+        $saveFilters = SaveFilter::all();
 
-        return view('admin.models', compact('data', 'request', 'states'));
+        if ($request->has('s')) {
+            $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
+            $admin_note = AdminNote::whereToUserId($data[0]['uid'])
+                ->first();
+        }
+
+        return view('admin.models', compact('data', 'request', 'saveFilters', 'admin_note'));
     }
 
     public function models_info(ModelsService $modelsService, int $id)
@@ -226,6 +251,31 @@ class AdminController extends Controller
             User::whereId($uid)
                 ->update(['status' => 2]); // Hide
         }
+
+        return redirect()->back();
+    }
+
+    public function save_filter(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $params = [
+            'gender[]' => $request->input('gender'),
+            'civil[]' => $request->input('civil'),
+        ];
+
+        $queryString = http_build_query($params);
+
+        $save = new SaveFilter;
+        $save->title = $request->input('title');
+        $save->url = $queryString;
+        $save->save();
+
+        return redirect()->back();
+    }
+
+    public function filter_delete(int $id): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    {
+        SaveFilter::whereId($id)
+            ->delete();
 
         return redirect()->back();
     }

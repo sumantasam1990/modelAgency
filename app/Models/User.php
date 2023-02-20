@@ -68,6 +68,19 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereWp($value)
+ * @property int|null $status
+ * @property int|null $subscribed
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \App\Models\ModelInfo|null $model_info_love
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSubscribed($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

@@ -2,35 +2,21 @@
 @section('content')
 
     <div class="row" style="position: relative;">
-        <div class="col-md-2 border sec-box">
+        <div class="col-md-3 border sec-box">
             <h5 class="fs-5 fw-bold text-dark mb-2">Filter</h5>
             <form action="{{route('admin.model.search')}}" method="get">
                 <input type="hidden" name="alpha" value="{{request('alpha')}}">
 
                 <div class="d-grid gap-2 col-12 mb-3">
-                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    <button type="submit" name="s" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
                 </div>
 
                 <div class="mb-2">
                     <input type="search" class="form-control" name="keyword" placeholder="Search with name,email,wp..."
                            value="{{request('keyword') !== null ? request('keyword') : ''}}">
                 </div>
-                <div class="mb-2">
-                    <h4 class="fw-bold text-black-50 fs-6 mt-2">State</h4>
-                    <select class="form-control" name="state[]" multiple>
-                        @foreach($states as $state)
-                            <option value="{{$state->nome}}" {{ in_array($state->nome, (array) request('state')) ? 'selected' : '' }}>{{$state->nome}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-2">
-                    <h4 class="fw-bold text-black-50 fs-6 mt-2">City</h4>
-                    <select class="form-control" name="city[]" multiple>
-                        <option value="Sodepur">Sodepur</option>
-                        <option value="Kolkata">Kolkata</option>
-                        <option value="Ashoknagar">Ashoknagar</option>
-                    </select>
-                </div>
+
+                <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
 
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
                     <div class="mb-2 form-check">
@@ -73,8 +59,37 @@
                     </div>
                 </div>
 
-
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
+                    <h5 class="fw-bold fs-6 mt-0 text-center border-black-50 border border-2 p-2">Save Filters</h5>
+                    @foreach($saveFilters as $filter)
+                        <div class="mb-2 form-check d-flex flex-row justify-content-between align-items-center">
+                            <div>
+                                <input type="radio" class="form-check-input" name="save_filter" value="{{$filter->url}}" {{request('save_filter') == $filter->url ? 'checked' : ''}}>
+                                <label
+                                    class="form-check-label" for="flexCheckDefault">
+                                    {{$filter->title}}
+                                </label>
+                            </div>
+                            <div>
+                                <a onclick="return confirm('Are you sure?');" class="fs-6 text-danger" href="{{route('admin.filter.delete', [$filter->id])}}"><i class="fa-solid fa-trash"></i></a>
+                            </div>
+
+                        </div>
+                    @endforeach
+                    @if(count($saveFilters) === 0)
+                        <p>No filter has been created.</p>
+                    @endif
+                </div>
+
+                <div class="d-grid gap-2 col-12 mt-2">
+                    <button type="submit" name="s" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </div>
+
+            </form>
+
+            <form action="{{route('admin.save.filter')}}" method="post">
+                @csrf
+                <div class="bg-light p-2 mb-2 mt-3" style="border-radius: 10px;">
                     <h4 class="fw-bold fs-6 mt-0 text-center border-black-50 border border-2 p-2">New Filter</h4>
                     <h5 class="fs-6 fw-bold text-black-50">Gender</h5>
                     <div class="mb-2 form-check">
@@ -139,12 +154,17 @@
                     </div>
                 </div>
 
-
-                <div class="d-grid gap-2 col-12">
-                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                <div class="mb-2">
+                    <input type="text" class="form-control" placeholder="Filter name" name="title">
                 </div>
 
+
+                <div class="d-grid gap-2 col-12">
+                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-floppy-disk"></i> Save Filter</button>
+                </div>
             </form>
+
+
         </div>
         <div class="col-md-6">
             @if(request('filter_one') > '0' && request('filter_two') > '0')
@@ -170,7 +190,7 @@
                         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                             <ol class="breadcrumb d-flex flex-row justify-content-start align-content-center align-items-center">
                                 <li class="breadcrumb-item"><a
-                                        class="text-decoration text-light btn  {{ (request()->is('admin/model*')) ? 'btn-dark' : 'btn-secondary' }}"
+                                        class="text-decoration text-light btn btn-secondary"
                                         href="{{route('admin.models', request()->query())}}">Photos</a></li>
 
                                 @livewire('show-user-modal', ['userId' => count($data) > 0 ? $data[0]['uid'] : 0])
@@ -210,7 +230,8 @@
             </div>
         </div>
         {{--        @if(request()->is('admin/model/info*'))--}}
-        <div class="col-md-4 border sec-box" id="right-box" style="height: 100vh; overflow: auto;">
+        @if(!empty($data))
+        <div class="col-md-3 border sec-box" id="right-box" style="height: 100vh; overflow: auto;">
             <h5 class="fs-5 text-dark fw-bold mb-3">Model Info</h5>
             <div class="text-center">
                 <img
@@ -226,14 +247,16 @@
                 <p class="mb-0">Civil Stats: <span class="fw-bold">{{!empty($data) ? $data[0]['civil'] : ''}}</span></p>
                 <p class="mb-0">WhatsApp: <span class="fw-bold">{{!empty($data) ? $data[0]['wp'] : ''}}</span></p>
             </div>
+
             <div class="notes p-3">
-                <h6 class="fs-6 text-black-50 fw-bold">Notes/Interest</h6>
-                <p>
-                    {{!empty($data) ? $data[0]['interest'] : ''}}
-                </p>
+                <h6 class="fs-6 text-black-50 fw-bold">Admin Notes</h6>
+                <div class="mb-2">
+                    <livewire:admin-notes :uid="$data[0]['uid']" :note="$admin_note->note ?? ''" />
+                </div>
             </div>
+
         </div>
-        {{--        @endif--}}
+        @endif
     </div>
 
 
@@ -260,7 +283,7 @@
             @php
                 $queryParams = request()->query();
                 unset($queryParams['page']);
-                $url_prev_query_string = http_build_query($queryParams);
+                $url_prev_query_string = http_build_query($queryParams) . '&s=';
             @endphp
             <a href="{{$data[0]['prev_page_url'] == '' ? '#' : $data[0]['prev_page_url'] . '&' .$url_prev_query_string }}"
                class="text-dark {{$data[0]['prev_page_url'] == '' ? 'text-black-50' : ''}}"><i

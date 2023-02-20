@@ -13,12 +13,20 @@ class ModelsService
             ->where('email', '!=', 'admin@admin.com')
             ->orderBy('name');
 
-        if (isset($request['gender'])) {
-            $users->whereIn('gender', $request['gender']);
+        if (isset($request['save_filter'])) {
+            $queryString = $request['save_filter'];
+            $queryArray = [];
+            parse_str($queryString, $queryArray);
         }
-        if (isset($request['civil'])) {
-            $users->whereIn('civil', $request['civil']);
+
+        if (isset($queryArray['gender'])) {
+            $users->whereIn('gender', $queryArray['gender']);
         }
+        if (isset($queryArray['civil'])) {
+            $users->whereIn('civil', $queryArray['civil']);
+        }
+        // end save filter -----------------
+
         if (isset($request['filter_one'])) {
             $users->where('subscribed', $request['filter_one']);
         }
@@ -26,7 +34,7 @@ class ModelsService
             $users->where('status', $request['filter_two']);
         }
         if (isset($request['state'])) {
-            $users->whereIn('state', $request['state']);
+            $users->where('state', $request['state']);
         }
         if (isset($request['city'])) {
             $users->whereIn('city', $request['city']);

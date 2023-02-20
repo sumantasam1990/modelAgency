@@ -58,6 +58,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('model/rating/{rate}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_rate'])->name('admin.model.rate');
     Route::get('model/heart/{status}/{uid}', [\App\Http\Controllers\AdminController::class, 'model_heart'])->name('admin.model.heart');
     Route::get('model/status/{uid}/{status}', [\App\Http\Controllers\AdminController::class, 'model_status'])->name('admin.model.status');
+    Route::post('save/filters', [\App\Http\Controllers\AdminController::class, 'save_filter'])->name('admin.save.filter');
+    Route::get('filter/delete/{id}', [\App\Http\Controllers\AdminController::class, 'filter_delete'])->name('admin.filter.delete');
+    Route::post('stats/search', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats.search');
 
 
 

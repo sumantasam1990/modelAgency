@@ -9,31 +9,43 @@ use App\Models\ContestVotingResult;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ContestService
 {
-    public function totalUsers()
+    public function totalUsers(String $from, String $to): int
     {
-        return User::where('email', '!=', 'admin@admin.com')->count('id');
+        return User::where('email', '!=', 'admin@admin.com')
+            ->where('status', 0)
+            ->whereBetween('created_at', [$from, $to])
+            ->count('id');
     }
 
-    public function totalCategories()
+    public function totalSubscribers(String $from, String $to): int
+    {
+        return User::where('email', '!=', 'admin@admin.com')
+            ->where('subscribed', 1)
+            ->whereBetween('created_at', [$from, $to])
+            ->count('id');
+    }
+
+    public function totalCategories(): int
     {
         return Category::count('id');
     }
 
-    public function totalActiveContests()
+    public function totalActiveContests(): int
     {
         return Contest::where('end', '>=', Carbon::today()->toDateString())->count('id');
     }
 
-    public function totalInactiveContests()
+    public function totalInactiveContests(): int
     {
         return Contest::where('end', '<', Carbon::today()->toDateString())->count('id');
     }
 
-    public function totalParticipants()
+    public function totalParticipants(): int
     {
         return ContestParticipants::distinct('user_id')->count('id');
     }
