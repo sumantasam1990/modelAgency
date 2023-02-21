@@ -7,11 +7,15 @@ use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\ModelInfo;
+use App\Models\Payment;
 use App\Models\SaveFilter;
 use App\Models\User;
 use App\Services\ContestService;
 use App\Services\ModelsService;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -145,11 +149,10 @@ class AdminController extends Controller
         return view('admin.contest_dashboard', compact('totalParticipantsByCategory'));
     }
 
-    public function category_contests(ContestService $contestService, int $cateId): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function category_contests(ContestService $contestService): Factory|View|Application
     {
         $contests = Contest::with(['category'])
-            ->where('category_id', $cateId)
-            ->get();
+            ->paginate(20);
 
         return view('admin.category_contest', compact('contests'));
     }
@@ -160,7 +163,7 @@ class AdminController extends Controller
         return view('admin.contest_stats', compact('final_results'));
     }
 
-    public function stats(ContestService $contestService, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function stats(ContestService $contestService, Request $request): Factory|View|Application
     {
         $time_from = Carbon::today()->format('Y-m-d');
         $time_to = Carbon::today()->format('Y-m-d');
@@ -177,17 +180,14 @@ class AdminController extends Controller
                 $time_to = Carbon::now()->endOfWeek()->format('Y-m-d');
             }
         }
-        $users = $contestService->totalUsers($time_from, $time_to);
-        $totalSubscribers = $contestService->totalSubscribers($time_from, $time_to);
-
-//        $categories = $contestService->totalCategories();
-//        $activeContests = $contestService->totalActiveContests();
-//        $inactiveContests = $contestService->totalInactiveContests();
-//        $participants = $contestService->totalParticipants();
+        $users = $contestService->totalUsers($time_from, $time_to, $request->all());
+        $totalSubscribers = $contestService->totalSubscribers($time_from, $time_to, $request->all());
+        $totalIncome = $contestService->totalIncome($time_from, $time_to, $request->all());
 
         $data = [
             'users' => $users,
             'total_subscribers' => $totalSubscribers,
+            'total_income' => $totalIncome,
 //            'categories' => $categories,
 //            'active_contests' => $activeContests,
 //            'inactive_contests' => $inactiveContests,
@@ -197,7 +197,7 @@ class AdminController extends Controller
         return view('admin.stats', compact('data'));
     }
 
-    public function models(Request $request, ModelsService $modelsService, int $id = 0): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function models(Request $request, ModelsService $modelsService, int $id = 0): Factory|View|Application
     {
         $data = [];
         $admin_note = [];
@@ -206,8 +206,10 @@ class AdminController extends Controller
 
         if ($request->has('s')) {
             $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
-            $admin_note = AdminNote::whereToUserId($data[0]['uid'])
-                ->first();
+            if(count($data) > 0) {
+                $admin_note = AdminNote::whereToUserId($data[0]['uid'])
+                    ->first();
+            }
         }
 
         return view('admin.models', compact('data', 'request', 'saveFilters', 'admin_note'));
@@ -272,11 +274,32 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function filter_delete(int $id): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    public function filter_delete(int $id): \Illuminate\Routing\Redirector|Application|\Illuminate\Http\RedirectResponse
     {
         SaveFilter::whereId($id)
             ->delete();
 
         return redirect()->back();
+    }
+
+    public function subscribers(Request $request)
+    {
+        $users = User::with(['payment' => function ($query) {
+            $query->where('end_date', '>', Carbon::today()->format('Y-m-d'));
+        }])->has('payment');
+
+        if (isset($request->gender)) {
+            $users->whereIn('gender', $request->gender);
+        }
+        if (isset($request->state)) {
+            $users->where('state', $request->state);
+        }
+        if (isset($request->city)) {
+            $users->whereIn('city', $request->city);
+        }
+
+        $payments = $users->paginate(20);
+
+        return view('admin.subscribers', compact('payments'));
     }
 }

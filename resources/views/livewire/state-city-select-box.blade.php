@@ -2,6 +2,7 @@
     <div class="mb-2">
         <h4 class="fw-bold text-black-50 fs-6 mt-2">State</h4>
         <select class="form-control" name="state" wire:model="selectedState">
+            <option value="">Select State</option>
             @foreach($states as $state)
                 <option value="{{$state->id}}">{{$state->nome}}</option>
             @endforeach

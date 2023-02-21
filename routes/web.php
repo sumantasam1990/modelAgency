@@ -49,7 +49,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('contest/delete/{id}', [\App\Http\Controllers\AdminController::class, 'contest_delete'])->name('contest.delete');
     Route::get('contest/winners', [\App\Http\Controllers\AdminController::class, 'winners'])->name('admin.winners');
     Route::get('contest/dashboard', [\App\Http\Controllers\AdminController::class, 'contest_dashboard'])->name('admin.contest.dashboard');
-    Route::get('category/contests/{id}', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
+    Route::get('category/contests', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
     Route::get('contest/stats/{id}', [\App\Http\Controllers\AdminController::class, 'contest_stats'])->name('admin.contest.stats');
     Route::get('stats', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats');
     Route::get('models', [\App\Http\Controllers\AdminController::class, 'models'])->name('admin.models');
@@ -61,6 +61,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('save/filters', [\App\Http\Controllers\AdminController::class, 'save_filter'])->name('admin.save.filter');
     Route::get('filter/delete/{id}', [\App\Http\Controllers\AdminController::class, 'filter_delete'])->name('admin.filter.delete');
     Route::post('stats/search', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats.search');
+    Route::get('subscribers', [\App\Http\Controllers\AdminController::class, 'subscribers'])->name('admin.subscribers');
+    Route::get('subscribers/search', [\App\Http\Controllers\AdminController::class, 'subscribers'])->name('admin.subscribers.search');
 
 
 

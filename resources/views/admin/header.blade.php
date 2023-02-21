@@ -28,15 +28,18 @@
                         <a class=" fs-6 fw-bold text-decoration-none text-capitalize" href="#" style="color: #d2d2d2; margin-left: 20px;">{{auth()->user()->name}} &nbsp; </a>
                     </p>
 
-                    <ul class="mt-5">
+                    <ul class="mt-5 header-ul">
 
                         <li class="{{ (request()->is('admin/stats')) ? 'active' : '' }}"><a href="{{route('admin.stats')}}"><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a> </li>
 
                         <li class="{{ (request()->is('admin/models')) ? 'active' : '' }}"><a href="{{route('admin.models')}}"><i class="fa-solid fa-person"></i> &nbsp; Models</a> </li>
 
-                        <li class="{{ (request()->is('admin/contest/dashboard')) ? 'active' : '' }}"><a href="{{route('admin.contest.dashboard')}}"><i class="fa-solid fa-heart"></i> &nbsp; Contests</a> </li>
+                        <li class="{{ (request()->is('admin/category/contests')) ? 'active' : '' }}"><a href="{{route('admin.category.contests')}}"><i class="fa-solid fa-heart"></i> &nbsp; Contests</a> </li>
+
+                        <li class="{{ (request()->is('admin/subscribers')) ? 'active' : '' }}"><a href="{{route('admin.subscribers')}}"><i class="fa-solid fa-dollar-sign"></i> &nbsp; Subscribers</a> </li>
+
                         <li><a href=""><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
-                        <li><a href=""><i class="fa-solid fa-credit-card"></i> &nbsp; Subscribers</a> </li>
+
                         <li><a href=""><i class="fa-solid fa-gear"></i> &nbsp; Config</a> </li>
                         @auth()
                             <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>

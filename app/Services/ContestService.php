@@ -8,26 +8,72 @@ use App\Models\ContestParticipants;
 use App\Models\ContestVotingResult;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ContestService
 {
-    public function totalUsers(String $from, String $to): int
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder|User|\Illuminate\Database\Query\Builder $users
+     * @return int
+     */
+    private function extracted(\Illuminate\Database\Eloquent\Builder|User|\Illuminate\Database\Query\Builder $users, $request): int
     {
-        return User::where('email', '!=', 'admin@admin.com')
-            ->where('status', 0)
-            ->whereBetween('created_at', [$from, $to])
-            ->count('id');
+        if (isset($request['gender'])) {
+            $users->whereIn('gender', $request['gender']);
+        }
+        if (isset($request['state'])) {
+            $users->where('state', $request['state']);
+        }
+        if (isset($request['city'])) {
+            $users->whereIn('city', $request['city']);
+        }
+
+        return $users->count('id');
     }
 
-    public function totalSubscribers(String $from, String $to): int
+    public function totalUsers(String $from, String $to, $request): int
     {
-        return User::where('email', '!=', 'admin@admin.com')
+        $users = User::where('email', '!=', 'admin@admin.com')
+            ->where('status', 0)
+            ->whereBetween('created_at', [$from, $to]);
+
+        return $this->extracted($users, $request);
+    }
+
+    public function totalSubscribers(String $from, String $to, $request): int
+    {
+        $users = User::where('email', '!=', 'admin@admin.com')
             ->where('subscribed', 1)
-            ->whereBetween('created_at', [$from, $to])
-            ->count('id');
+            ->whereBetween('created_at', [$from, $to]);
+
+        return $this->extracted($users, $request);
+    }
+
+    public function totalIncome(String $from, String $to, $request)
+    {
+        $sum = User::where('email', '!=', 'admin@admin.com')
+            ->whereHas('payment', function ($query) use ($from, $to) {
+                $query->whereBetween('start_date', [$from, $to]);
+            })
+            ->selectRaw('SUM(payments.amount) as total')
+            ->leftJoin('payments', 'users.id', '=', 'payments.user_id');
+
+        if (isset($request['gender'])) {
+            $sum->whereIn('gender', $request['gender']);
+        }
+        if (isset($request['state'])) {
+            $sum->where('state', $request['state']);
+        }
+        if (isset($request['city'])) {
+            $sum->whereIn('city', $request['city']);
+        }
+
+        return $sum->groupBy('users.id')
+            ->pluck('total')
+            ->sum();
     }
 
     public function totalCategories(): int
@@ -328,4 +374,6 @@ class ContestService
 //                ];
 //            });
     }
+
+
 }

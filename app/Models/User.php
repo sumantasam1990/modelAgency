@@ -81,6 +81,15 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSubscribed($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \App\Models\Payment|null $payment
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -192,5 +201,10 @@ class User extends Authenticatable
     public function model_info_love(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(ModelInfo::class)->where('key', 'love');
+    }
+
+    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Payment::class);
     }
 }
