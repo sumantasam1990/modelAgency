@@ -28,11 +28,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereTransactionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
+ * @property array|null $preferences
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePreferences($value)
  * @mixin \Eloquent
  */
 class Payment extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'preferences' => 'json',
+    ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

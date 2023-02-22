@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gender')->index();
             $table->string('skin_color')->index();
             $table->string('hair_color')->index();
+            $table->string('dress_size')->index();
             $table->timestamps();
         });
     }

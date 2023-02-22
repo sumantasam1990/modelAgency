@@ -2,9 +2,9 @@
 @section('content')
 
     <div class="row">
-        <h4 class="fs-4 fw-bold mb-3">Subscribers</h4>
 
         <div class="col-md-2 border sec-box">
+            <h4 class="fs-5 text-black-50 fw-bold mb-3">Filter</h4>
             <form action="{{route('admin.subscribers.search')}}" method="get">
                 @csrf
 
@@ -45,13 +45,14 @@
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-12 mt-3">
-                    <button type="submit" class="btn btn-dark">Submit</button>
+                    <button type="submit" class="btn btn-dark">search</button>
                 </div>
 
             </form>
         </div>
 
         <div class="col-md-8">
+            <h4 class="fs-4 fw-bold mb-3">Subscribers</h4>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped caption-top">
                     <caption>List of current subscribers</caption>

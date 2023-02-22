@@ -33,6 +33,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
+ * @property string|null $dress_size
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereDressSize($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
  * @mixin \Eloquent
  */
 class Category extends Model

@@ -28,7 +28,7 @@
                         <a class=" fs-6 fw-bold text-decoration-none text-capitalize" href="{{route('profile', [auth()->user()->username])}}" style="color: #d2d2d2; margin-left: 20px;">My profile &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
                     </p>
 
-                    <ul class="mt-5">
+                    <ul class="mt-5 header-ul">
 
                         <div class="dropdown mb-3 {{ request()->is('model/contests/vote') ? 'active' : (request()->is('model/winners') ? 'active' : (request()->is('model/my/contest') ? 'active' : '')) }}">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,20 +43,22 @@
                             </ul>
                         </div>
 
-                        <div class="dropdown mb-3 {{ (request()->is('model/portfolio')) ? 'active' : '' }}">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio
-                            </a>
+{{--                        <div class="dropdown mb-3 {{ (request()->is('model/portfolio')) ? 'active' : '' }}">--}}
+{{--                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                <i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio--}}
+{{--                            </a>--}}
 
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('portfolio')}}">Photos</a></li>
-                                <li><a class="dropdown-item" href="#">Links</a></li>
-                                <li><a class="dropdown-item" href="#">Interests</a></li>
-                            </ul>
-                        </div>
+{{--                            <ul class="dropdown-menu">--}}
+{{--                                <li><a class="dropdown-item" href="{{route('portfolio')}}">Photos</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
 
-                        <li><a href=""><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
-                        <li><a href=""><i class="fa-solid fa-credit-card"></i> &nbsp; Subscription</a> </li>
+                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio</a> </li>
+
+                        <li class="{{ (request()->is('model/subscription/now')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
+
+                        <li class="{{ (request()->is('model/help')) ? 'active' : '' }}"><a href="{{route('help')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
+
                         @auth()
                             <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
                         @else

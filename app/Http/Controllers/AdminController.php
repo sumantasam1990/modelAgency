@@ -6,6 +6,7 @@ use App\Models\AdminNote;
 use App\Models\Category;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
+use App\Models\Faq;
 use App\Models\ModelInfo;
 use App\Models\Payment;
 use App\Models\SaveFilter;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,8 +37,9 @@ class AdminController extends Controller
         $category->age = $request->age_from . ',' . $request->age_to;
         $category->height = $request->height_from . ',' . $request->height_to;
         $category->gender = implode(',', $request->gender);
-        $category->skin_color = implode(',', $request->skin);
-        $category->hair_color = implode(',', $request->hair);
+        $category->dress_size = $request->dress_size_from . ',' . $request->dress_size_to;
+//        $category->skin_color = implode(',', $request->skin);
+//        $category->hair_color = implode(',', $request->hair);
         $category->save();
 
         return redirect()->back();
@@ -55,11 +58,17 @@ class AdminController extends Controller
         $data = Category::all();
         $contests = Category::with(['contests' => function($query) {
             $query->withCount('user_participants');
+            $query->where('end', '>', Carbon::today()->format('Y-m-d'));
         }])
+            ->has('contests', '>', 0)
             ->whereHas('contests', function ($query) {
                 $query->whereNotNull('title');
             })
             ->get();
+
+        $contests = $contests->filter(function ($category) {
+            return $category->contests->isNotEmpty();
+        });
 
         return view('admin.add_contest', compact('data', 'contests'));
     }
@@ -91,6 +100,7 @@ class AdminController extends Controller
                 $contest->prize_first = $request->contest_price_first;
                 $contest->prize_second = $request->contest_price_second;
                 $contest->prize_third = $request->contest_price_third;
+                $contest->rules = $request->rules;
                 $contest->save();
 
                 $participants = $user_ids->map(function ($uid) use ($contest) {
@@ -222,7 +232,7 @@ class AdminController extends Controller
         return view('admin.models_info', compact('model_info'));
     }
 
-    public function model_rate(int $rate, int $uid): \Illuminate\Http\RedirectResponse
+    public function model_rate(int $rate, int $uid): RedirectResponse
     {
         ModelInfo::updateOrInsert(
             ['user_id' => $uid, 'key' => 'rate'],
@@ -232,7 +242,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function model_heart(int $status, int $uid): \Illuminate\Http\RedirectResponse
+    public function model_heart(int $status, int $uid): RedirectResponse
     {
         ModelInfo::updateOrInsert(
             ['user_id' => $uid, 'key' => 'love'],
@@ -242,7 +252,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function model_status(int $uid, int $status): \Illuminate\Http\RedirectResponse
+    public function model_status(int $uid, int $status): RedirectResponse
     {
         if($status === 1)
         {
@@ -257,7 +267,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function save_filter(Request $request): \Illuminate\Http\RedirectResponse
+    public function save_filter(Request $request): RedirectResponse
     {
         $params = [
             'gender[]' => $request->input('gender'),
@@ -274,7 +284,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function filter_delete(int $id): \Illuminate\Routing\Redirector|Application|\Illuminate\Http\RedirectResponse
+    public function filter_delete(int $id): \Illuminate\Routing\Redirector|Application|RedirectResponse
     {
         SaveFilter::whereId($id)
             ->delete();
@@ -301,5 +311,29 @@ class AdminController extends Controller
         $payments = $users->paginate(20);
 
         return view('admin.subscribers', compact('payments'));
+    }
+
+    public function faqs()
+    {
+        $faqs = Faq::paginate(10);
+        return \view('admin.help', compact('faqs'));
+    }
+
+    public function faq_post(Request $request): RedirectResponse
+    {
+        $faq = new Faq;
+        $faq->question = $request->q;
+        $faq->answer = $request->a;
+        $faq->save();
+
+        return redirect()->back();
+    }
+
+    public function faq_delete(int $id): RedirectResponse
+    {
+        Faq::where('id', $id)
+            ->delete();
+
+        return redirect()->back();
     }
 }

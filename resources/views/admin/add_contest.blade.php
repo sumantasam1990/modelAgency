@@ -69,7 +69,33 @@
 
                             </div>
 
-                            <div class="d-grid gap-2 mx-auto col-5 mt-4">
+                            <!-- Modal -->
+                            <div class="modal fade" id="rules" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Rules</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="mb-2">
+                            <textarea name="rules" rows="8" class="form-control">
+Allowed only to subscribers users.
+They can vote only in other categories of contests.
+The 3 most voted at the end of the contest will be the winners.
+Everyone who fits the contest category will be participating automatically.
+New entrants are allowed during the running of the contest.
+The amount of votes will only be displayed at the end of the contest.
+Users would not see all models that are participating in a contest category.</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between mt-4">
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#rules">Rules</button>
                                 <button type="submit" class="btn btn-dark">Create Contest</button>
                             </div>
                         </form>
@@ -88,9 +114,12 @@
                         <div class="sec-box mb-2">
                             <h4 class="fw-bold fs-4">{{$contest->title}}</h4>
                             <p class="text-black-50 mb-0">
-                                Start: <span class="fw-bold">{{$contest->start}}</span>, End: <span class="fw-bold">{{$contest->end}}</span>, First Prize: <span class="fw-bold">{{$contest->prize_first}}</span>, Second Prize: <span class="fw-bold">{{$contest->prize_second}}</span>, Third Prize: <span class="fw-bold">{{$contest->prize_third}}</span>
+                                Start: <span class="fw-bold">{{$contest->start}}</span>
                             </p>
-                            <p class="text-dark mt-0">
+                            <p class="text-black-50 mb-0">
+                                End: <span class="fw-bold">{{$contest->end}}</span>, First Prize: <span class="fw-bold">{{$contest->prize_first}}</span>, Second Prize: <span class="fw-bold">{{$contest->prize_second}}</span>, Third Prize: <span class="fw-bold">{{$contest->prize_third}}</span>
+                            </p>
+                            <p class="text-dark mt-1 fw-bold">
                                 Total Participants: <span class="fw-bold">{{$contest->user_participants_count}}</span>
                             </p>
                             <p>
@@ -103,6 +132,9 @@
 
         </div>
     </div>
+
+
+
 
 
 @endsection

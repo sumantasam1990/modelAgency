@@ -29,6 +29,16 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::get('winners', [\App\Http\Controllers\ContestsController::class, 'winners'])->name('winners');
     Route::get('winners/search', [\App\Http\Controllers\ContestsController::class, 'winner_search'])->name('winner.search');
     Route::get('my/results', [\App\Http\Controllers\ContestsController::class, 'my_results'])->name('my.results');
+    Route::get('help', [\App\Http\Controllers\OtherController::class, 'help'])->name('help');
+
+    //subscription
+    Route::get('subscription/now', [\App\Http\Controllers\SubscriptionController::class, 'subscription'])->name('subscription.now');
+    Route::get('/subscription', [\App\Http\Controllers\SubscriptionController::class, 'create'])->name('subscription.create');
+    Route::post('/checkout', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout.post');
+    Route::get('/checkout/final/payment', [\App\Http\Controllers\SubscriptionController::class, 'checkout_final']);
+    Route::post('webhook/payment', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('webhook.payment');
+
+
 
 
 
@@ -63,6 +73,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('stats/search', [\App\Http\Controllers\AdminController::class, 'stats'])->name('admin.stats.search');
     Route::get('subscribers', [\App\Http\Controllers\AdminController::class, 'subscribers'])->name('admin.subscribers');
     Route::get('subscribers/search', [\App\Http\Controllers\AdminController::class, 'subscribers'])->name('admin.subscribers.search');
+    Route::get('faqs', [\App\Http\Controllers\AdminController::class, 'faqs'])->name('admin.faq');
+    Route::post('faq/post', [\App\Http\Controllers\AdminController::class, 'faq_post'])->name('admin.faq.post');
+    Route::get('delete/faq/{id}', [\App\Http\Controllers\AdminController::class, 'faq_delete'])->name('admin.delete.faq');
 
 
 

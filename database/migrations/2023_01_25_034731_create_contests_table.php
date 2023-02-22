@@ -22,6 +22,7 @@ return new class extends Migration
             $table->double('prize_first')->index();
             $table->double('prize_second')->index();
             $table->double('prize_third')->index();
+            $table->text('rules');
             $table->timestamps();
         });
     }

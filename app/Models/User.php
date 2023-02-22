@@ -90,6 +90,32 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property string|null $payment_card_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePaymentCardId($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
