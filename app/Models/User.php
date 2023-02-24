@@ -157,6 +157,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'preferences' => 'json',
     ];
 
     protected function username(): Attribute

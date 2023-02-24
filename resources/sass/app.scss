@@ -46,6 +46,19 @@ body {
     height: 100%;
 }
 
+.vote {
+    background: #fff;
+    border-radius: 6px;
+    a {
+        color: #000000;
+        font-size: 1.3em;
+    }
+
+    a:hover {
+        color: #1a1e21;
+    }
+}
+
 label {
     font-weight: 600;
 }

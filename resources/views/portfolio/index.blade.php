@@ -1,7 +1,7 @@
 @extends('header')
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mx-auto">
             <div class="sec-box">
                 <h4 class="fw-bold fs-4 mb-1">Photos</h4>
                 <p class="text-black-50 mb-3 fs-6">Max 12 photos you can upload. Only JPEG, JPG and PNG format are accepted.</p>

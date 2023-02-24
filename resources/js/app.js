@@ -81,6 +81,9 @@ const form = document.querySelector('#payment_form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    document.getElementById('_paybtn').disabled = true;
+    document.getElementById('pay_proc_msg').style.display = 'block';
+
     let token = getCCToken();
 
     const formData = new FormData(form);

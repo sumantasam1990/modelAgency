@@ -15,11 +15,11 @@
     </head>
     <body class="antialiased bg-light" id="html_body">
 
-
+    @auth()
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2" style="margin: 0; padding: 0;">
-                @auth()
+
                 <div class="left-sidebar">
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
                         {{auth()->user()->name}}
@@ -30,18 +30,28 @@
 
                     <ul class="mt-5 header-ul">
 
-                        <div class="dropdown mb-3 {{ request()->is('model/contests/vote') ? 'active' : (request()->is('model/winners') ? 'active' : (request()->is('model/my/contest') ? 'active' : '')) }}">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-heart"></i> &nbsp; Contests
-                            </a>
+{{--                        <div class="dropdown mb-3 {{ request()->is('model/contests/vote') ? 'active' : (request()->is('model/winners') ? 'active' : (request()->is('model/my/contest') ? 'active' : '')) }}">--}}
+{{--                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                <i class="fa-solid fa-heart"></i> &nbsp; Contests--}}
+{{--                            </a>--}}
 
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>
-                                <li><a class="dropdown-item" href="{{route('my.contests')}}">My Contests</a></li>
-                                <li><a class="dropdown-item" href="{{route('my.results')}}">My Results</a></li>
-                                <li><a class="dropdown-item" href="{{route('winners')}}">Winners</a></li>
-                            </ul>
-                        </div>
+{{--                            <ul class="dropdown-menu">--}}
+{{--                                <li><a class="dropdown-item" href="{{route('contest.vote')}}">Vote</a></li>--}}
+{{--                                <li><a class="dropdown-item" href="{{route('my.contests')}}">My Contests</a></li>--}}
+{{--                                <li><a class="dropdown-item" href="{{route('my.results')}}">My Results</a></li>--}}
+{{--                                <li><a class="dropdown-item" href="{{route('winners')}}">Winners</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+
+
+
+                        <li class="{{ (request()->is('model/contests/vote')) ? 'vote' : '' }} vote"><a href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; Vote</a> </li>
+
+                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Photos</a> </li>
+
+                        <li class="{{ (request()->is('model/my/contest')) ? 'active' : '' }}"><a href="{{route('my.contests')}}"><i class="fa-solid fa-list"></i> &nbsp; My Contests</a> </li>
+                        <li class="{{ (request()->is('model/my/results')) ? 'active' : '' }}"><a href="{{route('my.results')}}"><i class="fa-solid fa-square-poll-horizontal"></i> &nbsp; My Results</a> </li>
+                        <li class="{{ (request()->is('model/winners')) ? 'active' : '' }}"><a href="{{route('winners')}}"><i class="fa-sharp fa-solid fa-trophy"></i> &nbsp; Winners</a> </li>
 
 {{--                        <div class="dropdown mb-3 {{ (request()->is('model/portfolio')) ? 'active' : '' }}">--}}
 {{--                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
@@ -53,9 +63,7 @@
 {{--                            </ul>--}}
 {{--                        </div>--}}
 
-                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Portfolio</a> </li>
-
-                        <li class="{{ (request()->is('model/subscription/now')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
+                        <li class="{{ (request()->is('model/subscription/now') || request()->is('model/subscription')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
 
                         <li class="{{ (request()->is('model/help')) ? 'active' : '' }}"><a href="{{route('help')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
 
@@ -69,7 +77,7 @@
                     </ul>
 
                 </div>
-                @endauth
+
             </div>
 
             <div class="col-md-10">
@@ -82,7 +90,7 @@
             </div>
         </div>
     </div>
-
+    @endauth
     @livewireScripts
 
     <script>

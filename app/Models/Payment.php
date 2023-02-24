@@ -40,6 +40,8 @@ class Payment extends Model
         'preferences' => 'json',
     ];
 
+    public $timestamps = true;
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

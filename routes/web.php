@@ -37,6 +37,8 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::post('/checkout', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout.post');
     Route::get('/checkout/final/payment', [\App\Http\Controllers\SubscriptionController::class, 'checkout_final']);
     Route::post('webhook/payment', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('webhook.payment');
+    Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success');
+    Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
 
 
 

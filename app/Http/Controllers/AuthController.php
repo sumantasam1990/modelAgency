@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -69,7 +70,10 @@ class AuthController extends Controller
 
     private function create(array $data): void
     {
-        User::create([
+        $birthdate = Carbon::createFromFormat('Y-m-d', $data['_age']);
+        $age = $birthdate->diffInMonths(Carbon::now());
+
+        $id = User::create([
             'name' => $data['_name'],
             'email' => $data['email'],
             'state' => $data['_state'],
@@ -79,8 +83,24 @@ class AuthController extends Controller
             'gender' => $data['_gender'],
             'civil' => $data['_civil_status'],
             'password' => Hash::make($data['password']),
-            'username' => $data['_name']
+            'username' => $data['_name'],
         ]);
+
+        $preferences = [
+            '_height' => $data['_height'],
+            '_age' => $age,
+            '_skin' => $data['_skin'],
+            'bust' => $data['bust'],
+            'waist' => $data['waist'],
+            'hips' => $data['hips'],
+            'dress' => $data['dress'],
+            'hair' => $data['hair'],
+            'eyes' => $data['eyes'],
+            'other' => $data['other']
+        ];
+
+        User::whereId($id->id)
+            ->update(['preferences' => $preferences]);
     }
 
     public function logout(Request $request)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -15,7 +16,11 @@ class SubscriptionController extends Controller
 {
     public function subscription()
     {
-        return view('subscription.index');
+        $data = Payment::whereUserId(Auth::user()->id)
+            ->select('end_date')
+            ->get();
+
+        return view('subscription.index', compact('data'));
     }
 
     public function create()
@@ -32,7 +37,7 @@ class SubscriptionController extends Controller
 
             $response = $client->post('https://sandbox.api.pagseguro.com/orders', [
                 'headers' => [
-                    'Authorization' => 'Bearer 49DF159E0FF44987BDDBF8092FF76CB5',
+                    'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
                     'Content-Type' => 'application/json',
                 ],
                 'json' => [
@@ -55,7 +60,7 @@ class SubscriptionController extends Controller
                             "reference_id" => "monthly_subscription_one",
                             "name" => "subscription one",
                             "quantity" => 1,
-                            "unit_amount" => 500
+                            "unit_amount" => 1900
                         ]
                     ],
 //                    "shipping" => [
@@ -78,7 +83,7 @@ class SubscriptionController extends Controller
                             "reference_id" => md5(uniqid().time().Auth::user()->id),
                             "description" => "subscription",
                             "amount" => [
-                                "value" => 500,
+                                "value" => 1900,
                                 "currency" => "BRL"
                             ],
                             "payment_method" => [
@@ -112,8 +117,6 @@ class SubscriptionController extends Controller
                 User::whereId(Auth::user()->id)
                     ->update(['payment_card_id' => $cardId]);
 
-//            $final_response = $this->checkout_final($cardId);
-
                 $paymentArray = [
                     'order_id' => $response['id'],
                     'charge_id' => $response['charges'][0]['id'],
@@ -125,9 +128,20 @@ class SubscriptionController extends Controller
                 ];
 
                 Payment::updateOrInsert(
-                    ['user_id' => Auth::user()->id],
-                    ['user_id' => Auth::user()->id, 'amount' => $response['charges'][0]['amount']['summary']['paid'], 'preferences' => $paymentArray]
+                    [
+                        'user_id' => Auth::user()->id,
+                        'amount' => $response['charges'][0]['amount']['summary']['paid'],
+                        'start_date' => Carbon::today()->format('Y-m-d'),
+                    ],
+                    [
+                        'end_date' => Carbon::now()->addMonth()->format('Y-m-d'),
+                        'preferences' => json_encode($paymentArray),
+                        'transaction_id' => md5(uniqid().time().Auth::user()->email)
+                    ]
                 );
+
+                User::whereId(Auth::user()->id)
+                    ->update(['subscribed' => 1]);
             }
 
             return response()->json($paymentArray);
@@ -139,6 +153,20 @@ class SubscriptionController extends Controller
                 return response()->json($e->getMessage());
             }
         }
+    }
+
+    public function success()
+    {
+        $endDate = Payment::whereUserId(Auth::user()->id)
+            ->select('end_date')
+            ->first();
+
+        return view('subscription.success', compact('endDate'));
+    }
+
+    public function error()
+    {
+        return view('subscription.error');
     }
 
     public function checkout_final($cardId)

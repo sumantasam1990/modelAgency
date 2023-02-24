@@ -6,7 +6,7 @@
         }
     </style>
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title fw-bold mb-4">Payment Details</h4>
@@ -37,8 +37,12 @@
                                 <label for="cardHolder">Tax ID*</label>
                                 <input type="text" value="12345678909" class="form-control" name="tax" id="tax" placeholder="Enter your tax id" required>
                             </div>
-                            <div class="d-grid gap-2 mx-auto col-5">
-                                <button type="submit" class="btn btn-dark btn-block btn-lg">Pay Now</button>
+                            <div class="d-grid gap-2 mx-auto col-5 mt-3">
+                                <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pay $19.99</button>
+                                <small class="fw-bold text-black-50 text-center">We will charge you every month.</small>
+                                <p class="mt-3 fw-bold text-black text-uppercase fs-6 text-center d-none" id="pay_proc_msg">
+                                    Please wait... Do not close the browser. We are processing your payment...
+                                </p>
                             </div>
                         </form>
                     </div>
