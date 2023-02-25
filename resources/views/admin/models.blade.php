@@ -137,35 +137,76 @@
                         </label>
                     </div>
 
-                    <h5 class="fs-6 fw-bold text-black-50">Age</h5>
+                    <h5 class="fs-6 fw-bold text-black-50">Age(in months)</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="number" class="form-control" value="5">
+                            <input type="number" class="form-control" name="age_from" placeholder="">
                         </div>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" value="99">
+                            <input type="number" class="form-control" name="age_to" placeholder="">
                         </div>
                     </div>
 
-                    <h5 class="fs-6 fw-bold text-black-50 mt-2">Height</h5>
+                    <h5 class="fs-6 fw-bold text-black-50 mt-2">Height(m)</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="number" class="form-control" value="4.0">
+                            <input type="number" class="form-control" name="h_from" placeholder="" value="{{request('h_from') ?? ''}}">
                         </div>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" value="10.0">
+                            <input type="number" class="form-control" name="h_to" placeholder="" value="{{request('h_to') ?? ''}}">
                         </div>
                     </div>
 
-                    <h5 class="fs-6 fw-bold text-black-50 mt-2">Weight</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="number" class="form-control" value="5">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="number" class="form-control" value="200">
-                        </div>
+                    <h5 class="fs-6 fw-bold text-black-50 mt-2">Skin color</h5>
+                    <div class="mb-2">
+                        <select class="form-control" name="_skin">
+                            <option value="">Choose</option>
+                            <option {{request('_skin') == "White" ? 'selected' : ''}}>White</option>
+                            <option {{request('_skin') == "Brown" ? 'selected' : ''}}>Brown</option>
+                            <option {{request('_skin') == "Black" ? 'selected' : ''}}>Black</option>
+                        </select>
                     </div>
+
+                    <h5 class="fs-6 fw-bold text-black-50 mt-3">Dress size</h5>
+                    <div class="mb-2">
+                        <select class="form-control" name="dress">
+                            <option value="">Choose</option>
+                            <option {{request('dress') == "Small" ? 'selected' : ''}}>Small</option>
+                            <option {{request('dress') == "Medium" ? 'selected' : ''}}>Medium</option>
+                            <option {{request('dress') == "Large" ? 'selected' : ''}}>Large</option>
+                            <option {{request('dress') == "XL" ? 'selected' : ''}}>XL</option>
+                            <option {{request('dress') == "XXL" ? 'selected' : ''}}>XXL</option>
+                            <option {{request('dress') == "XXXL" ? 'selected' : ''}}>XXXL</option>
+                        </select>
+                    </div>
+
+                    <h5 class="fs-6 fw-bold text-black-50 mt-3">Hair color</h5>
+                    <div class="mb-2">
+                        <select class="form-control" name="hair">
+                            <option value="">Choose</option>
+                            <option {{request('hair') == "White" ? 'selected' : ''}}>White</option>
+                            <option {{request('hair') == "Black" ? 'selected' : ''}}>Black</option>
+                            <option {{request('hair') == "Blond" ? 'selected' : ''}}>Blond</option>
+                            <option {{request('hair') == "Color" ? 'selected' : ''}}>Color</option>
+                        </select>
+                    </div>
+
+                    <h5 class="fs-6 fw-bold text-black-50 mt-3">Eyes color</h5>
+                    <div class="mb-2">
+                        <select class="form-control" name="eyes">
+                            <option value="">Choose</option>
+                            <option {{request('eyes') == "Blue" ? 'selected' : ''}}>Blue</option>
+                            <option {{request('eyes') == "Brown" ? 'selected' : ''}}>Brown</option>
+                            <option {{request('eyes') == "Green" ? 'selected' : ''}}>Green</option>
+                            <option {{request('eyes') == "Hazel" ? 'selected' : ''}}>Hazel</option>
+                            <option {{request('eyes') == "Black" ? 'selected' : ''}}>Black</option>
+                            <option {{request('eyes') == "Purple" ? 'selected' : ''}}>Purple</option>
+                        </select>
+                    </div>
+
+
+
+
                 </div>
 
                 <div class="mb-2">
@@ -205,14 +246,14 @@
                             <ol class="breadcrumb d-flex flex-row justify-content-start align-content-center align-items-center">
                                 <li class="breadcrumb-item"><a
                                         class="text-decoration text-light btn btn-secondary"
-                                        href="{{route('admin.models', request()->query())}}">Photos</a></li>
+                                        href="">Photos</a></li>
 
                                 @livewire('show-user-modal', ['userId' => count($data) > 0 ? $data[0]['uid'] : 0])
 
-                                <li class="breadcrumb-item {{ (request()->is('admin/add/contest')) ? 'active-admin' : '' }}"
-                                    aria-current="page"><a
-                                        class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}"
-                                        href="{{route('add.contest')}}">Notes</a></li>
+{{--                                <li class="breadcrumb-item {{ (request()->is('admin/add/contest')) ? 'active-admin' : '' }}"--}}
+{{--                                    aria-current="page"><a--}}
+{{--                                        class="text-decoration text-light btn {{ (request()->is('admin/model')) ? 'btn-dark' : 'btn-secondary' }}"--}}
+{{--                                        href="{{route('add.contest')}}">Notes</a></li>--}}
 
                                 @livewire('config-modal', ['userId' => count($data) > 0 ? $data[0]['uid'] : 0])
                             </ol>
@@ -263,8 +304,9 @@
             </div>
 
             <div class="notes p-3">
-                <h6 class="fs-6 text-black-50 fw-bold">Admin Notes</h6>
-                <div class="mb-2">
+                <h6 class="fs-6 text-black fw-bold mb-0">Admin Notes</h6>
+                <small class="fw-bold text-black-50 mb-3">Write anything and press "enter" to save.</small>
+                <div class="mb-2 mt-2">
                     <livewire:admin-notes :uid="$data[0]['uid']" :note="$admin_note->note ?? ''" />
                 </div>
             </div>

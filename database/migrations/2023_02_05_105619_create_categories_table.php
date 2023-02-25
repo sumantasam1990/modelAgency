@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('skin_color')->index();
             $table->string('hair_color')->index();
             $table->string('dress_size')->index();
+            $table->string('preferences')->nullable()->index();
             $table->timestamps();
         });
     }

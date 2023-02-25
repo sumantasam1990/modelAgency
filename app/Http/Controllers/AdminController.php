@@ -38,8 +38,13 @@ class AdminController extends Controller
         $category->height = $request->height_from . ',' . $request->height_to;
         $category->gender = implode(',', $request->gender);
         $category->dress_size = $request->dress_size_from . ',' . $request->dress_size_to;
-//        $category->skin_color = implode(',', $request->skin);
-//        $category->hair_color = implode(',', $request->hair);
+
+        //save into preferences column into json format
+        $category->preferences = [
+            'gender' => $request->gender,
+            'dress_size' => $request->dress_size_fro . ',' . $request->dress_size_to
+        ];
+
         $category->save();
 
         return redirect()->back();
@@ -198,10 +203,6 @@ class AdminController extends Controller
             'users' => $users,
             'total_subscribers' => $totalSubscribers,
             'total_income' => $totalIncome,
-//            'categories' => $categories,
-//            'active_contests' => $activeContests,
-//            'inactive_contests' => $inactiveContests,
-//            'participants' => $participants,
         ];
 
         return view('admin.stats', compact('data'));
@@ -272,6 +273,8 @@ class AdminController extends Controller
         $params = [
             'gender[]' => $request->input('gender'),
             'civil[]' => $request->input('civil'),
+            'age_from' => $request->input('age_from'),
+            'age_to' => $request->input('age_to'),
         ];
 
         $queryString = http_build_query($params);

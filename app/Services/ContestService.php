@@ -30,6 +30,24 @@ class ContestService
         if (isset($request['city'])) {
             $users->whereIn('city', $request['city']);
         }
+        if (isset($request['age_from'])) {
+            $users->whereBetween('users.preferences->_age', [$request['age_from'], $request['age_to']]);
+        }
+        if (isset($request['h_from'])) {
+            $users->whereBetween(DB::raw("CAST(json_extract(`users`.`preferences`, '$._height') AS UNSIGNED)"), [$request['h_from'], $request['h_to']]);
+        }
+        if (isset($request['_skin'])) {
+            $users->where('users.preferences->_skin', $request['_skin']);
+        }
+        if (isset($request['dress'])) {
+            $users->where('users.preferences->dress', $request['dress']);
+        }
+        if (isset($request['hair'])) {
+            $users->where('users.preferences->hair', $request['hair']);
+        }
+        if (isset($request['eyes'])) {
+            $users->where('users.preferences->eyes', $request['eyes']);
+        }
 
         return $users->count('id');
     }
@@ -70,6 +88,25 @@ class ContestService
         if (isset($request['city'])) {
             $sum->whereIn('city', $request['city']);
         }
+        if (isset($request['age_from'])) {
+            $sum->whereBetween('users.preferences->_age', [$request['age_from'], $request['age_to']]);
+        }
+        if (isset($request['h_from'])) {
+            $sum->whereBetween(DB::raw("CAST(json_extract(`users`.`preferences`, '$._height') AS UNSIGNED)"), [$request['h_from'], $request['h_to']]);
+        }
+        if (isset($request['_skin'])) {
+            $sum->where('users.preferences->_skin', $request['_skin']);
+        }
+        if (isset($request['dress'])) {
+            $sum->where('users.preferences->dress', $request['dress']);
+        }
+        if (isset($request['hair'])) {
+            $sum->where('users.preferences->hair', $request['hair']);
+        }
+        if (isset($request['eyes'])) {
+            $sum->where('users.preferences->eyes', $request['eyes']);
+        }
+
 
         return $sum->groupBy('users.id')
             ->pluck('total')
@@ -173,7 +210,7 @@ class ContestService
             ->leftJoin('contests', 'contests.id', '=', 'contest_voting_results.contest_id')
             ->leftJoin('portfolios', 'portfolios.user_id', 'users.id')
             ->leftJoin('configures', 'configures.user_id', 'users.id')
-            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'users.name as user_name', 'users.username as username',
+            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'users.name as user_name', 'users.id as uid', 'users.username as username',
                 DB::raw('SUM(vote_count) as total_votes'), 'portfolios.file_name', 'portfolios.ext', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'configures.key as config_key', 'configures.value as config_val')
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
@@ -194,6 +231,7 @@ class ContestService
                     'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
                     'winners' => $group->take(3)->map(function ($item) {
                         return [
+                            'user_id' => $item->uid,
                             'username' => $item->username,
                             'user_name' => $item->user_name,
                             'user_bank' => $item->config_key == 'bank' ? $item->config_val : 'xxxxxxxxx',

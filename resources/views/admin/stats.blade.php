@@ -4,7 +4,7 @@
     <div class="row">
         <h4 class="fs-4 fw-bold mb-3">Stats</h4>
 
-        <div class="col-md-2 border sec-box">
+        <div class="col-md-3 border sec-box">
             <form action="{{route('admin.stats.search')}}" method="post">
                 @csrf
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
@@ -51,6 +51,73 @@
 
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
                     <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Age(in months)</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" name="age_from" placeholder="" value="{{request('age_from') ?? ''}}">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" name="age_to" placeholder="" value="{{request('age_to') ?? ''}}">
+                    </div>
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Height(m)</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" name="h_from" placeholder="" value="{{request('h_from') ?? ''}}">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" name="h_to" placeholder="" value="{{request('h_to') ?? ''}}">
+                    </div>
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Skin color</h5>
+                <div class="mb-2">
+                    <select class="form-control" name="_skin">
+                        <option value="">Choose</option>
+                        <option {{request('_skin') == "White" ? 'selected' : ''}}>White</option>
+                        <option {{request('_skin') == "Brown" ? 'selected' : ''}}>Brown</option>
+                        <option {{request('_skin') == "Black" ? 'selected' : ''}}>Black</option>
+                    </select>
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Dress size</h5>
+                <div class="mb-2">
+                    <select class="form-control" name="dress">
+                        <option value="">Choose</option>
+                        <option {{request('dress') == "Small" ? 'selected' : ''}}>Small</option>
+                        <option {{request('dress') == "Medium" ? 'selected' : ''}}>Medium</option>
+                        <option {{request('dress') == "Large" ? 'selected' : ''}}>Large</option>
+                        <option {{request('dress') == "XL" ? 'selected' : ''}}>XL</option>
+                        <option {{request('dress') == "XXL" ? 'selected' : ''}}>XXL</option>
+                        <option {{request('dress') == "XXXL" ? 'selected' : ''}}>XXXL</option>
+                    </select>
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Hair color</h5>
+                <div class="mb-2">
+                    <select class="form-control" name="hair">
+                        <option value="">Choose</option>
+                        <option {{request('hair') == "White" ? 'selected' : ''}}>White</option>
+                        <option {{request('hair') == "Black" ? 'selected' : ''}}>Black</option>
+                        <option {{request('hair') == "Blond" ? 'selected' : ''}}>Blond</option>
+                        <option {{request('hair') == "Color" ? 'selected' : ''}}>Color</option>
+                    </select>
+                </div>
+
+                <h5 class="fs-6 fw-bold text-black-50 mt-3">Eyes color</h5>
+                <div class="mb-2">
+                    <select class="form-control" name="eyes">
+                        <option value="">Choose</option>
+                        <option {{request('eyes') == "Blue" ? 'selected' : ''}}>Blue</option>
+                        <option {{request('eyes') == "Brown" ? 'selected' : ''}}>Brown</option>
+                        <option {{request('eyes') == "Green" ? 'selected' : ''}}>Green</option>
+                        <option {{request('eyes') == "Hazel" ? 'selected' : ''}}>Hazel</option>
+                        <option {{request('eyes') == "Black" ? 'selected' : ''}}>Black</option>
+                        <option {{request('eyes') == "Purple" ? 'selected' : ''}}>Purple</option>
+                    </select>
                 </div>
 
 

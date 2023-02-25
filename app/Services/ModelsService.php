@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ModelsService
 {
@@ -24,6 +25,24 @@ class ModelsService
         }
         if (isset($queryArray['civil'])) {
             $users->whereIn('civil', $queryArray['civil']);
+        }
+        if (isset($queryArray['age_from'])) {
+            $users->whereBetween('users.preferences->_age', [$queryArray['age_from'], $queryArray['age_to']]);
+        }
+        if (isset($queryArray['h_from'])) {
+            $users->whereBetween(DB::raw("CAST(json_extract(`users`.`preferences`, '$._height') AS UNSIGNED)"), [$queryArray['h_from'], $queryArray['h_to']]);
+        }
+        if (isset($queryArray['_skin'])) {
+            $users->where('users.preferences->_skin', $queryArray['_skin']);
+        }
+        if (isset($queryArray['dress'])) {
+            $users->where('users.preferences->dress', $queryArray['dress']);
+        }
+        if (isset($queryArray['hair'])) {
+            $users->where('users.preferences->hair', $queryArray['hair']);
+        }
+        if (isset($queryArray['eyes'])) {
+            $users->where('users.preferences->eyes', $queryArray['eyes']);
         }
         // end save filter -----------------
 

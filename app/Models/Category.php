@@ -44,6 +44,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'preferences' => 'json',
+    ];
+
     public function contests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Contest::class);
