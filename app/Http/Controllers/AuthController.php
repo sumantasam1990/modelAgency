@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -22,11 +23,13 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        Cache::clear();
+
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
             if($request->email == 'admin@admin.com')
             {
-                return redirect()->intended('admin/contest/dashboard');
+                return redirect()->intended('admin/stats');
             }
             else
             {
@@ -108,6 +111,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        Cache::clear();
         return redirect(route('login'));
     }
 }

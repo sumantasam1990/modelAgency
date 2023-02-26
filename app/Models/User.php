@@ -234,4 +234,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function state_name(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(State::class, 'id', 'state');
+    }
+
+    public function city_name(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(City::class, 'id', 'city');
+    }
 }

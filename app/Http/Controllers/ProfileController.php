@@ -11,7 +11,7 @@ class ProfileController extends Controller
 {
     public function profile($username)
     {
-        $data = User::with(['portfolio', 'portfolios'])->where('username', $username)->first();
+        $data = User::with(['portfolio', 'portfolios', 'state_name'])->where('username', $username)->first();
 
         $userid_get = User::where('username', $username)->select('id')->first();
         $userId = $userid_get->id; // specify the user ID here

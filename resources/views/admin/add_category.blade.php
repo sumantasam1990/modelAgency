@@ -27,20 +27,20 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label>Age(month)</label>
+                                        <label>Age(in month)</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="age_from" class="form-control" placeholder="eg. 18">
+                                                <input type="text" name="age_from" class="form-control" placeholder="">
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="age_to" class="form-control" placeholder="eg. 35">
+                                                <input type="text" name="age_to" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label>Height(m)</label>
                                         <div class="row">
@@ -53,18 +53,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <div class="mb-3">
                                         <label>Dress Size</label>
                                         <div class="row">
-                                            <div class="col-6">
-                                                <input type="text" name="dress_size_from" class="form-control" placeholder="">
+                                            <div class="col-10">
+                                                <select class="form-control" name="dress_size[]" multiple>
+                                                    <option value="">Choose</option>
+                                                    <option {{request('dress_size_from') == "Small" ? 'selected' : ''}}>Small</option>
+                                                    <option {{request('dress_size_from') == "Medium" ? 'selected' : ''}}>Medium</option>
+                                                    <option {{request('dress_size_from') == "Large" ? 'selected' : ''}}>Large</option>
+                                                    <option {{request('dress_size_from') == "XL" ? 'selected' : ''}}>XL</option>
+                                                    <option {{request('dress_size_from') == "XXL" ? 'selected' : ''}}>XXL</option>
+                                                    <option {{request('dress_size_from') == "XXXL" ? 'selected' : ''}}>XXXL</option>
+                                                </select>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="dress_size_to" class="form-control" placeholder="">
-                                            </div>
+
                                         </div>
                                     </div>
+
+{{--                                    <input type="checkbox" name="all_filter" value="all_filter"> <strong>All</strong>--}}
                                 </div>
 
                                 <div class="col-md-4">

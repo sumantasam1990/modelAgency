@@ -39,6 +39,8 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::post('webhook/payment', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('webhook.payment');
     Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success');
     Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
+    Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo');
+    Route::get('mark/contest/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
 
 
 

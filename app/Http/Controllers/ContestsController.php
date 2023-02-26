@@ -9,6 +9,7 @@ use App\Services\ContestService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class ContestsController extends Controller
@@ -20,6 +21,7 @@ class ContestsController extends Controller
 
     public function my_contests(ContestService $contestService): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
+       // Cache::delete('photo-user-' . Auth::user()->id);
         $myContests = $contestService->userContestPhoto();
         $results_s = $contestService->my_contests();
 

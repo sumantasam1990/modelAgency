@@ -8,29 +8,34 @@ use App\Models\portfolio;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class portfolioController extends Controller
 {
     public function index()
     {
-        $data = User::with('portfolios', 'interest')->where('id', Auth::user()->id)->first();
+        $minutes = 86400;
+        $data = Cache::remember('photo-user-' . Auth::id(), $minutes, function () {
+            return User::with('portfolios')->where('id', Auth::user()->id)->first();
+        });
+        //$data = User::with('portfolios')->where('id', Auth::user()->id)->first();
 
-        $links_jobs = Link::where('user_id', Auth::user()->id)->where('key', 'jobs')->get();
-        $links_awards = Link::where('user_id', Auth::user()->id)->where('key', 'awards')->get();
-        $links_dance = Link::where('user_id', Auth::user()->id)->where('key', 'dance')->get();
-        $links_music = Link::where('user_id', Auth::user()->id)->where('key', 'music')->get();
-        $links_drama = Link::where('user_id', Auth::user()->id)->where('key', 'drama')->get();
-        $links_sport = Link::where('user_id', Auth::user()->id)->where('key', 'sport')->get();
+//        $links_jobs = Link::where('user_id', Auth::user()->id)->where('key', 'jobs')->get();
+//        $links_awards = Link::where('user_id', Auth::user()->id)->where('key', 'awards')->get();
+//        $links_dance = Link::where('user_id', Auth::user()->id)->where('key', 'dance')->get();
+//        $links_music = Link::where('user_id', Auth::user()->id)->where('key', 'music')->get();
+//        $links_drama = Link::where('user_id', Auth::user()->id)->where('key', 'drama')->get();
+//        $links_sport = Link::where('user_id', Auth::user()->id)->where('key', 'sport')->get();
 
         return view('portfolio.index', [
             'data' => $data,
-            'links_jobs' => $links_jobs,
-            'links_awards' => $links_awards,
-            'links_dance' => $links_dance,
-            'links_music' => $links_music,
-            'links_drama' => $links_drama,
-            'links_sport' => $links_sport
+//            'links_jobs' => $links_jobs,
+//            'links_awards' => $links_awards,
+//            'links_dance' => $links_dance,
+//            'links_music' => $links_music,
+//            'links_drama' => $links_drama,
+//            'links_sport' => $links_sport
         ]);
     }
 
@@ -39,6 +44,8 @@ class portfolioController extends Controller
         $this->validate($request, [
             'image' => 'required|image|mimes:jpg,jpeg,webp,png|max:1024',
         ]);
+
+        Cache::delete('photo-user-' . Auth::user()->id);
 
         if ($request->has('image')) {
 
@@ -57,6 +64,12 @@ class portfolioController extends Controller
                     $image->ext = $request->image->extension();
                     $image->user_id = Auth::user()->id;
                     $image->save();
+
+                    if ($images === 0)
+                    {
+                        portfolio::where('id', $image->id)
+                            ->update(['profile_photo' => 1, 'contest_photo' => 1]);
+                    }
 
                     return back()->with('msg', 'Your photo has been uploaded successfully.');
                 } else {
@@ -107,6 +120,7 @@ class portfolioController extends Controller
     public function delete_photo($id): string|\Illuminate\Http\RedirectResponse
     {
         try {
+            Cache::delete('photo-user-' . Auth::user()->id);
             $avatar = portfolio::findOrFail($id);
             if(Storage::delete('public/image/' . $avatar->file_name . '.' . $avatar->ext)) {
                 $avatar->delete();
@@ -130,5 +144,32 @@ class portfolioController extends Controller
         );
 
         return back()->with('msg', 'Interest added successfully.');
+    }
+
+    public function mark_profile_photo(int $id): \Illuminate\Http\RedirectResponse
+    {
+        Cache::delete('photo-user-' . Auth::user()->id);
+
+        portfolio::whereUserId(Auth::user()->id)
+            ->update(['profile_photo' => 0]);
+
+        portfolio::whereId($id)
+            ->update(['profile_photo' => 1]);
+
+        return redirect()->back();
+    }
+
+    public function mark_contest_photo(int $id): \Illuminate\Http\RedirectResponse
+    {
+        Cache::delete('photo-user-' . Auth::user()->id);
+        Cache::delete('user-' . Auth::user()->id);
+
+        portfolio::whereUserId(Auth::user()->id)
+            ->update(['contest_photo' => 0]);
+
+        portfolio::whereId($id)
+            ->update(['contest_photo' => 1]);
+
+        return redirect()->back();
     }
 }

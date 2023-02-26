@@ -15,9 +15,24 @@
                         <div class="sec-box mb-3">
                             <div class="d-flex">
                                 <div class="flex-grow-1 ms-3">
-                                    <h4>{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
-                                    This contest is starting on <span class="fw-bold">{{$contest['start']}}</span>.
+                                    <h4 class="fw-bold">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
+                                    <p>End contest: <span class="fw-bold">{{$contest['end']}}</span>.</p>
                                     <hr />
+
+                                    <div class="d-flex flex-row justify-content-around align-content-center">
+                                        <div class="fs-5 fw-bold">
+                                            <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_first_prize']}}
+                                            <p class="fs-6 text-black-50">First Prize</p>
+                                        </div>
+                                        <div class="fs-5 fw-bold">
+                                            <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_second_prize']}}
+                                            <p class="fs-6 text-black-50">Second Prize</p>
+                                        </div>
+                                        <div class="fs-5 fw-bold">
+                                            <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_third_prize']}}
+                                            <p class="fs-6 text-black-50">Third Prize</p>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -31,7 +46,7 @@
             <h4 class="fw-bold fs-4 mb-3">Contest Photo</h4>
             <div class="row">
                 <div class="col-md-6">
-                    <img src="{{asset('storage/image/' . $myContests->portfolio->file_name . '.' . $myContests->portfolio->ext)}}" alt="" class="img-fluid img-thumbnail image">
+                    <img src="{{asset('storage/image/' . $myContests->portfolio_without_profile_photo->file_name . '.' . $myContests->portfolio_without_profile_photo->ext)}}" alt="" class="img-fluid img-thumbnail image">
                 </div>
             </div>
         </div>

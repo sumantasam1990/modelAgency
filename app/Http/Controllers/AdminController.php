@@ -37,12 +37,14 @@ class AdminController extends Controller
         $category->age = $request->age_from . ',' . $request->age_to;
         $category->height = $request->height_from . ',' . $request->height_to;
         $category->gender = implode(',', $request->gender);
-        $category->dress_size = $request->dress_size_from . ',' . $request->dress_size_to;
+        $category->dress_size = implode(',', $request->dress_size);
 
         //save into preferences column into json format
         $category->preferences = [
             'gender' => $request->gender,
-            'dress_size' => $request->dress_size_fro . ',' . $request->dress_size_to
+            'dress_size' => $request->dress_size,
+            'age' => $request->age_from . ',' . $request->age_to,
+            'height' => $request->height_from . ',' . $request->height_to,
         ];
 
         $category->save();
@@ -80,19 +82,39 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
-        try {
-            $category = Category::where('id', $request->category)->first();
+            $category = Category::where('id', '=', $request->category)->first();
+            $age = [0,2000];
+            $height = [0,5000];
 
-            $user_ids = User::with(['portfolio' => function($query) {
-                $query->select('user_id', 'file_name', 'ext');
-            }])
-                ->select('id')
-                ->whereIn('gender', explode(',', $category->gender))
-                ->whereIn('civil', ['single'])
-                ->whereHas('portfolio', function ($query) {
-                    $query->whereNotNull('file_name');
-                })
-                ->get();
+            if (isset($category->preferences['age'])) {
+                $age = explode(',', $category->preferences['age']);
+            }
+            if (isset($category->preferences['height'])) {
+                $height = explode(',', $category->preferences['height']);
+            }
+
+            $age_from = (int)$age[0] ?? 0;
+            $age_to = (int)$age[1] ?? 100;
+
+            $height_from = $height[0] ?? 0;
+            $height_to = $height[1] ?? 5000;
+
+        $user_ids = User::with(['portfolio' => function($query) {
+            $query->select('user_id', 'file_name', 'ext');
+        }])
+            ->select('id')
+            ->whereIn('gender', $category->preferences['gender'])
+            ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._age")'), [$age_from, $age_to])
+            ->where(function($q) use ($category) {
+                foreach($category->preferences['dress_size'] as $size) {
+                    $q->orWhereJsonContains('preferences->dress', $size);
+                }
+            })
+            ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(int)$height_from, (int)$height_to])
+            ->whereHas('portfolio', function ($query) {
+                $query->whereNotNull('file_name');
+            })
+            ->get();
 
             if(count($user_ids) > 1)
             {
@@ -119,9 +141,7 @@ class AdminController extends Controller
 
                 return redirect()->back();
             }
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
+
     }
 
     public function contest_delete($id)

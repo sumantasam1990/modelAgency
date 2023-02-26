@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
@@ -133,17 +134,30 @@ class ContestService
         return ContestParticipants::distinct('user_id')->count('id');
     }
 
-    public function userContestPhoto(): object
+    public function userContestPhoto()
     {
-        return User::with(['portfolio_without_profile_photo' => function($query) {
-            $query->where('contest_photo', 1);
-        }])->where('id', \auth()->user()->id)->first();
+        $minutes = 86400;
+        return Cache::remember('user-' . Auth::id(), 120, function () {
+            return User::where('id', Auth::id())
+                ->whereHas('portfolio_without_profile_photo', function ($query) {
+                    $query->where('contest_photo', 1);
+                })
+                ->with(['portfolio_without_profile_photo' => function ($query) {
+                    $query->where('contest_photo', 1);
+                }])
+                ->first();
+        });
     }
     public function getContest(): \Illuminate\Database\Eloquent\Collection|array
     {
         $contestParticipants = ContestParticipants::where('user_id', Auth::user()->id)->select('contest_id')->get();
         $getAlreadyVotedUsers = ContestVotingResult::where('user_id', Auth::user()->id)->select('contest_id')->get();
-        return Contest::with('users.portfolio')->whereNotIn('id', $getAlreadyVotedUsers)->whereNotIn('id', $contestParticipants)->take(1)->get();
+        return Contest::with('users.portfolio')
+            ->whereNotIn('id', $getAlreadyVotedUsers)
+            ->whereNotIn('id', $contestParticipants)
+            ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->take(1)
+            ->get();
     }
 
     public function vote($contestId, $modelId)
@@ -192,7 +206,11 @@ class ContestService
             return [
                 'contest_id' => $group->id,
                 'contest_name' => $group->title,
+                'contest_first_prize' => $group->prize_first,
+                'contest_second_prize' => $group->prize_second,
+                'contest_third_prize' => $group->prize_third,
                 'start' => Carbon::parse($group->start)->format('jS F Y'),
+                'end' => Carbon::parse($group->end)->format('jS F Y'),
             ];
         });
     }
@@ -219,6 +237,7 @@ class ContestService
             ->groupBy('contest_id', 'whom_vote')
             ->orderByDesc('contest_id')
             ->orderByDesc('total_votes')
+            ->take(10)
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {

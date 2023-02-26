@@ -1,7 +1,7 @@
 @extends('header')
 @section('content')
     <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
             <div class="sec-box">
                 <h4 class="fw-bold fs-4 mb-1">Photos</h4>
                 <p class="text-black-50 mb-3 fs-6">Max 12 photos you can upload. Only JPEG, JPG and PNG format are accepted.</p>
@@ -11,8 +11,8 @@
                     <input type="file" name="image" class="form-control" onchange="showPreview(event)">
                     <small class="fw-bold text-black-50">* Try to upload 300X300 photo for better ranking.</small>
 
-                    <h4 class="fs-6 fw-bold text-black-50 p-1">Preview</h4>
-                    <div class="preview">
+                    <h4 class="fs-6 fw-bold text-black-50 p-1 text-center">Preview</h4>
+                    <div class="preview mx-auto">
                         <img id="file-preview">
                     </div>
 
@@ -23,14 +23,21 @@
 
 
 
-                <div class="uploaded-images mt-5">
+                <div class="uploaded-images mt-5 mb-5">
                     <div class="row">
                         @foreach($data->portfolios as $image)
                         <div class="col-md-3 mb-2">
                             <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img" alt="">
                             <div class="d-grid gap-2 col-12 mt-2">
-                                <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-secondary btn-sm">
-                                    <i class="fas fa-trash"></i> Delete
+                                @if($image->profile_photo == 0)
+                                    <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark">Mark it profile photo</a>
+                                @endif
+
+                                @if($image->contest_photo == 0)
+                                    <a href="{{route('mark.contest.photo', [$image->id])}}" class="btn btn-light">Mark it contest photo</a>
+                                @endif
+                                <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger ">
+                                    <i class="fas fa-trash"></i>
                                 </a>
                             </div>
                         </div>

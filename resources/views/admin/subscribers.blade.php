@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="col-md-2 border sec-box">
+        <div class="col-md-3 border sec-box">
             <h4 class="fs-5 text-black-50 fw-bold mb-3">Filter</h4>
             <form action="{{route('admin.subscribers.search')}}" method="get">
                 @csrf
@@ -51,7 +51,7 @@
             </form>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h4 class="fs-4 fw-bold mb-3">Subscribers</h4>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped caption-top">
@@ -62,7 +62,7 @@
                         <th>user email</th>
                         <th>Gender</th>
                         <th>Start date</th>
-                        <th>End date</th>
+                        <th>Renewal date</th>
                         <th>Amount (USD)</th>
                     </tr>
                     </thead>
@@ -72,8 +72,8 @@
                             <td class="fw-bold">{{$d->name}}</td>
                             <td class="fw-bold">{{$d->email}}</td>
                             <td class="fw-bold">{{$d->gender}}</td>
-                            <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->start_date)->format('Y-m-d')}}</td>
-                            <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->end_date)->format('Y-m-d')}}</td>
+                            <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->start_date)->format('jS F Y')}}</td>
+                            <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->end_date)->format('jS F Y')}}</td>
                             <td class="fw-bold text-danger">${{number_format($d->payment->amount, 2)}}</td>
                         </tr>
                     @endforeach
