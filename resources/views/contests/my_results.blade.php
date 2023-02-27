@@ -23,7 +23,7 @@
 
                                     <div class="row mt-4">
                                         @foreach($contest['winners'] as $winner)
-                                            <div class="col-md-4 mx-auto">
+                                            <div class="col-md-12 mx-auto">
                                                 <a href="{{route('profile', [$winner['username']])}}">
                                                     <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">
                                                 </a>

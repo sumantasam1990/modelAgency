@@ -38,6 +38,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereDressSize($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
+ * @property array|null $preferences
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contests
+ * @method static \Illuminate\Database\Eloquent\Builder|Category wherePreferences($value)
  * @mixin \Eloquent
  */
 class Category extends Model

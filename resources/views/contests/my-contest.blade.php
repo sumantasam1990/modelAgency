@@ -45,8 +45,11 @@
         <div class="col-md-4">
             <h4 class="fw-bold fs-4 mb-3">Contest Photo</h4>
             <div class="row">
-                <div class="col-md-6">
-                    <img src="{{asset('storage/image/' . $myContests->portfolio_without_profile_photo->file_name . '.' . $myContests->portfolio_without_profile_photo->ext)}}" alt="" class="img-fluid img-thumbnail image">
+                <div class="col-md-12">
+                    <img src="{{asset('storage/image/' . $myContests->portfolio_without_profile_photo->file_name . '.' . $myContests->portfolio_without_profile_photo->ext)}}" alt="" class="img-fluid img-thumbnail image profile-photo">
+                    <p class="mt-2">
+                        <a href="{{route('portfolio')}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; Change Contest Photo</a>
+                    </p>
                 </div>
             </div>
         </div>

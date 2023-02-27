@@ -64,6 +64,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user_participants
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $voting_results
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestOption> $options
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user_participants
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $voting_results
  * @mixin \Eloquent
  */
 class Contest extends Model

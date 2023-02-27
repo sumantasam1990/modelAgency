@@ -10,9 +10,12 @@ class ModelsService
     public function alphaOrder($request, $letter = '')
     {
         $users = User::with(['portfolioWithContestPhoto','portfolios', 'interest', 'modelInfos', 'model_info_love', 'portfolio'])
+            ->leftJoin('model_infos', function($join) {
+                $join->on('users.id', '=', 'model_infos.user_id')
+                    ->where('model_infos.key', '=', 'rate');
+            })
             ->where('name', 'like', $letter . '%')
-            ->where('email', '!=', 'admin@admin.com')
-            ->orderBy('name');
+            ->where('email', '!=', 'admin@admin.com');
 
         if (isset($request['save_filter'])) {
             $queryString = $request['save_filter'];
@@ -66,6 +69,9 @@ class ModelsService
             });
         }
 
+        $users->select('users.*', DB::raw('IFNULL(model_infos.value, 0) as rating'))
+            ->orderByDesc('rating');
+
         $users = $users->paginate(1);
 
         if(count($users) === 0) {
@@ -114,12 +120,12 @@ class ModelsService
                 'wp' => $user->wp,
                 'love' => $user->model_info_love['value'] ?? '',
                 'portfolio' => [
-                    'file_name' => $user->portfolio['file_name'],
-                    'ext' => $user->portfolio['ext'],
+                    'file_name' => $user->portfolio['file_name'] ?? '',
+                    'ext' => $user->portfolio['ext'] ?? '',
                 ],
                 'portfolioWithContestPhoto' => [
-                    'file_name' => $user->portfolioWithContestPhoto['file_name'],
-                    'ext' => $user->portfolioWithContestPhoto['ext'],
+                    'file_name' => $user->portfolioWithContestPhoto['file_name'] ?? '',
+                    'ext' => $user->portfolioWithContestPhoto['ext'] ?? '',
                 ],
                 'portfolios' => $portfolios,
                 'infos' => $infos,

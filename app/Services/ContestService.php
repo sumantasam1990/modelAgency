@@ -237,9 +237,9 @@ class ContestService
             ->groupBy('contest_id', 'whom_vote')
             ->orderByDesc('contest_id')
             ->orderByDesc('total_votes')
-            ->take(10)
             ->get()
             ->groupBy('contest_id')
+            ->take(10)
             ->map(function ($group) {
                 return [
                     'contest_id' => $group->first()->contest_id,

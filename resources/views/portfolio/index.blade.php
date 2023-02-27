@@ -1,48 +1,53 @@
 @extends('header')
 @section('content')
     <div class="row">
-        <div class="col-md-8 mx-auto">
+        <div class="col-12">
+            <h4 class="fw-bold fs-4 mb-2">Photos*</h4>
+        </div>
+        <div class="col-md-6">
             <div class="sec-box">
-                <h4 class="fw-bold fs-4 mb-1">Photos</h4>
-                <p class="text-black-50 mb-3 fs-6">Max 12 photos you can upload. Only JPEG, JPG and PNG format are accepted.</p>
+                <p class="text-black-50 mb-1 fs-6">* Max 12 photos you can upload. Only JPEG, JPG and PNG format are accepted.</p>
+                <p class="fw-bold text-black mb-3">* Try to upload 300X300 center photo for better ranking and visibility.</p>
                 <form action="{{route('upload.image')}}" method="post" enctype="multipart/form-data">
                     @csrf
 
-                    <input type="file" name="image" class="form-control" onchange="showPreview(event)">
-                    <small class="fw-bold text-black-50">* Try to upload 300X300 photo for better ranking.</small>
+                    <input type="file" name="image" id="fileInput" class="form-control d-none" onchange="showPreview(event)">
+                    <div class="d-grid gap-2 mx-auto col-5 mt-3">
+                        <button type="button" onclick="document.getElementById('fileInput').click()" href="" class="btn btn-secondary btn-lg"><i class="fa-solid fa-camera"></i> &nbsp; Add photo</button>
+                    </div>
 
-                    <h4 class="fs-6 fw-bold text-black-50 p-1 text-center">Preview</h4>
-                    <div class="preview mx-auto">
+                    <h4 class="fs-6 fw-bold text-black-50 p-1 text-center preview-title" id="preview-title" style="display: none;">Preview</h4>
+                    <div class="preview mx-auto" id="preview" style="display: none;">
                         <img id="file-preview">
                     </div>
 
                     <div class="d-grid gap-2 mx-auto col-4 mt-3">
-                        <button type="submit" class="btn btn-dark">Upload Photo</button>
+                        <button type="submit" class="btn btn-dark btn-lg"><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Upload</button>
                     </div>
                 </form>
+            </div>
+        </div>
 
-
-
-                <div class="uploaded-images mt-5 mb-5">
-                    <div class="row">
-                        @foreach($data->portfolios as $image)
-                        <div class="col-md-3 mb-2">
-                            <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img" alt="">
+        <div class="col-md-6">
+            <div class="uploaded-images mb-5">
+                <div class="row">
+                    @foreach($data->portfolios as $image)
+                        <div class="col-md-4 mb-2">
+                            <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img profile-photo" alt="">
                             <div class="d-grid gap-2 col-12 mt-2">
                                 @if($image->profile_photo == 0)
-                                    <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark">Mark it profile photo</a>
+                                    <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark btn-sm">Mark it profile photo</a>
                                 @endif
 
                                 @if($image->contest_photo == 0)
-                                    <a href="{{route('mark.contest.photo', [$image->id])}}" class="btn btn-light">Mark it contest photo</a>
+                                    <a href="{{route('mark.contest.photo', [$image->id])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
                                 @endif
-                                <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger ">
-                                    <i class="fas fa-trash"></i>
+                                <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Delete
                                 </a>
                             </div>
                         </div>
-                        @endforeach
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -129,11 +134,18 @@
 @endsection
 
 <script>
+    // document.getElementById('fileInput').addEventListener('change', function() {
+    //     var file = this.files[0];
+    //     // Do something with the selected file
+    // });
+
     function showPreview(event){
         if(event.target.files.length > 0){
             var src = URL.createObjectURL(event.target.files[0]);
             var preview = document.getElementById("file-preview");
             preview.src = src;
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("preview-title").style.display = "block";
             preview.style.display = "block";
         }
     }

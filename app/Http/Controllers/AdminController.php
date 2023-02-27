@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminNote;
+use App\Models\BankTransfer;
 use App\Models\Category;
+use App\Models\Configure;
 use App\Models\Contest;
 use App\Models\ContestParticipants;
 use App\Models\Faq;
@@ -147,7 +149,6 @@ class AdminController extends Controller
     public function contest_delete($id)
     {
         Contest::where('id', $id)->delete();
-
         return redirect()->back();
     }
 
@@ -228,7 +229,7 @@ class AdminController extends Controller
         return view('admin.stats', compact('data'));
     }
 
-    public function models(Request $request, ModelsService $modelsService, int $id = 0): Factory|View|Application
+    public function models(Request $request, ModelsService $modelsService, int $id = 0)
     {
         $data = [];
         $admin_note = [];
@@ -241,6 +242,8 @@ class AdminController extends Controller
                 $admin_note = AdminNote::whereToUserId($data[0]['uid'])
                     ->first();
             }
+
+            //return $data;
         }
 
         return view('admin.models', compact('data', 'request', 'saveFilters', 'admin_note'));
@@ -317,23 +320,39 @@ class AdminController extends Controller
 
     public function subscribers(Request $request)
     {
-        $users = User::with(['payment' => function ($query) {
-            $query->where('end_date', '>', Carbon::today()->format('Y-m-d'));
-        }])->has('payment');
-
-        if (isset($request->gender)) {
-            $users->whereIn('gender', $request->gender);
-        }
-        if (isset($request->state)) {
-            $users->where('state', $request->state);
-        }
-        if (isset($request->city)) {
-            $users->whereIn('city', $request->city);
-        }
+        $users = User::whereHas('payment', function ($query) use ($request) {
+            if (isset($request->status) && $request->status == '1') {
+                $query->where('end_date', '>', Carbon::today()->format('Y-m-d')); // active
+            } elseif (!isset($request->status)) {
+                $query->where('end_date', '>', Carbon::today()->format('Y-m-d')); // active
+            } else {
+                $query->where('end_date', '<', Carbon::today()->format('Y-m-d')); // inactive
+            }
+        })
+            ->with(['payment' => function ($query) use ($request) {
+                if (isset($request->status) && $request->status == '1') {
+                    $query->where('end_date', '>', Carbon::today()->format('Y-m-d')); // active
+                } elseif (!isset($request->status)) {
+                    $query->where('end_date', '>', Carbon::today()->format('Y-m-d')); // active
+                } else {
+                    $query->where('end_date', '<', Carbon::today()->format('Y-m-d')); // inactive
+                }
+            }])
+            ->when(isset($request->gender), function ($query) use ($request) {
+                $query->whereIn('gender', $request->gender);
+            })
+            ->when(isset($request->state), function ($query) use ($request) {
+                $query->where('state', $request->state);
+            })
+            ->when(isset($request->city), function ($query) use ($request) {
+                $query->whereIn('city', $request->city);
+            })
+            ->withSum('payment', 'amount');
 
         $payments = $users->paginate(20);
+        $totalAmount = $payments->sum('payment_sum_amount');
 
-        return view('admin.subscribers', compact('payments'));
+        return view('admin.subscribers', compact('payments', 'totalAmount'));
     }
 
     public function faqs()
@@ -358,5 +377,37 @@ class AdminController extends Controller
             ->delete();
 
         return redirect()->back();
+    }
+
+    public function winner_bank_transfer(int $contest_id, int $id)
+    {
+        $data = Configure::with('user')
+            ->where('user_id', $id)
+            ->whereIn('key', ['bank', 'pix'])
+            ->select('id', 'value', 'user_id')
+            ->get();
+
+        if (count($data) === 0) {
+            return redirect(route('admin.winners'));
+        }
+
+        return \view('admin.bank-transfer', compact('data', 'contest_id', 'id'));
+    }
+
+    public function bank_transfer_post(Request $request): \Illuminate\Routing\Redirector|Application|RedirectResponse
+    {
+        $config = Configure::where('key', $request->_bank)
+            ->where('user_id', $request->_user)
+            ->select('id', 'value')
+            ->first();
+
+        $save = new BankTransfer;
+        $save->contest_id = $request->_contest;
+        $save->user_id = $request->_user;
+        $save->status = 1;
+        $save->acc_no = $config->value;
+        $save->save();
+
+        return redirect(route('admin.winners'));
     }
 }

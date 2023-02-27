@@ -116,6 +116,18 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePaymentCardId($value)
+ * @property array|null $preferences
+ * @property-read \App\Models\City|null $city_name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Configure> $configures
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Contest> $contestes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Link> $links
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ModelInfo> $modelInfos
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\portfolio> $portfolios
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ContestVotingResult> $results
+ * @property-read \App\Models\State|null $state_name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePreferences($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -222,7 +234,7 @@ class User extends Authenticatable
 
     public function modelInfos(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ModelInfo::class)->where('key', 'rate');
+        return $this->hasMany(ModelInfo::class)->where('key', '=', 'rate');
     }
 
     public function model_info_love(): \Illuminate\Database\Eloquent\Relations\HasOne

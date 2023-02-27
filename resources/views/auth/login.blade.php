@@ -69,18 +69,21 @@
                                     <input type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>State*</label>
-                                    <input type="text" name="_state" placeholder="" class="form-control @error('_state') is-invalid @enderror">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>City*</label>
-                                    <input type="text" name="_city" placeholder="" class="form-control @error('_city') is-invalid @enderror">
-                                </div>
-                            </div>
+
+                            <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
+
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>State*</label>--}}
+{{--                                    <input type="text" name="_state" placeholder="" class="form-control @error('_state') is-invalid @enderror">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>City*</label>--}}
+{{--                                    <input type="text" name="_city" placeholder="" class="form-control @error('_city') is-invalid @enderror">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>District*</label>

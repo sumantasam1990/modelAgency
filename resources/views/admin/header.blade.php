@@ -40,7 +40,7 @@
 
                         <li class="{{ (request()->is('admin/faqs')) ? 'active' : '' }}"><a href="{{route('admin.faq')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
 
-                        <li><a href=""><i class="fa-solid fa-gear"></i> &nbsp; Config</a> </li>
+{{--                        <li><a href=""><i class="fa-solid fa-gear"></i> &nbsp; Config</a> </li>--}}
                         @auth()
                             <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
                         @else
