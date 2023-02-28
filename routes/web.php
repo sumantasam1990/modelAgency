@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\SendWinnersEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,7 +82,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('faqs', [\App\Http\Controllers\AdminController::class, 'faqs'])->name('admin.faq');
     Route::post('faq/post', [\App\Http\Controllers\AdminController::class, 'faq_post'])->name('admin.faq.post');
     Route::get('delete/faq/{id}', [\App\Http\Controllers\AdminController::class, 'faq_delete'])->name('admin.delete.faq');
-    Route::get('winner/bank/transfer/{contest_id}/{id}', [\App\Http\Controllers\AdminController::class, 'winner_bank_transfer'])->name('winner.bank.transfer');
+    Route::get('winner/bank/transfer/{contest_id}/{id}/{prize}', [\App\Http\Controllers\AdminController::class, 'winner_bank_transfer'])->name('winner.bank.transfer');
     Route::post('bank/transfer/post', [\App\Http\Controllers\AdminController::class, 'bank_transfer_post'])->name('bank.transfer.post');
 
 
@@ -90,6 +92,32 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 
 // testing query
-Route::get('/test/query', function () {
+Route::get('/test/query', function (\App\Services\ContestService $contestService) {
+    $data = $contestService->getWinnersJob();
 
+    foreach ($data as $d)
+    {
+        $i = 1;
+        foreach ($d['winners'] as $winner) {
+            $array_data = [
+                'contest_name' => $d['contest_name'],
+                'end' => $d['end'],
+                'index' => $i,
+            ];
+            Mail::to($winner['user_email'])->queue(new SendWinnersEmail($array_data));
+            $i++;
+        }
+    }
+
+    //return $data;
 });
+
+Route::get('test/mailable', function () {
+//    $users = \App\Models\User::all();
+//    return new \App\Mail\SendWinnersEmail($users);
+//    \App\Jobs\SendWinnersEmailsJob::dispatch();
+});
+
+
+
+// php artisan queue:retry uuid for failed jobs

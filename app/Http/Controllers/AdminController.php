@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendBankTransferEmail;
+use App\Mail\SendWinnersEmail;
 use App\Models\AdminNote;
 use App\Models\BankTransfer;
 use App\Models\Category;
@@ -22,6 +24,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -45,8 +48,8 @@ class AdminController extends Controller
         $category->preferences = [
             'gender' => $request->gender,
             'dress_size' => $request->dress_size,
-            'age' => $request->age_from . ',' . $request->age_to,
-            'height' => $request->height_from . ',' . $request->height_to,
+            'age' => $request->age_from != '' ? $request->age_from . ',' . $request->age_to : '',
+            'height' => $request->height_from != '' ? $request->height_from . ',' . $request->height_to : '',
         ];
 
         $category->save();
@@ -84,6 +87,7 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
+        try {
             $category = Category::where('id', '=', $request->category)->first();
             $age = [0,2000];
             $height = [0,5000];
@@ -101,22 +105,22 @@ class AdminController extends Controller
             $height_from = $height[0] ?? 0;
             $height_to = $height[1] ?? 5000;
 
-        $user_ids = User::with(['portfolio' => function($query) {
-            $query->select('user_id', 'file_name', 'ext');
-        }])
-            ->select('id')
-            ->whereIn('gender', $category->preferences['gender'])
-            ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._age")'), [$age_from, $age_to])
-            ->where(function($q) use ($category) {
-                foreach($category->preferences['dress_size'] as $size) {
-                    $q->orWhereJsonContains('preferences->dress', $size);
-                }
-            })
-            ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(int)$height_from, (int)$height_to])
-            ->whereHas('portfolio', function ($query) {
-                $query->whereNotNull('file_name');
-            })
-            ->get();
+            $user_ids = User::with(['portfolio' => function($query) {
+                $query->select('user_id', 'file_name', 'ext');
+            }])
+                ->select('id')
+                ->whereIn('gender', $category->preferences['gender'])
+                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._age")'), [$age_from, $age_to])
+                ->where(function($q) use ($category) {
+                    foreach($category->preferences['dress_size'] as $size) {
+                        $q->orWhereJsonContains('preferences->dress', $size);
+                    }
+                })
+                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(int)$height_from, (int)$height_to])
+                ->whereHas('portfolio', function ($query) {
+                    $query->whereNotNull('file_name');
+                })
+                ->get();
 
             if(count($user_ids) > 1)
             {
@@ -142,7 +146,14 @@ class AdminController extends Controller
                 ContestParticipants::insert($participants);
 
                 return redirect()->back();
+            } else
+            {
+                return 'No model found in this category.';
             }
+
+        } catch (\Throwable $th) {
+            return $th->getMessage() . ' - ' . $th->getCode();
+        }
 
     }
 
@@ -379,7 +390,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function winner_bank_transfer(int $contest_id, int $id)
+    public function winner_bank_transfer(int $contest_id, int $id, float $prize)
     {
         $data = Configure::with('user')
             ->where('user_id', $id)
@@ -391,11 +402,14 @@ class AdminController extends Controller
             return redirect(route('admin.winners'));
         }
 
-        return \view('admin.bank-transfer', compact('data', 'contest_id', 'id'));
+        return \view('admin.bank-transfer', compact('data', 'contest_id', 'id', 'prize'));
     }
 
     public function bank_transfer_post(Request $request): \Illuminate\Routing\Redirector|Application|RedirectResponse
     {
+        $user = User::whereId($request->_user)->select('id', 'email', 'name')->first();
+        $contest = Contest::whereId($request->_contest)->select('title', 'id')->first();
+
         $config = Configure::where('key', $request->_bank)
             ->where('user_id', $request->_user)
             ->select('id', 'value')
@@ -407,6 +421,16 @@ class AdminController extends Controller
         $save->status = 1;
         $save->acc_no = $config->value;
         $save->save();
+
+        if ($save->id) {
+            $array_data = [
+                'prize_money' => $request->_prize,
+                'to' => $request->_bank == 'bank' ? 'PAGSEGURO' : 'PIX',
+                'name' => $user->name,
+                'contest_name' => $contest->title,
+            ];
+            Mail::to($user->email)->queue(new SendBankTransferEmail($array_data));
+        }
 
         return redirect(route('admin.winners'));
     }

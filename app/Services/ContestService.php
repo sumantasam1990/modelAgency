@@ -215,7 +215,7 @@ class ContestService
         });
     }
 
-    public function getWinners($month = '', $year = '')
+    public function getWinners($month = '', $year = '', $today = '')
     {
         if($month == '') {
             $month = Carbon::now()->month;
@@ -223,12 +223,13 @@ class ContestService
         if($year == '') {
             $year = Carbon::now()->year;
         }
+
         return DB::table('contest_voting_results')
             ->leftJoin('users', 'users.id', '=', 'contest_voting_results.whom_vote')
             ->leftJoin('contests', 'contests.id', '=', 'contest_voting_results.contest_id')
             ->leftJoin('portfolios', 'portfolios.user_id', 'users.id')
             ->leftJoin('configures', 'configures.user_id', 'users.id')
-            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'users.name as user_name', 'users.id as uid', 'users.username as username',
+            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'contests.end as end', 'users.name as user_name', 'users.id as uid', 'users.username as username',
                 DB::raw('SUM(vote_count) as total_votes'), 'portfolios.file_name', 'portfolios.ext', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'configures.key as config_key', 'configures.value as config_val')
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
@@ -248,6 +249,7 @@ class ContestService
                     'second_prize' => $group->first()->prize_second,
                     'third_prize' => $group->first()->prize_third,
                     'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
+                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
                     'winners' => $group->take(3)->map(function ($item) {
                         return [
                             'user_id' => $item->uid,
@@ -430,6 +432,49 @@ class ContestService
 //                    })
 //                ];
 //            });
+    }
+
+    public function getWinnersJob()
+    {
+        return DB::table('contest_voting_results')
+            ->leftJoin('users', 'users.id', '=', 'contest_voting_results.whom_vote')
+            ->leftJoin('contests', 'contests.id', '=', 'contest_voting_results.contest_id')
+            ->leftJoin('portfolios', 'portfolios.user_id', 'users.id')
+            ->leftJoin('configures', 'configures.user_id', 'users.id')
+            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'contests.end as end', 'users.name as user_name', 'users.email as user_email', 'users.id as uid', 'users.username as username',
+                DB::raw('SUM(vote_count) as total_votes'), 'portfolios.file_name', 'portfolios.ext', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'configures.key as config_key', 'configures.value as config_val')
+            ->where('portfolios.profile_photo', 1)
+            ->where('contests.end', '=', Carbon::now()->subDay()->format('Y-m-d'))
+            ->where('contests.end', '<', Carbon::now()->format('Y-m-d'))
+            ->groupBy('contest_id', 'whom_vote')
+            ->orderByDesc('contest_id')
+            ->orderByDesc('total_votes')
+            ->get()
+            ->groupBy('contest_id')
+            ->map(function ($group) {
+                return [
+                    'contest_id' => $group->first()->contest_id,
+                    'contest_name' => $group->first()->contest_name,
+                    'first_prize' => $group->first()->prize_first,
+                    'second_prize' => $group->first()->prize_second,
+                    'third_prize' => $group->first()->prize_third,
+                    'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
+                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
+                    'winners' => $group->take(3)->map(function ($item) {
+                        return [
+                            'user_id' => $item->uid,
+                            'username' => $item->username,
+                            'user_name' => $item->user_name,
+                            'user_email' => $item->user_email,
+                            'user_bank' => $item->config_key == 'bank' ? $item->config_val : 'xxxxxxxxx',
+                            'user_image' => [
+                                'image_path' => $item->file_name . '.' . $item->ext,
+                            ],
+                            'total_votes' => $item->total_votes,
+                        ];
+                    })
+                ];
+            });
     }
 
 

@@ -61,6 +61,15 @@
                     $i = 1;
                     @endphp
                     @foreach($d['winners'] as $winner)
+                        @php
+                        if($i === 1) {
+                            $prize = $d['first_prize'];
+                        } elseif ($i === 2) {
+                            $prize = $d['second_prize'];
+                        } else {
+                            $prize = $d['third_prize'];
+                        }
+                        @endphp
                         <div class="d-flex flex-row justify-content-between align-items-center mb-2">
                             <div style="width: 100px;">{{$winner['user_name']}}</div>
                             <div>
@@ -90,7 +99,7 @@
                                 @if(isset($bankTransfer->acc_no) && $bankTransfer->acc_no == $winner['user_bank'])
                                     <a class="btn btn-success btn-sm" href="#"><i class="fa-solid fa-check"></i></a>
                                 @else
-                                    <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id']])}}"><i class="fa-solid fa-hourglass-start"></i></a>
+                                    <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id'], $prize])}}"><i class="fa-solid fa-hourglass-start"></i></a>
                                 @endif
                             </div>
                         </div>

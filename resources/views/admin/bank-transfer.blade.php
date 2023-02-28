@@ -9,6 +9,7 @@
                 @csrf
                 <input type="hidden" value="{{$contest_id}}" name="_contest">
                 <input type="hidden" value="{{$id}}" name="_user">
+                <input type="hidden" value="{{$prize}}" name="_prize">
 
                 <label class="mb-2">Choose a payment method*</label>
                 <select required class="form-control" name="_bank">
