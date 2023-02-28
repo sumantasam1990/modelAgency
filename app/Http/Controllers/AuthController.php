@@ -90,8 +90,8 @@ class AuthController extends Controller
         ]);
 
         $preferences = [
-            '_height' => $data['_height'],
-            '_age' => $age,
+            '_height' => (float)$data['_height'],
+            '_age' => (int)$age,
             '_skin' => $data['_skin'],
             'bust' => $data['bust'],
             'waist' => $data['waist'],

@@ -201,6 +201,7 @@ class ContestService
 
         return Contest::join('contest_participants', 'contests.id', '=', 'contest_participants.contest_id')
             ->where('contest_participants.user_id', \auth()->user()->id)
+            ->where('end', '>', Carbon::today()->format('Y-m-d'))
             ->get()
             ->map(function ($group) {
             return [
@@ -211,6 +212,7 @@ class ContestService
                 'contest_third_prize' => $group->prize_third,
                 'start' => Carbon::parse($group->start)->format('jS F Y'),
                 'end' => Carbon::parse($group->end)->format('jS F Y'),
+                'rules' => $group->rules,
             ];
         });
     }
@@ -268,22 +270,45 @@ class ContestService
 
     public function my_results()
     {
-        return DB::table('contest_voting_results')
-            ->join('users', 'users.id', '=', 'contest_voting_results.whom_vote')
-            ->join('contests', 'contests.id', '=', 'contest_voting_results.contest_id')
-            ->join('portfolios', 'portfolios.user_id', 'users.id')
-            ->select('contest_voting_results.contest_id', 'contests.title as contest_name', 'contests.start as start', 'users.name as user_name', 'users.username as username',
-                DB::raw('SUM(vote_count) as total_votes'), 'portfolios.file_name', 'portfolios.ext')
-            ->where('users.id', \auth()->user()->id)
-            ->where('portfolios.profile_photo', 1)
+        $authUserId = auth()->id();
+
+        return DB::table('contests')
+            ->leftJoin('contest_voting_results', function ($join) use ($authUserId) {
+                $join->on('contests.id', '=', 'contest_voting_results.contest_id')
+                    ->where('contest_voting_results.whom_vote', '=', $authUserId);
+            })
+            ->leftJoin('users', 'users.id', '=', 'contest_voting_results.whom_vote')
+            ->leftJoin('portfolios', function ($join) {
+                $join->on('portfolios.user_id', '=', 'users.id')
+                    ->where('portfolios.profile_photo', 1);
+            })
+            ->leftJoin('contest_participants', function ($join) use ($authUserId) {
+                $join->on('contest_participants.contest_id', '=', 'contests.id')
+                    ->where('contest_participants.user_id', '=', $authUserId);
+            })
+            ->select(
+                'contests.id as contest_id',
+                'contests.title as contest_name',
+                'contests.start as start',
+                'contests.end as end',
+                'users.name as user_name',
+                'users.id as userId',
+                'users.username as username',
+                DB::raw('SUM(vote_count) as total_votes'),
+                'portfolios.file_name',
+                'portfolios.ext',
+                DB::raw('IF(contest_participants.user_id = '.$authUserId.', true, false) as is_participant')
+            )
             ->groupBy('contest_id', 'whom_vote')
             ->orderBy('contest_id')
             ->orderByDesc('total_votes')
+            ->where('contest_participants.user_id', '=', $authUserId)
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {
                 $winners = $group->take(3)->map(function ($item) {
                     return [
+                        'userId' => $item->userId,
                         'username' => $item->username,
                         'user_name' => $item->user_name,
                         'user_image' => [
@@ -305,10 +330,13 @@ class ContestService
                     'contest_id' => $group->first()->contest_id,
                     'contest_name' => $group->first()->contest_name,
                     'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
+                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
                     'winners' => $winners,
-                    'winner' => $isWinner ? 'Won' : '',
+                    'winner' => $isWinner && $group->first()->end < Carbon::today()->format('Y-m-d') ? 'Won' : '',
+                    'is_participant' => $group->first()->is_participant
                 ];
             });
+
     }
 
     public function contestStats(int $contestId)

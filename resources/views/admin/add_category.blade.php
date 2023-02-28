@@ -32,10 +32,10 @@
                                         <label>Age(in month)</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="age_from" class="form-control" placeholder="">
+                                                <input type="text" name="age_from" class="form-control" placeholder="from">
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="age_to" class="form-control" placeholder="">
+                                                <input type="text" name="age_to" class="form-control" placeholder="to">
                                             </div>
                                         </div>
                                     </div>
@@ -45,10 +45,10 @@
                                         <label>Height(m)</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="height_from" class="form-control" placeholder="">
+                                                <input type="text" name="height_from" class="form-control" placeholder="from">
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="height_to" class="form-control" placeholder="">
+                                                <input type="text" name="height_to" class="form-control" placeholder="to">
                                             </div>
                                         </div>
                                     </div>

@@ -42,7 +42,7 @@ class AdminController extends Controller
         $category->age = $request->age_from . ',' . $request->age_to;
         $category->height = $request->height_from . ',' . $request->height_to;
         $category->gender = implode(',', $request->gender);
-        $category->dress_size = implode(',', $request->dress_size);
+        //$category->dress_size = implode(',', $request->dress_size);
 
         //save into preferences column into json format
         $category->preferences = [
@@ -87,20 +87,20 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
-        try {
+
             $category = Category::where('id', '=', $request->category)->first();
             $age = [0,2000];
             $height = [0,5000];
 
-            if (isset($category->preferences['age'])) {
+            if (isset($category->preferences['age']) && $category->preferences['age'] !='') {
                 $age = explode(',', $category->preferences['age']);
             }
-            if (isset($category->preferences['height'])) {
+            if (isset($category->preferences['height']) && $category->preferences['height'] !='') {
                 $height = explode(',', $category->preferences['height']);
             }
 
             $age_from = (int)$age[0] ?? 0;
-            $age_to = (int)$age[1] ?? 100;
+            $age_to = (int)$age[1] ?? 2000;
 
             $height_from = $height[0] ?? 0;
             $height_to = $height[1] ?? 5000;
@@ -111,16 +111,23 @@ class AdminController extends Controller
                 ->select('id')
                 ->whereIn('gender', $category->preferences['gender'])
                 ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._age")'), [$age_from, $age_to])
-                ->where(function($q) use ($category) {
-                    foreach($category->preferences['dress_size'] as $size) {
+//                ->where(function($q) use ($category) {
+//                    foreach($category->preferences['dress_size'] as $size) {
+//                        $q->orWhereJsonContains('preferences->dress', $size);
+//                    }
+//                })
+                ->when($category->preferences['dress_size'] != null, function($q, $sizes) {
+                    foreach($sizes as $size) {
                         $q->orWhereJsonContains('preferences->dress', $size);
                     }
                 })
-                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(int)$height_from, (int)$height_to])
+                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(float)$height_from, (float)$height_to])
                 ->whereHas('portfolio', function ($query) {
                     $query->whereNotNull('file_name');
                 })
                 ->get();
+
+            //return $user_ids;
 
             if(count($user_ids) > 1)
             {
@@ -151,9 +158,7 @@ class AdminController extends Controller
                 return 'No model found in this category.';
             }
 
-        } catch (\Throwable $th) {
-            return $th->getMessage() . ' - ' . $th->getCode();
-        }
+
 
     }
 
@@ -199,6 +204,7 @@ class AdminController extends Controller
     public function category_contests(ContestService $contestService): Factory|View|Application
     {
         $contests = Contest::with(['category'])
+            ->where('end', '>', Carbon::today()->format('Y-m-d'))
             ->paginate(20);
 
         return view('admin.category_contest', compact('contests'));

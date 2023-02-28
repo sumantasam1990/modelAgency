@@ -17,6 +17,24 @@
                                 <div class="flex-grow-1 ms-3">
                                     <h4 class="fw-bold">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
                                     <p>End contest: <span class="fw-bold">{{$contest['end']}}</span>.</p>
+
+                                    <div class="accordion accordion-flush bg-warning" id="accordionFlushExample">
+
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingOne-{{$contest['contest_id']}}">
+                                                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{$contest['contest_id']}}" aria-expanded="false" aria-controls="flush-collapseOne-{{$contest['contest_id']}}">
+                                                        Rules
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapseOne-{{$contest['contest_id']}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{$contest['contest_id']}}" >
+                                                    <div class="accordion-body">
+                                                        {{$contest['rules']}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                    </div>
+
                                     <hr />
 
                                     <div class="d-flex flex-row justify-content-around align-content-center">

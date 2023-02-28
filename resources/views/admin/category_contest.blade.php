@@ -20,7 +20,7 @@
                 <div class="col-md-10">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped caption-top">
-                            <caption>List of contests</caption>
+                            <caption>List of active contests</caption>
                             <thead>
                             <tr class="table-dark">
                                 <th>Title</th>

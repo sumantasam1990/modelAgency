@@ -40,9 +40,11 @@ class ContestsController extends Controller
         return view('contests.winners', compact('data', 'request'));
     }
 
-    public function my_results(ContestService $contestService): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function my_results(ContestService $contestService)
     {
         $data = $contestService->my_results();
+
+        //return $data;
 
         return view('contests.my_results', compact('data'));
     }
