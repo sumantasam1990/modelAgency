@@ -43,6 +43,8 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
     Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo');
     Route::get('mark/contest/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
+    Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
+    Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
 
 
 

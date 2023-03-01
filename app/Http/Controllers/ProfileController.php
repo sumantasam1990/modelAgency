@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
@@ -49,5 +50,58 @@ class ProfileController extends Controller
         $contestsWon = $result->count();
 
         return view('profile.profile', compact('data', 'contestsWon'));
+    }
+
+    public function edit_profile()
+    {
+        $user = User::whereId(Auth::user()->id)->first();
+        return view('profile.edit', compact('user'));
+    }
+
+    public function update_profile(Request $request)
+    {
+        $preferences = [
+            '_height' => (float)$request->_height,
+            '_age' => (int)$request->_age,
+            '_skin' => $request->_skin,
+            'bust' => $request->bust,
+            'waist' => $request->waist,
+            'hips' => $request->hips,
+            'dress' => $request->dress,
+            'hair' => $request->hair,
+            'eyes' => $request->eyes,
+            'other' => $request->other,
+            'social' => [
+                'insta' => [
+                    'label' => $request->social_insta_label,
+                    'url' => $request->social_insta_url,
+                    'follower' => $request->social_insta_follow,
+                ],
+                'tiktok' => [
+                    'label' => $request->social_tiktok_label,
+                    'url' => $request->social_tiktok_url,
+                    'follower' => $request->social_tiktok_follow,
+                ],
+                'other' => [
+                    'label' => $request->social_other_label,
+                    'url' => $request->social_other_url,
+                    'follower' => $request->social_other_follow,
+                ]
+            ]
+        ];
+
+        User::whereId(Auth::user()->id)
+            ->update([
+                'name' => $request->_name,
+                'state' => $request->state,
+                'city' => $request->city[0],
+                'district' => $request->_district,
+                'wp' => $request->_wp,
+                'gender' => $request->_gender,
+                'civil' => $request->_civil_status,
+                'preferences' => $preferences,
+            ]);
+
+        return redirect()->back();
     }
 }

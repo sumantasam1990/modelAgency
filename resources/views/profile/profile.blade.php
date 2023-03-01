@@ -18,9 +18,9 @@
                     <p class="mb-0">{{$data->civil}}</p>
 
                     <div class="d-flex mt-2">
-                        <button class="btn btn-dark mr-3">Instagram</button>
-                        <button class="btn btn-dark mr-3">Tiktok</button>
-                        <button class="btn btn-dark">Other</button>
+                        <a href="{{$data->preferences['social']['insta']['url'] ?? '#'}}" target="_blank" class="btn btn-dark mr-3">Instagram</a>
+                        <a href="{{$data->preferences['social']['tiktok']['url'] ?? '#'}}" target="_blank" class="btn btn-dark mr-3">Tiktok</a>
+                        <a href="{{$data->preferences['social']['other']['url'] ?? '#'}}" target="_blank" class="btn btn-dark">{{$data->preferences['social']['other']['label'] ?? 'Other'}}</a>
                     </div>
 
                 </div>

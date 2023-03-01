@@ -47,6 +47,8 @@
 
                         <li class="{{ (request()->is('model/contests/vote')) ? 'vote' : '' }} vote"><a href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; Vote</a> </li>
 
+                        <li class="{{ (request()->is('model/edit/profile')) ? 'active' : '' }}"><a href="{{route('edit.profile')}}"><i class="fa-solid fa-user"></i> &nbsp; Profile Info</a> </li>
+
                         <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Photos</a> </li>
 
                         <li class="{{ (request()->is('model/my/contest')) ? 'active' : '' }}"><a href="{{route('my.contests')}}"><i class="fa-solid fa-list"></i> &nbsp; My Contests</a> </li>
