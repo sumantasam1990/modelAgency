@@ -254,6 +254,14 @@ class AdminController extends Controller
         $saveFilters = SaveFilter::all();
 
         if ($request->has('s')) {
+            $request->validate([
+                'keyword' => '',
+                'filter_one' => $request->filled('keyword') ? 'nullable' : 'required',
+                'filter_two' => $request->filled('keyword') ? 'nullable' : 'required'
+            ], [
+                'filter_one.required' => 'Please choose one',
+                'filter_two.required' => 'Please choose one'
+            ]);
             $data = $modelsService->alphaOrder($request->all(), $request->query('alpha'));
             if(count($data) > 0) {
                 $admin_note = AdminNote::whereToUserId($data[0]['uid'])
@@ -439,5 +447,25 @@ class AdminController extends Controller
         }
 
         return redirect(route('admin.winners'));
+    }
+
+    public function contest_info_by_category(int $id)
+    {
+        $contests = Category::with(['contests' => function($query) use($id) {
+            $query->withCount('user_participants');
+            //$query->where('end', '>', Carbon::today()->format('Y-m-d'));
+            $query->where('category_id', $id);
+        }])
+            ->has('contests', '>', 0)
+            ->whereHas('contests', function ($query) {
+                $query->whereNotNull('title');
+            })
+            ->get();
+
+        $contests = $contests->filter(function ($category) {
+            return $category->contests->isNotEmpty();
+        });
+
+        return response()->json($contests);
     }
 }

@@ -23,7 +23,7 @@
 
                             <div class="mb-3">
                                 <label>Model Category*</label>
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="category" id="my-select">
                                     <option value="">Select category</option>
                                     @foreach($data as $d)
                                         <option value="{{$d->id}}">{{$d->title}}</option>
@@ -105,6 +105,12 @@ Users would not see all models that are participating in a contest category.</te
         </div>
         <div class="col-md-6">
 
+            <div id="my-div">
+                <ul>
+                    <!-- Display the data here -->
+                </ul>
+            </div>
+
                 @foreach($contests as $category)
                 <div class="sec-box mb-3 text-center">
                     <div class="header-box p-2 mb-2">
@@ -133,7 +139,25 @@ Users would not see all models that are participating in a contest category.</te
         </div>
     </div>
 
-
+    <script>
+        document.getElementById('my-select').addEventListener('change', function() {
+            var value = this.value;
+            if (value) {
+                fetch('/model/contest/info/category/' + value)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        var list = document.getElementById('my-div');
+                        list.innerHTML = '<ul>';
+                        data.forEach(function(user) {
+                            list.innerHTML += '<li>' + user.title + '</li>';
+                        });
+                        list.innerHTML += '</ul>';
+                    })
+                    .catch(error => console.error(error));
+            }
+        });
+    </script>
 
 
 

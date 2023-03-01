@@ -12,8 +12,11 @@
                 </div>
 
                 <div class="mb-2">
-                    <input type="search" class="form-control" name="keyword" placeholder="Search with name,email,wp..."
+                    <input type="text" class="form-control" name="keyword" placeholder="Search with name,email,wp..."
                            value="{{request('keyword') !== null ? request('keyword') : ''}}">
+                    @error('keyword')
+                    <div class="text-danger fw-bold">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
@@ -33,6 +36,9 @@
                             Registered Models
                         </label>
                     </div>
+                    @error('filter_one')
+                    <div class="text-danger fw-bold">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
@@ -57,6 +63,9 @@
                             Hidden Models
                         </label>
                     </div>
+                    @error('filter_two')
+                    <div class="text-danger fw-bold">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="bg-light p-2 mb-2" style="border-radius: 10px;">
@@ -289,16 +298,37 @@
         <div class="col-md-3 border sec-box" id="right-box" style="height: 100vh; overflow: auto;">
             <h5 class="fs-5 text-dark fw-bold mb-3">Model Info</h5>
             <div class="text-center">
-                <img
-                    src="{{asset('storage/image/' . (!empty($data) ? $data[0]['portfolioWithContestPhoto']['file_name'] : '') . '.' . (!empty($data) ? $data[0]['portfolioWithContestPhoto']['ext'] : ''))}}"
-                    alt="" class="img-fluid img-thumbnail profile-photo">
+                @if($data[0]['portfolioWithContestPhoto']['file_name'] != '')
+                    <img
+                        src="{{asset('storage/image/' . (!empty($data) ? $data[0]['portfolioWithContestPhoto']['file_name'] : '') . '.' . (!empty($data) ? $data[0]['portfolioWithContestPhoto']['ext'] : ''))}}"
+                        alt="" class="img-fluid img-thumbnail profile-photo">
+                @endif
+
+                <div class="text-center mt-2">
+                    <span class="badge bg-primary fs-6">{{$data[0]['user_subscribe'] === 1 ? 'Subscribed' : 'Registered'}}</span>
+                </div>
+                    <div class=" mt-2 text-center">
+                        <a href="{{$data[0]['preferences']['social']['insta']['url'] ?? '#'}}" target="_blank" class="btn btn-dark btn-sm ">Instagram</a>
+                        <a href="{{$data[0]['preferences']['social']['tiktok']['url'] ?? '#'}}" target="_blank" class="btn btn-dark btn-sm ">Tiktok</a>
+                        <a href="{{$data[0]['preferences']['social']['other']['url'] ?? '#'}}" target="_blank" class="btn btn-dark btn-sm">{{$data[0]['preferences']['social']['other']['label'] ?? 'Other'}}</a>
+                    </div>
+
             </div>
             <div class="info mt-2 mb-3 p-3">
                 <p class="mb-0">Name: <span class="fw-bold">{{!empty($data) ? $data[0]['name'] : ''}}</span></p>
+                <p class="mb-0">Age: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['_age'] : ''}}</span></p>
+                <p class="mb-0">Height: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['_height'] . 'm' : ''}}</span></p>
+                <p class="mb-0">Dress: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['dress'] : ''}}</span></p>
+                <p class="mb-0">Bust: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['bust'] : ''}}</span></p>
+                <p class="mb-0">Waist: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['waist'] : ''}}</span></p>
+                <p class="mb-0">Hips: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['hips'] : ''}}</span></p>
+
+
                 <p class="mb-0">Email: <span class="fw-bold">{{!empty($data) ? $data[0]['email'] : ''}}</span></p>
                 <p class="mb-0">Gender: <span class="fw-bold">{{!empty($data) ? $data[0]['gender'] : ''}}</span></p>
                 <p class="mb-0">State: <span class="fw-bold">{{!empty($data) ? $data[0]['state']: ''}}</span></p>
                 <p class="mb-0">City: <span class="fw-bold">{{!empty($data) ? $data[0]['city'] : ''}}</span></p>
+                <p class="mb-0">District: <span class="fw-bold">{{!empty($data) ? $data[0]['district'] : ''}}</span></p>
                 <p class="mb-0">Civil Stats: <span class="fw-bold">{{!empty($data) ? $data[0]['civil'] : ''}}</span></p>
                 <p class="mb-0">WhatsApp: <span class="fw-bold">{{!empty($data) ? $data[0]['wp'] : ''}}</span></p>
             </div>
@@ -350,8 +380,12 @@
 
             @if($data[0]['user_status'] === 1)
                 <i class="fa-solid fa-circle-check text-success fs-2"></i>
+                    <a href="{{route('admin.model.status', [$data[0]['uid'], 2])}}"><i
+                            class="fa-solid fa-circle-xmark text-danger "></i></a>
             @elseif($data[0]['user_status'] === 2)
                 <i class="fa-solid fa-circle-xmark text-danger fs-2"></i>
+                    <a href="{{route('admin.model.status', [$data[0]['uid'], 1])}}"><i
+                            class="fa-solid fa-circle-check text-success "></i></a>
             @else
                 <a href="{{route('admin.model.status', [$data[0]['uid'], 1])}}"><i
                         class="fa-solid fa-circle-check text-success "></i></a>

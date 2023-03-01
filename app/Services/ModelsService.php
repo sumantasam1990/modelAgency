@@ -9,7 +9,7 @@ class ModelsService
 {
     public function alphaOrder($request, $letter = '')
     {
-        $users = User::with(['portfolioWithContestPhoto','portfolios', 'interest', 'modelInfos', 'model_info_love', 'portfolio'])
+        $users = User::with(['portfolioWithContestPhoto','portfolios', 'modelInfos', 'model_info_love', 'portfolio', 'state_name', 'city_name'])
             ->leftJoin('model_infos', function($join) {
                 $join->on('users.id', '=', 'model_infos.user_id')
                     ->where('model_infos.key', '=', 'rate');
@@ -106,16 +106,19 @@ class ModelsService
                 });
             }
 
-            $interest = $user->interest['content'] ?? 'No interest found for this model.';
+            //$interest = $user->interest['content'] ?? 'No interest found for this model.';
 
             return [
                 'uid' => $user->id,
+                'preferences' => $user->preferences,
                 'user_status' => $user->status,
+                'user_subscribe' => $user->subscribed,
                 'name' => $user->name,
                 'email' => $user->email,
                 'gender' => $user->gender,
-                'city' => $user->city,
-                'state' => $user->state,
+                'city' => $user->city_name->nome,
+                'state' => $user->state_name->nome,
+                'district' => $user->district,
                 'civil' => $user->civil,
                 'wp' => $user->wp,
                 'love' => $user->model_info_love['value'] ?? '',
@@ -129,7 +132,7 @@ class ModelsService
                 ],
                 'portfolios' => $portfolios,
                 'infos' => $infos,
-                'interest' => $interest,
+                //'interest' => $interest,
                 'next_page_url' => $nextPageUrl,
                 'prev_page_url' => $prevPageUrl,
             ];

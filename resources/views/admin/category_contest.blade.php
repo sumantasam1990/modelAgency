@@ -24,8 +24,8 @@
                             <thead>
                             <tr class="table-dark">
                                 <th>Title</th>
-                                <th>Start</th>
-                                <th>End</th>
+{{--                                <th>Start</th>--}}
+{{--                                <th>End</th>--}}
                                 <th>First Prize</th>
                                 <th>Second Prize</th>
                                 <th>Third Prize</th>
@@ -36,8 +36,8 @@
                             @foreach($contests as $contest)
                                 <tr>
                                     <td class="fw-bold">{{$contest->title}}</td>
-                                    <td class="text-black-50 fw-bold">{{$contest->start}}</td>
-                                    <td class="text-black-50 fw-bold">{{$contest->end}}</td>
+{{--                                    <td class="text-black-50 fw-bold">{{$contest->start}}</td>--}}
+{{--                                    <td class="text-black-50 fw-bold">{{$contest->end}}</td>--}}
                                     <td class="text-success fw-bold">${{$contest->prize_first}}</td>
                                     <td class="text-info fw-bold">${{$contest->prize_second}}</td>
                                     <td class="text-danger fw-bold">${{$contest->prize_third}}</td>

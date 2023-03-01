@@ -45,6 +45,7 @@ Route::middleware(['auth'])->prefix('model')->group(function () {
     Route::get('mark/contest/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
     Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
+    Route::get('contest/info/category/{id}', [\App\Http\Controllers\AdminController::class, 'contest_info_by_category']);
 
 
 
