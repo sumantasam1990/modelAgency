@@ -54,8 +54,9 @@ class ProfileController extends Controller
 
     public function edit_profile()
     {
+        $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
         $user = User::whereId(Auth::user()->id)->first();
-        return view('profile.edit', compact('user'));
+        return view('profile.edit', compact('user', 'arr'));
     }
 
     public function update_profile(Request $request)
@@ -99,7 +100,16 @@ class ProfileController extends Controller
                 'wp' => $request->_wp,
                 'gender' => $request->_gender,
                 'civil' => $request->_civil_status,
-                'preferences' => $preferences,
+                'height' => (float)$request->_height,
+                'age' => (int)$request->_age,
+                'skin' => $request->_skin,
+                'bust' => $request->bust,
+                'waist' => $request->waist,
+                'hips' => $request->hips,
+                'dress' => $request->dress,
+                'hair' => $request->hair,
+                'eyes' => $request->eyes,
+                'other' => implode(',', $request->other),
             ]);
 
         return redirect()->back();

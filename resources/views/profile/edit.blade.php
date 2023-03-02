@@ -120,13 +120,9 @@
                     <div class="form-group mb-2">
                         <label>Dress Size*</label>
                         <select class="form-control" name="dress">
-                            <option value="">Choose</option>
-                            <option {{$user->preferences['dress'] == 'Small' ? 'selected' : ''}}>Small</option>
-                            <option {{$user->preferences['dress'] == 'Medium' ? 'selected' : ''}}>Medium</option>
-                            <option {{$user->preferences['dress'] == 'Large' ? 'selected' : ''}}>Large</option>
-                            <option {{$user->preferences['dress'] == 'XL' ? 'selected' : ''}}>XL</option>
-                            <option {{$user->preferences['dress'] == 'XXL' ? 'selected' : ''}}>XXL</option>
-                            <option {{$user->preferences['dress'] == 'XXXL' ? 'selected' : ''}}>XXXL</option>
+                            @foreach($arr as $a)
+                                <option {{$user->dress == $a ? 'selected' : ''}} value="{{$a}}">{{$a}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -135,10 +131,10 @@
                         <label>Hair Color(m)*</label>
                         <select class="form-control" name="hair">
                             <option value="">Choose</option>
-                            <option {{$user->preferences['hair'] == 'White' ? 'selected' : ''}}>White</option>
-                            <option {{$user->preferences['hair'] == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->preferences['hair'] == 'Blond' ? 'selected' : ''}}>Blond</option>
-                            <option {{$user->preferences['hair'] == 'Color' ? 'selected' : ''}}>Color</option>
+                            <option {{$user->hair == 'White' ? 'selected' : ''}}>White</option>
+                            <option {{$user->hair == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option {{$user->hair == 'Blond' ? 'selected' : ''}}>Blond</option>
+                            <option {{$user->hair == 'Color' ? 'selected' : ''}}>Color</option>
                         </select>
                     </div>
                 </div>
@@ -147,12 +143,12 @@
                         <label>Eyes color*</label>
                         <select class="form-control" name="eyes">
                             <option value="">Choose</option>
-                            <option {{$user->preferences['eyes'] == 'Blue' ? 'selected' : ''}}>Blue</option>
-                            <option {{$user->preferences['eyes'] == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->preferences['eyes'] == 'Green' ? 'selected' : ''}}>Green</option>
-                            <option {{$user->preferences['eyes'] == 'Hazel' ? 'selected' : ''}}>Hazel</option>
-                            <option {{$user->preferences['eyes'] == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->preferences['eyes'] == 'Purple' ? 'selected' : ''}}>Purple</option>
+                            <option {{$user->eyes == 'Blue' ? 'selected' : ''}}>Blue</option>
+                            <option {{$user->eyes == 'Brown' ? 'selected' : ''}}>Brown</option>
+                            <option {{$user->eyes == 'Green' ? 'selected' : ''}}>Green</option>
+                            <option {{$user->eyes == 'Hazel' ? 'selected' : ''}}>Hazel</option>
+                            <option {{$user->eyes == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option {{$user->eyes == 'Purple' ? 'selected' : ''}}>Purple</option>
                         </select>
                     </div>
                 </div>

@@ -30,27 +30,28 @@ class AdminController extends Controller
 {
     public function add_category()
     {
+        $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
         $data = Category::all();
-        return view('admin.add_category', compact('data'));
+        return view('admin.add_category', compact('data', 'arr'));
     }
 
     public function add_category_post(Request $request)
     {
+        $request->validate([
+            'cate_name' => 'required',
+            'gender' => 'required',
+        ], [
+            'cate_name.required' => 'Category title is required.',
+            'gender.required' => 'Please choose at least one gender.'
+        ]);
         $category = new Category;
 
         $category->title = $request->cate_name;
-        $category->age = $request->age_from . ',' . $request->age_to;
-        $category->height = $request->height_from . ',' . $request->height_to;
-        $category->gender = implode(',', $request->gender);
-        //$category->dress_size = implode(',', $request->dress_size);
 
-        //save into preferences column into json format
-        $category->preferences = [
-            'gender' => $request->gender,
-            'dress_size' => $request->dress_size,
-            'age' => $request->age_from != '' ? $request->age_from . ',' . $request->age_to : '',
-            'height' => $request->height_from != '' ? $request->height_from . ',' . $request->height_to : '',
-        ];
+        $category->_age = $request->age_from . ',' . $request->age_to;
+        $category->_height = $request->height_from . ',' . $request->height_to;
+        $category->_gender = implode(',', $request->gender);
+        $category->_dress = is_array($request->dress_size) ? implode(',', $request->dress_size) : '';
 
         $category->save();
 
@@ -87,45 +88,38 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
+        $request->validate([
+            'category' => 'required',
+            'contest_name' => 'required',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date',
+            'contest_price_first' => 'required|numeric',
+            'contest_price_second' => 'required|numeric',
+            'contest_price_third' => 'required|numeric',
+            'rules' => 'required'
+        ]);
 
             $category = Category::where('id', '=', $request->category)->first();
-            $age = [0,2000];
-            $height = [0,5000];
 
-            if (isset($category->preferences['age']) && $category->preferences['age'] !='') {
-                $age = explode(',', $category->preferences['age']);
-            }
-            if (isset($category->preferences['height']) && $category->preferences['height'] !='') {
-                $height = explode(',', $category->preferences['height']);
-            }
-
-            $age_from = (int)$age[0] ?? 0;
-            $age_to = (int)$age[1] ?? 2000;
-
-            $height_from = $height[0] ?? 0;
-            $height_to = $height[1] ?? 5000;
+            $height = explode(',', $category->_height);
+            $height_from = $height[0] ?? 0.0;
+            $height_to = $height[1] ?? 5000.0;
 
             $user_ids = User::with(['portfolio' => function($query) {
                 $query->select('user_id', 'file_name', 'ext');
             }])
                 ->select('id')
-                ->whereIn('gender', $category->preferences['gender'])
-                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._age")'), [$age_from, $age_to])
-//                ->where(function($q) use ($category) {
-//                    foreach($category->preferences['dress_size'] as $size) {
-//                        $q->orWhereJsonContains('preferences->dress', $size);
-//                    }
-//                })
-                ->when($category->preferences['dress_size'] != null, function($q, $sizes) {
-                    foreach($sizes as $size) {
-                        $q->orWhereJsonContains('preferences->dress', $size);
-                    }
+                ->whereIn('gender', explode(',', $category->_gender))
+                //->whereBetween('age', [$age_from, $age_to])
+                ->when($category->_dress != null, function ($q) use($category) {
+                    $q->whereIn('dress', explode(',', $category->_dress));
                 })
-                ->whereBetween(DB::raw('JSON_EXTRACT(preferences, "$._height")'), [(float)$height_from, (float)$height_to])
+                ->when($height_from != null && $height_to != null, function ($q) use($height_from, $height_to) {
+                    $q->whereIn('height', [$height_from, $height_to]);
+                })
                 ->whereHas('portfolio', function ($query) {
                     $query->whereNotNull('file_name');
-                })
-                ->get();
+                })->get();
 
             //return $user_ids;
 
@@ -460,11 +454,14 @@ class AdminController extends Controller
             ->whereHas('contests', function ($query) {
                 $query->whereNotNull('title');
             })
-            ->get();
+            ->where('id', $id)
+            ->first();
 
-        $contests = $contests->filter(function ($category) {
-            return $category->contests->isNotEmpty();
-        });
+//        $contests = $contests->filter(function ($category) {
+//            return $category->contests->isNotEmpty();
+//        });
+
+        //return $contests;
 
         return response()->json($contests);
     }

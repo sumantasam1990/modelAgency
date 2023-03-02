@@ -100,7 +100,9 @@ form.addEventListener('submit', (event) => {
             // Process response from PHP file
         })
         .catch(error => {
-            //console.error(error);
+            console.error(error);
             // Handle error
         });
 });
+
+

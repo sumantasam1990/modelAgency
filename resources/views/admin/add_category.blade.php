@@ -24,18 +24,37 @@
                             <div class="mb-3">
                                 <label>Category Name*</label>
                                 <input type="text" name="cate_name" class="form-control" placeholder="eg. Female Teen">
+                                @error('cate_name')
+                                    <div class="text-danger fw-bold">{{$message}}</div>
+                                @enderror
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label>Age(in month)</label>
+                                        <label>Age</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="age_from" class="form-control" placeholder="from">
+                                                <select name="age_from" class="form-control">
+                                                    <option value="">from</option>
+                                                    @for ($i = 1; $i <= 11; $i++)
+                                                        <option value="{{ $i }}_m">{{ $i }} months</option>
+                                                    @endfor
+                                                        @for ($i = 1; $i <= 100; $i++)
+                                                            <option value="{{ $i }}_y">{{ $i }} years</option>
+                                                        @endfor
+                                                </select>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="age_to" class="form-control" placeholder="to">
+                                                <select name="age_to" class="form-control">
+                                                    <option value="">to</option>
+                                                    @for ($i = 1; $i <= 11; $i++)
+                                                        <option value="{{ $i }}_m">{{ $i }} months</option>
+                                                    @endfor
+                                                    @for ($i = 1; $i <= 100; $i++)
+                                                        <option value="{{ $i }}_y">{{ $i }} years</option>
+                                                    @endfor
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -45,10 +64,26 @@
                                         <label>Height(m)</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="height_from" class="form-control" placeholder="from">
+                                                <select class="form-control" name="height_from">
+                                                    <option value="">from</option>
+                                                    @for ($i = 1; $i <= 20; $i++)
+                                                        @for ($j = 0; $j <= 9; $j++)
+                                                            @php $value = $i + ($j / 10); @endphp
+                                                            <option value="{{ $value }}">{{ $value }} meters</option>
+                                                        @endfor
+                                                    @endfor
+                                                </select>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="height_to" class="form-control" placeholder="to">
+                                                <select class="form-control" name="height_to">
+                                                    <option value="">to</option>
+                                                    @for ($i = 1; $i <= 20; $i++)
+                                                        @for ($j = 0; $j <= 9; $j++)
+                                                            @php $value = $i + ($j / 10); @endphp
+                                                            <option value="{{ $value }}">{{ $value }} meters</option>
+                                                        @endfor
+                                                    @endfor
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -58,21 +93,17 @@
                                         <label>Dress Size</label>
                                         <div class="row">
                                             <div class="col-10">
-                                                <select class="form-control" name="dress_size[]" multiple>
-                                                    <option value="">Choose</option>
-                                                    <option {{request('dress_size_from') == "Small" ? 'selected' : ''}}>Small</option>
-                                                    <option {{request('dress_size_from') == "Medium" ? 'selected' : ''}}>Medium</option>
-                                                    <option {{request('dress_size_from') == "Large" ? 'selected' : ''}}>Large</option>
-                                                    <option {{request('dress_size_from') == "XL" ? 'selected' : ''}}>XL</option>
-                                                    <option {{request('dress_size_from') == "XXL" ? 'selected' : ''}}>XXL</option>
-                                                    <option {{request('dress_size_from') == "XXXL" ? 'selected' : ''}}>XXXL</option>
+                                                <select name="dress_size[]" multiple class="form-control" style="height: 250px;">
+
+                                                    @foreach($arr as $a)
+                                                        <option value="{{$a}}">{{$a}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
 
                                         </div>
                                     </div>
 
-{{--                                    <input type="checkbox" name="all_filter" value="all_filter"> <strong>All</strong>--}}
                                 </div>
 
                                 <div class="col-md-4">
@@ -103,6 +134,9 @@
                                             Female trans
                                         </label>
                                     </div>
+                                    @error('gender')
+                                    <div class="text-danger fw-bold">{{$message}}</div>
+                                    @enderror
                                 </div>
 
 {{--                                <div class="col-md-4">--}}
@@ -170,7 +204,7 @@
                 <div class="sec-box mb-2">
                     <h4 class="fw-bold fs-4">{{$d->title}}</h4>
                     <p class="text-black-50">
-                        age: <span class="fw-bold">{{$d->age}}</span>, height: <span class="fw-bold">{{$d->height}}</span>, gender: <span class="fw-bold">{{$d->gender}}</span>, skin color: <span class="fw-bold">{{$d->skin_color}}</span>, hair color: <span class="fw-bold">{{$d->hair_color}}</span>
+                        Age: {{$d->_age}}, Height: {{$d->_height}}, Gender: {{$d->_gender}}, Dress: {{$d->_dress}}
                     </p>
                     <p class="d-flex flex-column align-items-end">
                         <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" href="{{route('category.delete', [$d->id])}}">Delete</a>
