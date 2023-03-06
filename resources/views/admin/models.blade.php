@@ -316,12 +316,12 @@
             </div>
             <div class="info mt-2 mb-3 p-3">
                 <p class="mb-0">Name: <span class="fw-bold">{{!empty($data) ? $data[0]['name'] : ''}}</span></p>
-                <p class="mb-0">Age: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['_age'] : ''}}</span></p>
-                <p class="mb-0">Height: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['_height'] . 'm' : ''}}</span></p>
-                <p class="mb-0">Dress: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['dress'] : ''}}</span></p>
-                <p class="mb-0">Bust: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['bust'] : ''}}</span></p>
-                <p class="mb-0">Waist: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['waist'] : ''}}</span></p>
-                <p class="mb-0">Hips: <span class="fw-bold">{{!empty($data) ? $data[0]['preferences']['hips'] : ''}}</span></p>
+                <p class="mb-0">Age: <span class="fw-bold">{{!empty($data) ? $data[0]['age'] : ''}}</span></p>
+                <p class="mb-0">Height: <span class="fw-bold">{{!empty($data) ? $data[0]['height'] . 'm' : ''}}</span></p>
+                <p class="mb-0">Dress: <span class="fw-bold">{{!empty($data) ? $data[0]['dress'] : ''}}</span></p>
+                <p class="mb-0">Bust: <span class="fw-bold">{{!empty($data) ? $data[0]['bust'] : ''}}</span></p>
+                <p class="mb-0">Waist: <span class="fw-bold">{{!empty($data) ? $data[0]['waist'] : ''}}</span></p>
+                <p class="mb-0">Hips: <span class="fw-bold">{{!empty($data) ? $data[0]['hips'] : ''}}</span></p>
 
 
                 <p class="mb-0">Email: <span class="fw-bold">{{!empty($data) ? $data[0]['email'] : ''}}</span></p>

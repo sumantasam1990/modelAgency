@@ -88,16 +88,16 @@ class AdminController extends Controller
 
     public function add_contest_post(Request $request)
     {
-        $request->validate([
-            'category' => 'required',
-            'contest_name' => 'required',
-            'date_from' => 'required|date',
-            'date_to' => 'required|date',
-            'contest_price_first' => 'required|numeric',
-            'contest_price_second' => 'required|numeric',
-            'contest_price_third' => 'required|numeric',
-            'rules' => 'required'
-        ]);
+//        $request->validate([
+//            'category' => 'required',
+//            'contest_name' => 'required',
+//            'date_from' => 'required|date',
+//            'date_to' => 'required|date',
+//            'contest_price_first' => 'required|numeric',
+//            'contest_price_second' => 'required|numeric',
+//            'contest_price_third' => 'required|numeric',
+//            'rules' => 'required'
+//        ]);
 
             $category = Category::where('id', '=', $request->category)->first();
 
@@ -115,7 +115,7 @@ class AdminController extends Controller
                     $q->whereIn('dress', explode(',', $category->_dress));
                 })
                 ->when($height_from != null && $height_to != null, function ($q) use($height_from, $height_to) {
-                    $q->whereIn('height', [$height_from, $height_to]);
+                    $q->whereBetween('height', [(float)$height_from, (float)$height_to]);
                 })
                 ->whereHas('portfolio', function ($query) {
                     $query->whereNotNull('file_name');

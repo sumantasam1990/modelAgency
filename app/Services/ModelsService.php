@@ -106,11 +106,19 @@ class ModelsService
                 });
             }
 
-            //$interest = $user->interest['content'] ?? 'No interest found for this model.';
-
             return [
                 'uid' => $user->id,
                 'preferences' => $user->preferences,
+                'age' => $user->age,
+                'bust' => $user->bust,
+                'eyes' => $user->eyes,
+                'hips' => $user->hips,
+                'skin' => $user->skin,
+                'dress' => $user->dress,
+                'other' => $user->other,
+                'waist' => $user->waist,
+                'height' => $user->height,
+                'hair' => $user->hair,
                 'user_status' => $user->status,
                 'user_subscribe' => $user->subscribed,
                 'name' => $user->name,
