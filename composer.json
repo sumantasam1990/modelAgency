@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.11",
+        "michael/laravelpagseguro": "dev-master",
         "pagseguro/pagseguro-php-sdk": "^4.2"
     },
     "require-dev": {

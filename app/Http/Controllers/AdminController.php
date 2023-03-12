@@ -199,6 +199,7 @@ class AdminController extends Controller
     {
         $contests = Contest::with(['category'])
             ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->whereMonth('start', Carbon::today()->month)
             ->paginate(20);
 
         return view('admin.category_contest', compact('contests'));

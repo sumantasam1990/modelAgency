@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('age')->index();
+            $table->string('age')->index();
             $table->integer('bust')->index()->nullable();
             $table->string('eyes')->index()->nullable();
             $table->integer('hips')->index()->nullable();

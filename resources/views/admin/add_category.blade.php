@@ -66,7 +66,7 @@
                                             <div class="col-6">
                                                 <select class="form-control" name="height_from">
                                                     <option value="">from</option>
-                                                    @for ($i = 1; $i <= 20; $i++)
+                                                    @for ($i = 0.1; $i <= 20; $i++)
                                                         @for ($j = 0; $j <= 9; $j++)
                                                             @php $value = $i + ($j / 10); @endphp
                                                             <option value="{{ $value }}">{{ $value }} meters</option>
@@ -77,7 +77,7 @@
                                             <div class="col-6">
                                                 <select class="form-control" name="height_to">
                                                     <option value="">to</option>
-                                                    @for ($i = 1; $i <= 20; $i++)
+                                                    @for ($i = 0.1; $i <= 20; $i++)
                                                         @for ($j = 0; $j <= 9; $j++)
                                                             @php $value = $i + ($j / 10); @endphp
                                                             <option value="{{ $value }}">{{ $value }} meters</option>

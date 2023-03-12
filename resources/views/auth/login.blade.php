@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input type="email" name="email" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
+                            <input type="email" name="email" value="man@gmail.com" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
@@ -60,13 +60,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Password*</label>
-                                    <input type="password" name="password" placeholder="" class="form-control @error('password') is-invalid @enderror">
+                                    <input type="password" name="password" value="123456789" placeholder="" class="form-control @error('password') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Confirm Password*</label>
-                                    <input type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
+                                    <input type="password" name="password_confirmation" value="123456789" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
                                 </div>
                             </div>
 
@@ -87,13 +87,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>District*</label>
-                                    <input type="text" name="_district" placeholder="" class="form-control @error('_district') is-invalid @enderror">
+                                    <input type="text" name="_district" placeholder="" value="north" class="form-control @error('_district') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>WhatsApp*</label>
-                                    <input type="text" name="_wp" placeholder="" class="form-control @error('_wp') is-invalid @enderror">
+                                    <input type="text" name="_wp" placeholder="" value="+91 5656565656" class="form-control @error('_wp') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -126,13 +126,21 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Age*</label>
-                                    <input type="date" name="_age" placeholder="d/m/Y" class="form-control">
+                                    <input type="date" name="_age" placeholder="d/m/Y" value="05/08/1992" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Height(m)*</label>
-                                    <input type="number" name="_height" placeholder="" class="form-control">
+                                    <select class="form-control" name="_height">
+                                        <option value="">Choose</option>
+                                        @for ($i = 0.1; $i <= 20; $i++)
+                                            @for ($j = 0; $j <= 9; $j++)
+                                                @php $value = $i + ($j / 10); @endphp
+                                                <option value="{{ $value }}">{{ $value }} meters</option>
+                                            @endfor
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -152,19 +160,19 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Bust(cm)*</label>
-                                    <input type="number" name="bust" placeholder="" class="form-control">
+                                    <input type="number" name="bust" value="22" placeholder="" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Waist(cm)*</label>
-                                    <input type="number" name="waist" placeholder="" class="form-control">
+                                    <input type="number" name="waist" value="22" placeholder="" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Hips(cm)*</label>
-                                    <input type="number" name="hips" placeholder="" class="form-control">
+                                    <input type="number" name="hips" value="32" placeholder="" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -175,12 +183,9 @@
                                     <label>Dress Size*</label>
                                     <select class="form-control" name="dress">
                                         <option value="">Choose</option>
-                                        <option>Small</option>
-                                        <option>Medium</option>
-                                        <option>Large</option>
-                                        <option>XL</option>
-                                        <option>XXL</option>
-                                        <option>XXXL</option>
+                                        @foreach($arr as $a)
+                                            <option value="{{$a}}">{{$a}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

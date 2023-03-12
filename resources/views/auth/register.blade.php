@@ -64,7 +64,8 @@
                                     <option value="" selected>Select</option>
                                     <option>Female</option>
                                     <option>Male</option>
-                                    <option>Other</option>
+                                    <option value="male_trans">Male trans</option>
+                                    <option value="female_trans">Female trans</option>
                                 </select>
                             </div>
                         </div>
@@ -88,7 +89,15 @@
                         <div class="col-md-4">
                             <div class="form-group mb-2">
                                 <label>Height(m)*</label>
-                                <input type="number" name="_height" placeholder="" class="form-control">
+                                <select class="form-control" name="_height">
+                                    <option value="">to</option>
+                                    @for ($i = 1; $i <= 20; $i++)
+                                        @for ($j = 0; $j <= 9; $j++)
+                                            @php $value = $i + ($j / 10); @endphp
+                                            <option value="{{ $value }}">{{ $value }} meters</option>
+                                        @endfor
+                                    @endfor
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">

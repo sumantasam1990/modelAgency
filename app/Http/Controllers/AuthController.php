@@ -13,7 +13,9 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+        $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
+
+        return view('auth.login', compact('arr'));
     }
 
     public function authenticate(Request $request)
@@ -49,61 +51,59 @@ class AuthController extends Controller
 
     public function register_post(Request $request)
     {
-        $request->validate([
-            '_name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'min:8',
-            '_state' => 'required',
-            '_city' => 'required',
-            '_district' => 'required',
-            '_wp' => 'required',
-            '_gender' => 'required',
-            '_civil_status' => 'required',
-        ]);
+        try {
+            $request->validate([
+                '_name' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+                'password_confirmation' => 'min:8',
+                'state' => 'required',
+                'city' => 'required',
+                '_district' => 'required',
+                '_wp' => 'required',
+                '_gender' => 'required',
+                '_civil_status' => 'required',
+                '_age' => 'required',
+                'dress' => 'required',
+                '_height' => 'required',
+            ]);
 
-        $data = $request->all();
+            $data = $request->all();
+            $this->create($data);
+            //event(new Registered($user));
 
-        $this->create($data);
+            return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
 
-        //event(new Registered($user));
-
-        return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     private function create(array $data): void
     {
-        $birthdate = Carbon::createFromFormat('Y-m-d', $data['_age']);
-        $age = $birthdate->diffInMonths(Carbon::now());
-
-        $id = User::create([
+        User::create([
             'name' => $data['_name'],
             'email' => $data['email'],
-            'state' => $data['_state'],
-            'city' => $data['_city'],
+            'state' => $data['state'],
+            'city' => implode(',', $data['city']),
             'district' => $data['_district'],
             'wp' => $data['_wp'],
             'gender' => $data['_gender'],
             'civil' => $data['_civil_status'],
             'password' => Hash::make($data['password']),
             'username' => $data['_name'],
-        ]);
 
-        $preferences = [
-            '_height' => (float)$data['_height'],
-            '_age' => (int)$age,
-            '_skin' => $data['_skin'],
+            'age' => $data['_age'],
             'bust' => $data['bust'],
-            'waist' => $data['waist'],
-            'hips' => $data['hips'],
-            'dress' => $data['dress'],
-            'hair' => $data['hair'],
             'eyes' => $data['eyes'],
-            'other' => $data['other']
-        ];
-
-        User::whereId($id->id)
-            ->update(['preferences' => $preferences]);
+            'hips' => $data['hips'],
+            'skin' => $data['_skin'],
+            'dress' => $data['dress'],
+            'other' => implode(',', $data['other']) ?? '',
+            'waist' => $data['waist'],
+            'height' => $data['_height'],
+            'hair' => $data['hair'],
+        ]);
     }
 
     public function logout(Request $request)

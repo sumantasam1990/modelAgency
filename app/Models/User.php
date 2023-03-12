@@ -150,6 +150,16 @@ class User extends Authenticatable
         'gender',
         'civil',
         'username',
+        'age' ,
+        'bust' ,
+        'eyes' ,
+        'hips' ,
+        'skin' ,
+        'dress' ,
+        'other' ,
+        'waist' ,
+        'height' ,
+        'hair' ,
     ];
 
     /**

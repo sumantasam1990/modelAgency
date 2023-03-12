@@ -36,7 +36,7 @@
 
                         <li class="{{ (request()->is('admin/category/contests')) ? 'active' : '' }}"><a href="{{route('admin.category.contests')}}"><i class="fa-solid fa-heart"></i> &nbsp; Contests</a> </li>
 
-                        <li class="{{ (request()->is('admin/subscribers')) ? 'active' : '' }}"><a href="{{route('admin.subscribers')}}"><i class="fa-solid fa-dollar-sign"></i> &nbsp; Subscribers</a> </li>
+{{--                        <li class="{{ (request()->is('admin/subscribers')) ? 'active' : '' }}"><a href="{{route('admin.subscribers')}}"><i class="fa-solid fa-dollar-sign"></i> &nbsp; Subscribers</a> </li>--}}
 
                         <li class="{{ (request()->is('admin/faqs')) ? 'active' : '' }}"><a href="{{route('admin.faq')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
 

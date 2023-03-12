@@ -303,6 +303,7 @@ class ContestService
             ->orderBy('contest_id')
             ->orderByDesc('total_votes')
             ->where('contest_participants.user_id', '=', $authUserId)
+            ->where('contests.end', '<', Carbon::today()->format('Y-m-d'))
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {
