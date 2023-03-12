@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankTransfer;
 use App\Models\Contest;
 use App\Models\ContestVotingResult;
 use App\Models\User;

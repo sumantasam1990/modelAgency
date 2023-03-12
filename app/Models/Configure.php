@@ -30,6 +30,11 @@ class Configure extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'key'
+    ];
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

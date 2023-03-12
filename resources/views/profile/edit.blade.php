@@ -5,7 +5,7 @@
         @csrf
 
         <div class="col-md-6">
-            <h4 class="fw-bold fs-4 mb-3">Update Profile Info</h4>
+            <h4 class="fw-bold fs-4 mb-3">Update Account</h4>
             <div class="form-group mb-2">
                 <label>Name*</label>
                 <input type="text" name="_name" value="{{$user->name ?? ''}}" placeholder="eg. John doe" class="form-control @error('_name') is-invalid @enderror">
@@ -72,13 +72,21 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>Age*</label>
-                        <input type="date" name="_age" value="{{\Illuminate\Support\Carbon::now()->subMonths($user->preferences['_age'])->format('Y-m-d')}}" placeholder="d/m/Y" class="form-control">
+                        <input type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>Height(m)*</label>
-                        <input type="text" name="_height" value="{{$user->preferences['_height'] ?? ''}}" placeholder="" class="form-control">
+                        <select class="form-control" name="_height">
+                            <option value="">Choose</option>
+                            @for ($i = 0.1; $i <= 20; $i++)
+                                @for ($j = 0; $j <= 9; $j++)
+                                    @php $value = $i + ($j / 10); @endphp
+                                    <option {{$user->height === $value ? 'selected' : ''}} value="{{ $value }}">{{ $value }} meters</option>
+                                @endfor
+                            @endfor
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -86,9 +94,9 @@
                         <label>Skin color*</label>
                         <select class="form-control" name="_skin">
                             <option value="">Choose</option>
-                            <option {{$user->preferences['_skin'] == 'White' ? 'selected' : ''}}>White</option>
-                            <option {{$user->preferences['_skin'] == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->preferences['_skin'] == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option {{$user->skin ? 'selected' : ''}}>White</option>
+                            <option {{$user->skin == 'Brown' ? 'selected' : ''}}>Brown</option>
+                            <option {{$user->skin == 'Black' ? 'selected' : ''}}>Black</option>
                         </select>
                     </div>
                 </div>
@@ -98,19 +106,19 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>Bust(cm)*</label>
-                        <input type="number" name="bust" value="{{$user->preferences['bust'] ?? ''}}" placeholder="" class="form-control">
+                        <input type="number" name="bust" value="{{$user->bust ?? ''}}" placeholder="" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>Waist(cm)*</label>
-                        <input type="number" name="waist" value="{{$user->preferences['waist']}}" placeholder="" class="form-control">
+                        <input type="number" name="waist" value="{{$user->waist}}" placeholder="" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>Hips(cm)*</label>
-                        <input type="number" name="hips" value="{{$user->preferences['hips']}}" placeholder="" class="form-control">
+                        <input type="number" name="hips" value="{{$user->hips}}" placeholder="" class="form-control">
                     </div>
                 </div>
             </div>
@@ -157,7 +165,7 @@
             <div class="row mt-2">
                 <div class="col-md-3">
                     <div class="mb-2 form-check">
-                        <input type="checkbox" {{in_array('fitness', $user->preferences['other']) ? 'checked' : ''}} class="form-check-input" name="other[]"
+                        <input type="checkbox" {{in_array('fitness', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="fitness">
                         <label class="form-check-label" for="flexCheckDefault">
                             Fitness
@@ -166,7 +174,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-2 form-check">
-                        <input type="checkbox" {{in_array('tatoo', $user->preferences['other']) ? 'checked' : ''}} class="form-check-input" name="other[]"
+                        <input type="checkbox" {{in_array('tatoo', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="tatoo">
                         <label class="form-check-label" for="flexCheckDefault">
                             Tatoo
@@ -175,7 +183,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-2 form-check">
-                        <input type="checkbox" {{in_array('piercing', $user->preferences['other']) ? 'checked' : ''}} class="form-check-input" name="other[]"
+                        <input type="checkbox" {{in_array('piercing', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="piercing">
                         <label class="form-check-label" for="flexCheckDefault">
                             Piercing
@@ -184,7 +192,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-2 form-check">
-                        <input type="checkbox" {{in_array('silicone', $user->preferences['other']) ? 'checked' : ''}} class="form-check-input" name="other[]"
+                        <input type="checkbox" {{in_array('silicone', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="silicone">
                         <label class="form-check-label" for="flexCheckDefault">
                             Silicone
@@ -249,6 +257,18 @@
                     </select>
                 </div>
             </div>
+
+            <h4 class="fw-bold fs-4 mt-3">Bank Details</h4>
+
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <input type="text" name="bank" value="{{ $user->configure_bank->value ?? '' }}" placeholder="Account number" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="pix" value="{{ $user->configure_pix->value ?? '' }}" placeholder="Pix Email ID" class="form-control border-2 fw-bold">
+                </div>
+            </div>
+
             <div class="d-grid gap-2 mx-auto col-4 mt-4">
                 <button type="submit" class="btn btn-dark">Update</button>
             </div>

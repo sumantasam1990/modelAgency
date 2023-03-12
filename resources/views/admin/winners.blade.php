@@ -47,19 +47,22 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             @foreach($data as $d)
                 <div class=" mb-3 sec-box">
-                    <h4 class="fs-4 fw-bold mb-3">{{$d['contest_name']}}</h4>
+                    <h4 class="fs-4 fw-bold mb-3">{{$d['contest_name']}} <a class="float-end fs-5 text-decoration-none btn btn-outline-dark" href="{{route('admin.contest.stats', [$d['contest_id']])}}"><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a></h4>
+
                     <header class="d-flex flex-row justify-content-between align-items-center mb-3 fw-bold">
                         <div>Name of model</div>
                         <div>Bank Account No</div>
+                        <div>Pix ID</div>
                         <div>Prize</div>
                         <div>Status</div>
                     </header>
                     @php
                     $i = 1;
                     @endphp
+
                     @foreach($d['winners'] as $winner)
                         @php
                         if($i === 1) {
@@ -78,6 +81,9 @@
                                 @endphp
 
                                 <span class="fw-bold">{{$winner['user_bank']}}</span>
+                            </div>
+                            <div>
+                                <span class="fw-bold">{{$winner['user_pix']}}</span>
                             </div>
                             <div>
                                 @if(isset($bankTransfer->acc_no) && $bankTransfer->acc_no == $winner['user_bank'])

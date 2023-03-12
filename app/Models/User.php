@@ -266,4 +266,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(City::class, 'id', 'city');
     }
+
+    public function configure_bank(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Configure::class)
+            ->where('key', '=', 'bank')
+            ->select('value', 'user_id');
+    }
+
+    public function configure_pix(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Configure::class)
+            ->where('key', '=', 'pix')
+            ->select('value', 'user_id');
+    }
 }
