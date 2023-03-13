@@ -280,4 +280,9 @@ class User extends Authenticatable
             ->where('key', '=', 'pix')
             ->select('value', 'user_id');
     }
+
+    public function winners()
+    {
+        return $this->hasMany(Winner::class);
+    }
 }

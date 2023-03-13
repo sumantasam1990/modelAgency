@@ -29,15 +29,16 @@ class ContestsController extends Controller
         return view('contests.my-contest', compact('myContests', 'results_s'));
     }
 
-    public function winners(ContestService $contestService, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function winners(ContestService $contestService, Request $request)
     {
-        $data = $contestService->getWinners();
+        $data = $contestService->winners();
+        return $data;
         return view('contests.winners', compact('data', 'request'));
     }
 
     public function winner_search(ContestService $contestService, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $data = $contestService->getWinners($request->month, $request->year);
+        $data = $contestService->winners($request->month, $request->year);
         return view('contests.winners', compact('data', 'request'));
     }
 

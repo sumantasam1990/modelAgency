@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\GetWinners;
 use App\Console\Commands\WinnersSendEmail;
 use App\Jobs\SendWinnersEmailsJob;
 use Illuminate\Console\Scheduling\Schedule;
@@ -11,6 +12,7 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         WinnersSendEmail::class,
+        GetWinners::class,
     ];
 
     /**
@@ -21,7 +23,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:sendemailtowinners')->daily();
+        $schedule->command('command:sendemailtowinners')->daily()->runInBackground();
+        $schedule->command('save:winners')->daily()->runInBackground();
     }
 
     /**

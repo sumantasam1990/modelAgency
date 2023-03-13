@@ -113,6 +113,11 @@ class Contest extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function winners()
+    {
+        return $this->hasMany(Winner::class);
+    }
+
 //    public function scopeNotInVote($query)
 //    {
 //        return $query->whereNotIn('user_id', );
