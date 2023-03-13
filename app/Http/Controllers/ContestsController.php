@@ -32,7 +32,6 @@ class ContestsController extends Controller
     public function winners(ContestService $contestService, Request $request)
     {
         $data = $contestService->winners();
-        return $data;
         return view('contests.winners', compact('data', 'request'));
     }
 
@@ -45,7 +44,7 @@ class ContestsController extends Controller
     public function my_results(ContestService $contestService)
     {
         $data = $contestService->my_results();
-
+return $data;
         return view('contests.my_results', compact('data'));
     }
 }
