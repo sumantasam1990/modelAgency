@@ -16,14 +16,14 @@
                     </h4>
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <p class="mb-0 fw-semibold"><span class="fw-bold">{{$data->gender}}</span>, <span class="fw-bold">{{$data->civil}}</span> </p>
                             <p class="mb-0 fw-semibold"><span class="fw-bold">{{$data->state_name->nome}}, {{$data->city_name->nome}}, {{$data->district}}</span> </p>
                             <p class="mb-0 fw-semibold">WP: <span class="fw-bold">{{$data->wp}}</span> </p>
                             <p class="mb-0 fw-semibold">Other: <span class="fw-bold">{{$data->other}}</span> </p>
                             <p class="mb-0 fw-bold fs-5">{{$contestsWon}} contests won</p>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <p class="mb-0 fw-semibold">Height: <span class="fw-bold">{{$data->height}}</span></p>
                             <p class="mb-0 fw-semibold">Eyes: <span class="fw-bold">{{$data->eyes}}</span> </p>
                             <p class="mb-0 fw-semibold">Skin: <span class="fw-bold">{{$data->skin}}</span> </p>

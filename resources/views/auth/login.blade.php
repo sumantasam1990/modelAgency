@@ -160,19 +160,34 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Bust(cm)*</label>
-                                    <input type="number" name="bust" value="22" placeholder="" class="form-control">
+                                    <select class="form-control" name="bust">
+                                        <option value="">Choose</option>
+                                        @for($i=5; $i<=50; $i++)
+                                            <option value="{{$i}}">{{$i}}cm.</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Waist(cm)*</label>
-                                    <input type="number" name="waist" value="22" placeholder="" class="form-control">
+                                    <select class="form-control" name="waist">
+                                        <option value="">Choose</option>
+                                        @for($i=5; $i<=50; $i++)
+                                            <option value="{{$i}}">{{$i}}cm.</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Hips(cm)*</label>
-                                    <input type="number" name="hips" value="32" placeholder="" class="form-control">
+                                    <select class="form-control" name="hips">
+                                        <option value="">Choose</option>
+                                        @for($i=5; $i<=50; $i++)
+                                            <option value="{{$i}}">{{$i}}cm.</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +206,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
-                                    <label>Hair Color(m)*</label>
+                                    <label>Hair Color*</label>
                                     <select class="form-control" name="hair">
                                         <option value="">Choose</option>
                                         <option>White</option>
@@ -256,61 +271,64 @@
                             </div>
                         </div>
 
-                        <h4 class="fw-bold fs-4 mt-3">Main Social Networks</h4>
+{{--                        <h4 class="fw-bold fs-4 mt-3">Main Social Networks</h4>--}}
 
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <label>Instagram</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="url" name="url" placeholder="URL" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-control" name="followers">
-                                    <option>5k - 10k</option>
-                                    <option>11k - 50k</option>
-                                    <option>51k - 100k</option>
-                                    <option>101k - 1M</option>
-                                    <option>1M+</option>
-                                </select>
-                            </div>
-                        </div>
+{{--                        <div class="row mt-2">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <label>Instagram</label>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="url" name="url" placeholder="URL" class="form-control">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <select class="form-control" name="followers">--}}
+{{--                                    <option value="">Choose</option>--}}
+{{--                                    <option>5k - 10k</option>--}}
+{{--                                    <option>11k - 50k</option>--}}
+{{--                                    <option>51k - 100k</option>--}}
+{{--                                    <option>101k - 1M</option>--}}
+{{--                                    <option>1M+</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <label>Tiktok</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="url" name="" placeholder="URL" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-control" name="">
-                                    <option>5k - 10k</option>
-                                    <option>11k - 50k</option>
-                                    <option>51k - 100k</option>
-                                    <option>101k - 1M</option>
-                                    <option>1M+</option>
-                                </select>
-                            </div>
-                        </div>
+{{--                        <div class="row mt-2">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <label>Tiktok</label>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="url" name="" placeholder="URL" class="form-control">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <select class="form-control" name="">--}}
+{{--                                    <option value="">Choose</option>--}}
+{{--                                    <option>5k - 10k</option>--}}
+{{--                                    <option>11k - 50k</option>--}}
+{{--                                    <option>51k - 100k</option>--}}
+{{--                                    <option>101k - 1M</option>--}}
+{{--                                    <option>1M+</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <input type="text" name="" placeholder="Name of social media" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <input type="url" name="" placeholder="URL" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-control" name="">
-                                    <option>5k - 10k</option>
-                                    <option>11k - 50k</option>
-                                    <option>51k - 100k</option>
-                                    <option>101k - 1M</option>
-                                    <option>1M+</option>
-                                </select>
-                            </div>
-                        </div>
+{{--                        <div class="row mt-2">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="text" name="" placeholder="Name of social media" class="form-control">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="url" name="" placeholder="URL" class="form-control">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <select class="form-control" name="">--}}
+{{--                                    <option value="">Choose</option>--}}
+{{--                                    <option>5k - 10k</option>--}}
+{{--                                    <option>11k - 50k</option>--}}
+{{--                                    <option>51k - 100k</option>--}}
+{{--                                    <option>101k - 1M</option>--}}
+{{--                                    <option>1M+</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
                         <div class="d-grid gap-2 mx-auto col-4 mt-4">
@@ -320,10 +338,7 @@
                     </form>
                 </div>
             </div>
-{{--            <div class="modal-footer">--}}
-{{--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-{{--                <button type="button" class="btn btn-primary">Save changes</button>--}}
-{{--            </div>--}}
+
         </div>
     </div>
 </div>

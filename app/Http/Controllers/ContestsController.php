@@ -44,7 +44,6 @@ class ContestsController extends Controller
     public function my_results(ContestService $contestService)
     {
         $data = $contestService->my_results();
-return $data;
         return view('contests.my_results', compact('data'));
     }
 }

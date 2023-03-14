@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -69,19 +70,19 @@ class AuthController extends Controller
             ]);
 
             $data = $request->all();
-            $this->create($data);
-            //event(new Registered($user));
+            $user = $this->create($data);
+            event(new Registered($user));
 
-            return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
+            //return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
 
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
 
-    private function create(array $data): void
+    private function create(array $data)
     {
-        User::create([
+        return User::create([
             'name' => $data['_name'],
             'email' => $data['email'],
             'state' => $data['state'],

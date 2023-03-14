@@ -1,28 +1,19 @@
 <?php
 
 use App\Mail\SendWinnersEmail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 use GuzzleHttp\Client;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('login/post', [\App\Http\Controllers\AuthController::class, 'authenticate'])->name('login.post');
 Route::get('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
 Route::post('register/post', [\App\Http\Controllers\AuthController::class, 'register_post'])->name('register.post');
 
-Route::middleware(['auth'])->prefix('model')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('portfolio',[\App\Http\Controllers\portfolioController::class, 'index'])->name('portfolio');
     Route::post('upload/photo', [\App\Http\Controllers\portfolioController::class, 'uploadPhoto'])->name('upload.image');
     Route::post('links/post', [\App\Http\Controllers\portfolioController::class, 'links_post'])->name('links.post');
@@ -96,8 +87,25 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 });
 
+// Email verification
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
-// testing query
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// testing query ---------------------------------------------------
+
 Route::get('/test/query', function (\App\Services\ContestService $contestService) {
     $data = $contestService->getWinnersJob();
 

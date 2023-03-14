@@ -50,7 +50,7 @@
         <div class="col-md-8">
             @foreach($data as $d)
                 <div class=" mb-3 sec-box">
-                    <h4 class="fs-4 fw-bold mb-3">{{$d['contest_name']}} <a class="float-end fs-5 text-decoration-none btn btn-outline-dark" href="{{route('admin.contest.stats', [$d['contest_id']])}}"><i class="fa-solid fa-chart-simple"></i> &nbsp; Stats</a></h4>
+                    <h4 class="fs-4 fw-bold mb-3">{{$d['contest_name']}} </h4>
 
                     <header class="d-flex flex-row justify-content-between align-items-center mb-3 fw-bold">
                         <div>Name of model</div>
