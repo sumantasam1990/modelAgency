@@ -16,9 +16,13 @@ class SubscriptionController extends Controller
 {
     public function subscription()
     {
-        $data = Payment::whereUserId(Auth::user()->id)
-            ->select('end_date')
+        $data = Payment::with(['user' => function($q) {
+            $q->select('id', 'subscribed', 'payment_card_id');
+        }])->whereUserId(Auth::user()->id)
+            ->select('end_date', 'user_id')
             ->get();
+
+        //return $data;
 
         return view('subscription.index', compact('data'));
     }

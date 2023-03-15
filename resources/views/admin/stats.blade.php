@@ -66,10 +66,26 @@
                 <h5 class="fs-6 fw-bold text-black-50 mt-3">Height(m)</h5>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="number" class="form-control" name="h_from" placeholder="" value="{{request('h_from') ?? ''}}">
+                        <select class="form-control" name="h_from">
+                            <option value="">Choose</option>
+                            @for ($i = 0.1; $i <= 20; $i++)
+                                @for ($j = 0; $j <= 9; $j++)
+                                    @php $value = $i + ($j / 10); @endphp
+                                    <option value="{{ $value }}">{{ $value }} meters</option>
+                                @endfor
+                            @endfor
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <input type="number" class="form-control" name="h_to" placeholder="" value="{{request('h_to') ?? ''}}">
+                        <select class="form-control" name="h_to">
+                            <option value="">Choose</option>
+                            @for ($i = 0.1; $i <= 20; $i++)
+                                @for ($j = 0; $j <= 9; $j++)
+                                    @php $value = $i + ($j / 10); @endphp
+                                    <option value="{{ $value }}">{{ $value }} meters</option>
+                                @endfor
+                            @endfor
+                        </select>
                     </div>
                 </div>
 
@@ -87,12 +103,9 @@
                 <div class="mb-2">
                     <select class="form-control" name="dress">
                         <option value="">Choose</option>
-                        <option {{request('dress') == "Small" ? 'selected' : ''}}>Small</option>
-                        <option {{request('dress') == "Medium" ? 'selected' : ''}}>Medium</option>
-                        <option {{request('dress') == "Large" ? 'selected' : ''}}>Large</option>
-                        <option {{request('dress') == "XL" ? 'selected' : ''}}>XL</option>
-                        <option {{request('dress') == "XXL" ? 'selected' : ''}}>XXL</option>
-                        <option {{request('dress') == "XXXL" ? 'selected' : ''}}>XXXL</option>
+                        @foreach($arr as $a)
+                            <option value="{{$a}}">{{$a}}</option>
+                        @endforeach
                     </select>
                 </div>
 

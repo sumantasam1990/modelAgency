@@ -238,7 +238,9 @@ class AdminController extends Controller
             'total_income' => $totalIncome,
         ];
 
-        return view('admin.stats', compact('data'));
+        $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
+
+        return view('admin.stats', compact('data', 'arr'));
     }
 
     public function models(Request $request, ModelsService $modelsService, int $id = 0)
@@ -266,7 +268,9 @@ class AdminController extends Controller
             //return $data;
         }
 
-        return view('admin.models', compact('data', 'request', 'saveFilters', 'admin_note'));
+        $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];
+
+        return view('admin.models', compact('data', 'request', 'saveFilters', 'admin_note', 'arr'));
     }
 
     public function models_info(ModelsService $modelsService, int $id)

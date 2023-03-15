@@ -11,7 +11,7 @@
                 </h2>
                 <p class="mt-4">
                     <a class="btn btn-lg btn-dark" href="{{route('portfolio')}}"><i class="fa-solid fa-camera"></i> &nbsp; Add your photos</a> &nbsp;
-                    <a class="btn btn-lg btn-dark" href=""><i class="fa-solid fa-user"></i> &nbsp; Edit Profile Info</a>
+                    <a class="btn btn-lg btn-dark" href="{{route('edit.profile')}}"><i class="fa-solid fa-user"></i> &nbsp; Edit Profile Info</a>
                 </p>
             </div>
         </div>

@@ -5,7 +5,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-use GuzzleHttp\Client;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 
 
 Route::get('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
@@ -39,15 +40,17 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
     Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
 
+    Route::get('cancel/membership', [\App\Http\Controllers\PaymentController::class, 'cancel_membership'])->name('cancel.membership');
 
 
 
 
 
-    Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+
 });
-
-Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile');
+Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile')->middleware('auth');
 
 
 // admin routes
@@ -95,7 +98,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/home');
+    return redirect(\route('edit.profile'));
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
@@ -103,6 +106,17 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('resend/email/verification', function (Request $request) {
+    $user = $request->user();
+    if ($user->hasVerifiedEmail()) {
+        return response()->json(['message' => 'User already verified'], 400);
+    }
+
+    $user->sendEmailVerificationNotification();
+
+    return redirect()->back()->with('msg', 'Verification email sent. Please check your email to verify your account.');
+})->name('verification-resend');
 
 // testing query ---------------------------------------------------
 

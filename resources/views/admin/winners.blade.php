@@ -86,7 +86,7 @@
                                 <span class="fw-bold">{{$winner['user_pix']}}</span>
                             </div>
                             <div>
-                                @if(isset($bankTransfer->acc_no) && $bankTransfer->acc_no == $winner['user_bank'])
+                                @if(isset($bankTransfer->acc_no) && ($bankTransfer->acc_no == $winner['user_bank'] || $bankTransfer->acc_no == $winner['user_pix']))
                                     <span class="badge bg-success fs-6">
                                         @else
                                             <span class="badge bg-warning fs-6">
@@ -100,9 +100,10 @@
                                         ${{$d['third_prize']}}
                                     @endif
                                 </span>
+                                    </span>
                             </div>
                             <div>
-                                @if(isset($bankTransfer->acc_no) && $bankTransfer->acc_no == $winner['user_bank'])
+                                @if(isset($bankTransfer->acc_no) && ($bankTransfer->acc_no == $winner['user_bank'] || $bankTransfer->acc_no == $winner['user_pix']))
                                     <a class="btn btn-success btn-sm" href="#"><i class="fa-solid fa-check"></i></a>
                                 @else
                                     <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id'], $prize])}}"><i class="fa-solid fa-hourglass-start"></i></a>

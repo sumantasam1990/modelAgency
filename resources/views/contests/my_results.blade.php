@@ -54,7 +54,7 @@
                                                         @else
                                                         <p class="fw-semibold mt-2">
                                                             We inform you that the prize for <span class="fw-bold">{{$winner['rank'] ?? ''}}</span> place in <span class="fw-bold">{{$contest['contest_name']}}</span> has been sent to your
-                                                            My Contests PagSeguro or PIX account. Please check your account to confirm receipt. prize sent message
+                                                            My Contests PagSeguro or PIX account. Please check your account to confirm receipt.<br>
                                                             Congratulations again on the award and achievement!
                                                         </p>
                                                         @endif

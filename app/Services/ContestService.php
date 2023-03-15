@@ -433,6 +433,7 @@ class ContestService
                 'users.name as user_name',
                 'users.id as uid',
                 'users.username as username',
+                'users.email as user_email',
                 DB::raw('COALESCE(SUM(vote_count), 0) as total_votes'),
                 'portfolios.file_name',
                 'portfolios.ext',
@@ -452,9 +453,12 @@ class ContestService
             ->map(function ($group) {
                 return [
                     'contest_id' => $group->first()->contest_id,
+                    'contest_name' => $group->first()->contest_name,
+                    'end' => $group->first()->end,
                     'winners' => $group->map(function ($item, $index) {
                         return [
                             'user_id' => $item->uid,
+                            'user_email' => $item->user_email,
                             'total_votes' => $item->total_votes,
                             'rank' => $index + 1,
                         ];

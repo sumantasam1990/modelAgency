@@ -6,7 +6,8 @@
         </div>
         <div class="col-md-4 box h-100">
             @include('alert')
-            <h1 class="fs-2 fw-bold text-capitalize">Access your model panel</h1>
+            <h1 class="fs-2 fw-bold text-capitalize">EUMODELO</h1>
+            <h5 class="text-black-50 fs-5">Access my modeling panel</h5>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group mb-3">
