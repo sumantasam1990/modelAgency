@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\SendWinnersEmail;
+use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -120,24 +121,8 @@ Route::get('resend/email/verification', function (Request $request) {
 
 // testing query ---------------------------------------------------
 
-Route::get('/test/query', function (\App\Services\ContestService $contestService) {
-    $data = $contestService->getWinnersJob();
+Route::get('/test/query', function (\App\Services\ModelsService $modelsService) {
 
-    foreach ($data as $d)
-    {
-        $i = 1;
-        foreach ($d['winners'] as $winner) {
-            $array_data = [
-                'contest_name' => $d['contest_name'],
-                'end' => $d['end'],
-                'index' => $i,
-            ];
-            Mail::to($winner['user_email'])->queue(new SendWinnersEmail($array_data));
-            $i++;
-        }
-    }
-
-    //return $data;
 });
 
 Route::get('test/mailable', function () {

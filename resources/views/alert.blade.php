@@ -16,3 +16,17 @@
         @endif
     </div>
 </div>
+
+@auth()
+@if(Auth::user()->subscribed === 0 && Auth::user()->email != 'admin@admin.com')
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading fw-bold"><i class="bi bi-check2-circle"></i> PREMIUM ACCOUNT!</h4>
+                <h5 class="fs-5 fw-semibold">Go to premium account only for $19.99/month. You can participate to contest and get chance to win prize.</h5>
+                <a class="btn btn-info mt-2 fw-bold" href="{{route('subscription.now')}}">SUBSCRIBE NOW</a>
+            </div>
+        </div>
+    </div>
+@endif
+@endauth

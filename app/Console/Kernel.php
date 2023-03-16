@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 //        $schedule->command('command:sendemailtowinners')->everyMinute();
-        $schedule->command('save:winners')->daily();
+        $schedule->command('save:winners')->daily()->runInBackground();
+        $schedule->command('monthly:subscription')->twiceDaily()->runInBackground();
     }
 
     /**

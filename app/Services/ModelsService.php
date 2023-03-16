@@ -2,7 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Payment;
 use App\Models\User;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ModelsService
@@ -207,5 +213,135 @@ class ModelsService
         });
 
         return $data;
+    }
+
+    public function chargeMonthly($cardId, int $amount, $customerInfo): JsonResponse|array|null
+    {
+        $client = new Client([
+            'base_uri' => 'https://sandbox.api.pagseguro.com/',
+        ]);
+
+        try {
+
+            $response = $client->post('https://sandbox.api.pagseguro.com/orders', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    "reference_id" => md5(uniqid().time()),
+                    'customer' => [
+                        'name' => $customerInfo['name'],
+                        'email' => $customerInfo['email'],
+                        'tax_id' => $customerInfo['tax_id'],
+//                        'phones' => [
+//                            [
+//                                'country' => '55',
+//                                'area' => '11',
+//                                'number' => '999999999',
+//                                'type' => 'MOBILE',
+//                            ],
+//                        ],
+                    ],
+                    'items' => [
+                        [
+                            'reference_id' => 'monthly_subscription_infinite',
+                            'name' => 'subscription',
+                            'quantity' => 1,
+                            'unit_amount' => 1900,
+                        ],
+                    ],
+//                    'shipping' => [
+//                        'address' => [
+//                            'street' => 'Avenida Brigadeiro Faria Lima',
+//                            'number' => '1384',
+//                            'complement' => 'apto 12',
+//                            'locality' => 'Pinheiros',
+//                            'city' => 'São Paulo',
+//                            'region_code' => 'SP',
+//                            'country' => 'BRA',
+//                            'postal_code' => '01452002',
+//                        ],
+//                    ],
+                    'notification_urls' => [
+                        route('webhook.payment')
+                    ],
+                    'charges' => [
+                        [
+                            'reference_id' => md5(uniqid().time().$cardId),
+                            'description' => 'subscription',
+                            'amount' => [
+                                'value' => 1900,
+                                'currency' => 'BRL',
+                            ],
+                            'payment_method' => [
+                                'type' => 'CREDIT_CARD',
+                                'installments' => 1,
+                                'capture' => true,
+                                'card' => [
+                                    'id' => $cardId,
+                                    'holder' => [
+                                        'name' => $customerInfo['name'],
+                                    ],
+                                    'store' => true,
+                                ],
+                            ],
+                            'recurring' => [
+                                'type' => 'SUBSEQUENT',
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+            $responseBody = $response->getBody()->getContents();
+            $response = json_decode($responseBody, true);
+
+            if (isset($response) && !empty($response)) {
+                $cardId = $response['charges'][0]['payment_method']['card']['id'];
+
+                User::whereId($customerInfo['id'])
+                    ->update(['payment_card_id' => $cardId]);
+
+                $paymentArray = [
+                    'order_id' => $response['id'],
+                    'charge_id' => $response['charges'][0]['id'],
+                    'status' => $response['charges'][0]['status'],
+                    'paid' => $response['charges'][0]['amount']['summary']['paid'],
+                    'message' => $response['charges'][0]['payment_response']['message'],
+                    'reference' => $response['charges'][0]['payment_response']['reference'],
+                    'card_id' => $response['charges'][0]['payment_method']['card']['id'],
+                ];
+
+                Payment::updateOrInsert(
+                    [
+                        'user_id' => $customerInfo['id'],
+                        'amount' => $response['charges'][0]['amount']['summary']['paid'],
+                        'start_date' => Carbon::today()->format('Y-m-d'),
+                    ],
+                    [
+                        'end_date' => Carbon::now()->addMonth()->format('Y-m-d'),
+                        'preferences' => json_encode($paymentArray),
+                        'transaction_id' => md5(uniqid().time().$customerInfo['id'].$cardId)
+                    ]
+                );
+
+                User::whereId($customerInfo['id'])
+                    ->update(['subscribed' => 1]);
+
+                return $paymentArray;
+            } else {
+                return null;
+            }
+
+            // Do something with $responseData...
+
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return response()->json($e->getResponse()->getBody());
+            } else {
+                return response()->json($e->getMessage());
+            }
+        }
     }
 }

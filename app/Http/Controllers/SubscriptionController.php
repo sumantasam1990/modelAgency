@@ -62,7 +62,7 @@ class SubscriptionController extends Controller
                     "items" => [
                         [
                             "reference_id" => "monthly_subscription_one",
-                            "name" => "subscription one",
+                            "name" => "subscription",
                             "quantity" => 1,
                             "unit_amount" => 1900
                         ]
@@ -114,7 +114,6 @@ class SubscriptionController extends Controller
             $responseBody = $response->getBody()->getContents();
             $response = json_decode($responseBody, true);
 
-            $paymentArray = [];
             if (isset($response) && !empty($response)) {
                 $cardId = $response['charges'][0]['payment_method']['card']['id'];
 
@@ -205,7 +204,7 @@ class SubscriptionController extends Controller
                             'reference_id' => 'referencia do item',
                             'name' => 'nome do item',
                             'quantity' => 1,
-                            'unit_amount' => 500,
+                            'unit_amount' => 19,
                         ],
                     ],
 //                    'shipping' => [
@@ -228,7 +227,7 @@ class SubscriptionController extends Controller
                             'reference_id' => 'referencia da cobranca',
                             'description' => 'descricao da cobranca',
                             'amount' => [
-                                'value' => 500,
+                                'value' => 19,
                                 'currency' => 'BRL',
                             ],
                             'payment_method' => [

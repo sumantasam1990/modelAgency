@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('status')->default(0)->index();
             $table->integer('subscribed')->default(0)->index();
             $table->string('payment_card_id')->nullable()->index();
+            $table->string('tax_id')->index()->nullable();
         });
     }
 
