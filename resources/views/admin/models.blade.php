@@ -146,15 +146,15 @@
                         </label>
                     </div>
 
-                    <h5 class="fs-6 fw-bold text-black-50">Age(in months)</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="number" class="form-control" name="age_from" placeholder="">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="number" class="form-control" name="age_to" placeholder="">
-                        </div>
-                    </div>
+{{--                    <h5 class="fs-6 fw-bold text-black-50">Age(in months)</h5>--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <input type="number" class="form-control" name="age_from" placeholder="">--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <input type="number" class="form-control" name="age_to" placeholder="">--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <h5 class="fs-6 fw-bold text-black-50 mt-2">Height(m)</h5>
                     <div class="row">

@@ -161,6 +161,7 @@ class ContestService
             ->whereMonth('start', Carbon::now()->month)
             ->whereHas('users', function ($query) {
                 $query->where('status', 1);
+                $query->where('subscribed', 1);
             })
             ->take(1)
             ->get();
@@ -681,5 +682,47 @@ class ContestService
             });
     }
 
+    public function putUserIntoParticipants(int $userId): void
+    {
+        $contests = Contest::with('category')
+            ->where('end', '>', now())
+            ->whereHas('category', function ($query) use ($userId) {
+                $userHeight = User::find($userId)->height;
+                $dateOfBirth = User::find($userId)->age;
+                $age = \Carbon\Carbon::parse($dateOfBirth)->diffInMonths(Carbon::now());
 
+                $query->where('_gender', User::find($userId)->gender)
+                    ->whereRaw("SUBSTRING_INDEX(_height, ',', 1) <= $userHeight")
+                    ->whereRaw("SUBSTRING_INDEX(_height, ',', -1) >= $userHeight")
+                    ->where(function ($q) use ($userId, $age) {
+                        $q->where('_age', '=', null)
+                            ->orWhere('_age', '=', ',')
+                            ->orWhere('_age', '=', '')
+                            ->orWhereRaw("SUBSTRING_INDEX(_age, ',', 1) <= " . intval($age))
+                            ->whereRaw("SUBSTRING_INDEX(_age, ',', -1) >= " . intval($age));
+                    })
+                    ->where(function ($q) use ($userId) {
+                        $q->where('_dress', '=', null)
+                            ->orWhere('_dress', '=', '')
+                            ->orWhereRaw("FIND_IN_SET('" . User::find($userId)->dress . "', _dress)");
+                    });
+            })
+            ->get();
+
+        $contest_ids = $contests->pluck('id');
+
+        foreach ($contest_ids as $id)
+        {
+            $contestParticipant = ContestParticipants::whereContestId($id)
+                ->where('user_id', $userId)
+                ->count('id');
+            if ($contestParticipant === 0)
+            {
+                $participant = new ContestParticipants;
+                $participant->contest_id = $id;
+                $participant->user_id = $userId;
+                $participant->save();
+            }
+        }
+    }
 }

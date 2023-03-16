@@ -53,15 +53,15 @@
                     <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
                 </div>
 
-                <h5 class="fs-6 fw-bold text-black-50 mt-3">Age(in months)</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="number" class="form-control" name="age_from" placeholder="" value="{{request('age_from') ?? ''}}">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="number" class="form-control" name="age_to" placeholder="" value="{{request('age_to') ?? ''}}">
-                    </div>
-                </div>
+{{--                <h5 class="fs-6 fw-bold text-black-50 mt-3">Age(in months)</h5>--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <input type="number" class="form-control" name="age_from" placeholder="" value="{{request('age_from') ?? ''}}">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <input type="number" class="form-control" name="age_to" placeholder="" value="{{request('age_to') ?? ''}}">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <h5 class="fs-6 fw-bold text-black-50 mt-3">Height(m)</h5>
                 <div class="row">

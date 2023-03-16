@@ -44,11 +44,26 @@ class AdminController extends Controller
             'cate_name.required' => 'Category title is required.',
             'gender.required' => 'Please choose at least one gender.'
         ]);
+
+        $fromInMonths = '';
+        $toInMonths = '';
+
+        if (!empty($request->age_from))
+        {
+            $from = explode('_', $request->age_from);
+            $fromInMonths = (int)$from[0] * 12;
+        }
+        if (!empty($request->age_to))
+        {
+            $to = explode('_', $request->age_to);
+            $toInMonths = (int)$to[0] * 12;
+        }
+
         $category = new Category;
 
         $category->title = $request->cate_name;
 
-        $category->_age = $request->age_from . ',' . $request->age_to;
+        $category->_age = $fromInMonths . ',' . $toInMonths;
         $category->_height = $request->height_from . ',' . $request->height_to;
         $category->_gender = implode(',', $request->gender);
         $category->_dress = is_array($request->dress_size) ? implode(',', $request->dress_size) : '';
@@ -121,8 +136,6 @@ class AdminController extends Controller
                     $query->whereNotNull('file_name');
                 })->get();
 
-            //return $user_ids;
-
             if(count($user_ids) > 1)
             {
                 $contest = new Contest;
@@ -151,9 +164,6 @@ class AdminController extends Controller
             {
                 return 'No model found in this category.';
             }
-
-
-
     }
 
     public function contest_delete($id)
@@ -300,12 +310,12 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function model_status(int $uid, int $status): RedirectResponse
+    public function model_status(int $uid, int $status, ContestService $contestService)
     {
         if($status === 1)
         {
-            User::whereId($uid)
-                ->update(['status' => 1]); // Approve
+            User::whereId($uid)->update(['status' => 1]); // Approve
+            $contestService->putUserIntoParticipants($uid);
         } else
         {
             User::whereId($uid)
