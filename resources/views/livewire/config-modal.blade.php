@@ -20,8 +20,8 @@
                             <p class="mb-1">Total Contests: <span class="fw-bold">{{ $data['contest_total'] }}</p>
                             <p class="mb-1">Total contest won: <span class="fw-bold">{{ $data['contest_won'] }}</p>
 
-                            <div class="d-grid gap-2 col-8 mt-3">
-                                <a href="" class="btn btn-dark btn-lg"><i class="fa-solid fa-gift"></i> &nbsp; Free Subscription</a>
+                            <div class="d-grid gap-2 col-12 mt-3">
+                                <a onclick="return confirm('Are you sure?');" href="{{route('free.subscription', [$userId])}}" class="btn btn-dark btn-lg"><i class="fa-solid fa-gift"></i> &nbsp; Free Subscription</a>
                             </div>
                         @endif
                     </div>

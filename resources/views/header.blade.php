@@ -24,11 +24,11 @@
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
                         {{auth()->user()->name}}
                     </h2>
-                    <p class="mb-1" style="margin-top: -5px;">
+                    <p class="mb-2" style="margin-top: -5px;">
                         <a class="fs-6 fw-bold text-decoration-none text-capitalize" href="{{route('profile', [auth()->user()->username])}}" style="color: #d2d2d2; margin-left: 20px;">My profile &nbsp; <i class="fa-solid fa-arrow-right"></i></a>
                     </p>
                     <p class="d-grid gap-2 col-12">
-                        <a class="btn btn-info btn-sm" href="{{route('edit.profile')}}"><i class="fa-solid fa-user-pen"></i> Edit profile</a>
+                        <a class="btn btn-info btn-sm fw-bold" href="{{route('edit.profile')}}"><i class="fa-solid fa-user-pen"></i> Edit profile</a>
                     </p>
 
                     <ul class="mt-5 header-ul">

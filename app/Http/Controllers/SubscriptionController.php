@@ -291,4 +291,29 @@ class SubscriptionController extends Controller
             }
         }
     }
+
+    public function free_subscription(int $uid)
+    {
+        $pay = Payment::where('user_id', $uid)
+            ->where('end_date', '>', now())
+            ->count('id');
+        if ($pay > 0) {
+            return redirect()->back()->with('err', 'Already subscribed.');
+        } else {
+            Payment::updateOrInsert(
+                [
+                    'user_id' => $uid,
+                    'amount' => 0.00,
+                    'start_date' => Carbon::today()->format('Y-m-d'),
+                ],
+                [
+                    'end_date' => Carbon::now()->addMonth()->format('Y-m-d'),
+                    'preferences' => json_encode(['free']),
+                    'transaction_id' => 'free_' . md5(uniqid().time().Auth::user()->email)
+                ]
+            );
+            User::where('id', $uid)->update(['subscribed' => 1]);
+            return redirect()->back()->with('msg', 'Subscribed successfully.');
+        }
+    }
 }

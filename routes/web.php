@@ -40,7 +40,6 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('mark/contest/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
     Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
-
     Route::get('cancel/membership', [\App\Http\Controllers\PaymentController::class, 'cancel_membership'])->name('cancel.membership');
 
 
@@ -85,6 +84,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('winner/bank/transfer/{contest_id}/{id}/{prize}', [\App\Http\Controllers\AdminController::class, 'winner_bank_transfer'])->name('winner.bank.transfer');
     Route::post('bank/transfer/post', [\App\Http\Controllers\AdminController::class, 'bank_transfer_post'])->name('bank.transfer.post');
     Route::get('contest/info/category/{id}', [\App\Http\Controllers\AdminController::class, 'contest_info_by_category']);
+    Route::get('free/subscription/{uid}', [\App\Http\Controllers\SubscriptionController::class, 'free_subscription'])->name('free.subscription');
 
 
 

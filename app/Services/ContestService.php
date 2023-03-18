@@ -293,8 +293,18 @@ class ContestService
                     ->where('portfolios.profile_photo', '=', 1)
                     ->limit(1);
             })
+            ->leftJoin('bank_transfers', function ($join) {
+                $join->on('bank_transfers.user_id', '=', 'winners.user_id')
+                    ->on('bank_transfers.contest_id', '=', 'contests.id');
+            })
+            ->leftJoin('configures', function ($join) {
+                $join->on('configures.user_id', '=', 'winners.user_id')
+                    ->whereIn('configures.key', ['bank', 'pix']);
+            })
             ->select(
-                'contests.id as contest_id', 'contests.title as contest_name', 'start', 'end', 'prize_first', 'prize_second', 'prize_third', 'winners.user_id as uid', 'users.name as user_name', 'username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.rank as rank'
+                'contests.id as contest_id', 'contests.title as contest_name', 'start', 'end', 'prize_first', 'prize_second', 'prize_third', 'winners.user_id as uid', 'users.name as user_name', 'username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.rank as rank', 'bank_transfers.acc_no as acc_no',
+                DB::raw('GROUP_CONCAT(IF(configures.key = "bank", configures.value, NULL)) as bank'),
+                DB::raw('GROUP_CONCAT(IF(configures.key = "pix", configures.value, NULL)) as pix')
             )
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
@@ -302,7 +312,9 @@ class ContestService
             ->where('total_votes', '>', 0)
             ->where('rank', '>', 0)
             ->where('rank', '<', 4)
+            ->orderByDesc('contest_id')
             ->orderBy('rank')
+            ->groupBy('contest_id', 'uid')
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {
@@ -315,19 +327,7 @@ class ContestService
                     'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
                     'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
                     'winners' => $group->map(function ($item) {
-                        $configures = DB::table('configures')
-                            ->where('user_id', '=', $item->uid)
-                            ->get();
-                        $bank = null;
-                        $pix = null;
-                        foreach ($configures as $configure) {
-                            if ($configure->key == 'bank') {
-                                $bank = $configure->value;
-                            }
-                            if ($configure->key == 'pix') {
-                                $pix = $configure->value;
-                            }
-                        }
+                        $accMatch = isset($item->acc_no) && ($item->acc_no == $item->bank || $item->acc_no == $item->pix) ? 0 : 1;
                         return [
                             'user_id' => $item->uid,
                             'user_name' => $item->user_name,
@@ -337,8 +337,9 @@ class ContestService
                             ],
                             'total_votes' => $item->total_votes,
                             'rank' => $item->rank,
-                            'user_bank' => $bank ?? 'xxxxxxxxx',
-                            'user_pix' => $pix ?? 'xxxxxxxxx',
+                            'user_bank' => $item->bank ?? 'xxxxxxxxx',
+                            'user_pix' => $item->pix ?? 'xxxxxxxxx',
+                            'accMatch' => $accMatch,
                         ];
                     })->toArray(),
                 ];

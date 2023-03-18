@@ -54,10 +54,9 @@
                         $19.99/month
                     </h2>
                     <h5 class="mt-4 fw-bold fs-5">Unlock all features</h5>
-                    <p class="mb-1">Website functionality 1</p>
-                    <p class="mb-1">Website functionality 2</p>
-                    <p class="mb-1">Website functionality 3</p>
-                    <p class="mb-1">Website functionality 4</p>
+                    <p class="mb-1">You can participate any contest</p>
+                    <p class="mb-1">Earn real money</p>
+                    <p class="mb-1">Get premium support</p>
                     <div class="d-grid gap-2 col-8 mt-4 mx-auto">
                         <a class="btn btn-dark btn-lg text-uppercase" href="{{route('subscription.create')}}">Subscribe</a>
                     </div>

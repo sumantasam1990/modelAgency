@@ -52,12 +52,12 @@
                 <div class=" mb-3 sec-box">
                     <h4 class="fs-4 fw-bold mb-3">{{$d['contest_name']}} </h4>
 
-                    <header class="d-flex flex-row justify-content-between align-items-center mb-3 fw-bold">
-                        <div>Name of model</div>
-                        <div>Bank Account No</div>
-                        <div>Pix ID</div>
-                        <div>Prize</div>
-                        <div>Status</div>
+                    <header class="d-flex flex-row justify-content-between align-items-baseline mb-3 fw-bold">
+                        <div style="width: 100px;">Name of model</div>
+                        <div style="width: 100px;">Bank Account No</div>
+                        <div style="width: 100px;">Pix ID</div>
+                        <div style="width: 100px;">Prize</div>
+                        <div style="width: 100px;">Status</div>
                     </header>
                     @php
                     $i = 1;
@@ -75,18 +75,15 @@
                         @endphp
                         <div class="d-flex flex-row justify-content-between align-items-center mb-2">
                             <div style="width: 100px;">{{$winner['user_name']}}</div>
-                            <div>
-                                @php
-                                $bankTransfer = \App\Models\BankTransfer::whereContestId($d['contest_id'])->whereUserId($winner['user_id'])->first();
-                                @endphp
+                            <div style="width: 100px;">
 
                                 <span class="fw-bold">{{$winner['user_bank']}}</span>
                             </div>
-                            <div>
+                            <div style="width: 100px;">
                                 <span class="fw-bold">{{$winner['user_pix']}}</span>
                             </div>
-                            <div>
-                                @if(isset($bankTransfer->acc_no) && ($bankTransfer->acc_no == $winner['user_bank'] || $bankTransfer->acc_no == $winner['user_pix']))
+                            <div style="width: 100px;">
+                                @if($winner['accMatch'] === 0)
                                     <span class="badge bg-success fs-6">
                                         @else
                                             <span class="badge bg-warning fs-6">
@@ -102,8 +99,8 @@
                                 </span>
                                     </span>
                             </div>
-                            <div>
-                                @if(isset($bankTransfer->acc_no) && ($bankTransfer->acc_no == $winner['user_bank'] || $bankTransfer->acc_no == $winner['user_pix']))
+                            <div style="width: 100px;">
+                                @if($winner['accMatch'] === 0)
                                     <a class="btn btn-success btn-sm" href="#"><i class="fa-solid fa-check"></i></a>
                                 @else
                                     <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id'], $prize])}}"><i class="fa-solid fa-hourglass-start"></i></a>
