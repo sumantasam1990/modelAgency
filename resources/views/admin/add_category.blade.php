@@ -204,7 +204,12 @@
                 <div class="sec-box mb-2">
                     <h4 class="fw-bold fs-4">{{$d->title}}</h4>
                     <p class="text-black-50">
-                        Age: {{$d->_age}}, Height: {{$d->_height}}, Gender: {{$d->_gender}}, Dress: {{$d->_dress}}
+                        @php
+                            $exp = explode(',', $d->_age);
+                            $from = (int)$exp[0]/12;
+                            $to = (int)$exp[1]/12;
+                        @endphp
+                        Age: {{$from}}, {{$to}}, Height: {{$d->_height}}, Gender: {{$d->_gender}}, Dress: {{$d->_dress}}
                     </p>
                     <p class="d-flex flex-column align-items-end">
                         <a onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" href="{{route('category.delete', [$d->id])}}">Delete</a>

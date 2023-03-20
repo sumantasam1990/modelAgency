@@ -73,11 +73,11 @@ class AuthController extends Controller
             $user = $this->create($data);
             event(new Registered($user));
 
-            //return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
-
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+
+        return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
     }
 
     private function create(array $data)

@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
 
 });
 Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout')->middleware('auth');
-Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile')->middleware('auth');
+Route::get('/{username}', [\App\Http\Controllers\ProfileController::class, 'profile'])->name('profile')->middleware('auth', 'verified', 'check.min.photo.upload');
 
 
 // admin routes

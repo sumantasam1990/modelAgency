@@ -98,6 +98,11 @@ class Contest extends Model
         return $this->belongsToMany(User::class, 'contest_participants')->inRandomOrder()->limit(2);
     }
 
+    public function users_for_vote(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'contest_participants')->where('subscribed', 1)->where('status', 1)->inRandomOrder()->limit(2);
+    }
+
     public function user_participants(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'contest_participants');

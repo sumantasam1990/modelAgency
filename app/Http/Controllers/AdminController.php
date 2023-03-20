@@ -120,12 +120,18 @@ class AdminController extends Controller
             $height_from = $height[0] ?? 0.0;
             $height_to = $height[1] ?? 5000.0;
 
+            $age = explode(',', $category->_age);
+            $age_from = $age[0];
+            $age_to = $age[1];
+
             $user_ids = User::with(['portfolio' => function($query) {
                 $query->select('user_id', 'file_name', 'ext');
             }])
                 ->select('id')
                 ->whereIn('gender', explode(',', $category->_gender))
-                //->whereBetween('age', [$age_from, $age_to])
+                ->when($category->_age != ',', function ($q) use($age_from, $age_to) {
+                    $q->whereRaw("TIMESTAMPDIFF(MONTH, age, NOW()) BETWEEN ? AND ?", [$age_from, $age_to]);
+                })
                 ->when($category->_dress != null, function ($q) use($category) {
                     $q->whereIn('dress', explode(',', $category->_dress));
                 })
@@ -159,7 +165,7 @@ class AdminController extends Controller
 
                 ContestParticipants::insert($participants);
 
-                return redirect()->back();
+                return redirect()->back()->with('msg', 'Successfully created a contest.');
             } else
             {
                 return 'No model found in this category.';
@@ -245,7 +251,7 @@ class AdminController extends Controller
         $data = [
             'users' => $users,
             'total_subscribers' => $totalSubscribers,
-            'total_income' => $totalIncome,
+            'total_income' => $totalIncome/100,
         ];
 
         $arr = [1,2,3,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70];

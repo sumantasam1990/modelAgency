@@ -34,7 +34,7 @@ class ContestService
             $users->whereIn('city', $request['city']);
         }
         if (isset($request['age_from'])) {
-            $users->whereBetween('users.preferences->_age', [$request['age_from'], $request['age_to']]);
+            $users->whereBetween('users->_age', [$request['age_from'], $request['age_to']]);
         }
         if (isset($request['h_from'])) {
             $users->whereBetween(DB::raw("CAST(json_extract(`users`.`preferences`, '$._height') AS UNSIGNED)"), [$request['h_from'], $request['h_to']]);
@@ -58,7 +58,7 @@ class ContestService
     public function totalUsers(String $from, String $to, $request): int
     {
         $users = User::where('email', '!=', 'admin@admin.com')
-            ->where('status', 0)
+//            ->where('status', 0)
             ->whereBetween('created_at', [$from, $to]);
 
         return $this->extracted($users, $request);
@@ -68,7 +68,9 @@ class ContestService
     {
         $users = User::where('email', '!=', 'admin@admin.com')
             ->where('subscribed', 1)
-            ->whereBetween('created_at', [$from, $to]);
+            ->whereHas('payment', function ($q) use ($from, $to) {
+                $q->whereBetween('start_date', [$from, $to]);
+            });
 
         return $this->extracted($users, $request);
     }
@@ -154,15 +156,15 @@ class ContestService
     {
         $contestParticipants = ContestParticipants::where('user_id', Auth::user()->id)->select('contest_id')->get();
         $getAlreadyVotedUsers = ContestVotingResult::where('user_id', Auth::user()->id)->select('contest_id')->get();
-        return Contest::with('users.portfolio')
+        return Contest::with('users_for_vote.portfolio')
             ->whereNotIn('id', $getAlreadyVotedUsers)
             ->whereNotIn('id', $contestParticipants)
             ->where('end', '>', Carbon::today()->format('Y-m-d'))
             ->whereMonth('start', Carbon::now()->month)
-            ->whereHas('users', function ($query) {
-                $query->where('status', 1);
-                $query->where('subscribed', 1);
-            })
+//            ->whereHas('users', function ($query) {
+//                $query->where('status', 1);
+//                $query->where('subscribed', 1);
+//            })
             ->take(1)
             ->get();
     }
