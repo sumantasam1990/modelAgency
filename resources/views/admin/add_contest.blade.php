@@ -155,9 +155,6 @@ Users would not see all models that are participating in a contest category.</te
                 fetch('/admin/contest/info/category/' + value)
                     .then(response => response.json())
                     .then(category => {
-                        //console.log(category)
-                        // const category = data["1"];
-                        // console.log(category)
                         var list = document.getElementById('my-div');
                         list.innerHTML = '';
                         //categories.forEach(function(category) {
@@ -176,7 +173,7 @@ Users would not see all models that are participating in a contest category.</te
 
                             var contestDiv = document.createElement('div');
                             contestDiv.classList.add('contestt');
-                            contestDiv.classList.add('fs-2');
+                            contestDiv.classList.add('fs-4');
                             contestDiv.classList.add('fw-bold');
                             contestDiv.innerHTML = contest.title;
 
@@ -184,11 +181,8 @@ Users would not see all models that are participating in a contest category.</te
                             contestStart.classList.add('text-black-50');
                             contestStart.classList.add('mb-1');
                             contestStart.classList.add('fs-6');
-                            contestStart.innerHTML = contest.start;
-                            var contestEnd = document.createElement('p');
-                            contestEnd.classList.add('text-black-50');
-                            contestEnd.classList.add('fs-6');
-                            contestEnd.innerHTML = contest.end;
+                            contestStart.innerHTML = 'Start: ' + contest.start + ' End: ' + contest.end;
+
                             var prize = document.createElement('div');
                             prize.classList.add('list-on');
                             prize.innerHTML = 'First Prize: ' + contest.prize_first + ', Second Prize: ' + contest.prize_second + ', Third Prize: ' + contest.prize_third;
@@ -202,7 +196,7 @@ Users would not see all models that are participating in a contest category.</te
 
 
                             contestDiv.appendChild(contestStart);
-                            contestDiv.appendChild(contestEnd);
+                            //contestDiv.appendChild(contestEnd);
                             contestDiv.appendChild(prize);
                             contestDiv.appendChild(participants);
                             contestDiv.appendChild(rules);
@@ -252,7 +246,7 @@ Users would not see all models that are participating in a contest category.</te
     .contestt .list-on {
         color: #1a1e21;
         font-weight: bold;
-        font-size: 17px;
+        font-size: 14px;
     }
 
     .contestt .participant {

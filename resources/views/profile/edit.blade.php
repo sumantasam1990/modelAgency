@@ -207,13 +207,26 @@
 
             <div class="row mt-2">
                 <div class="col-md-4">
-                    <input type="text" readonly name="social_insta_label" value="Instagram" class="form-control border-0 fw-bold">
+{{--                    <input type="text" readonly name="social_insta_label" value="Instagram" class="form-control border-0 fw-bold">--}}
+                    <select class="form-control" name="social_label">
+                        <option value="">Choose</option>
+                        <option>Instagram</option>
+                        <option>Tiktok</option>
+                        <option>Youtube</option>
+                        <option>Twitter</option>
+                        <option>Kwai</option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <input type="url" name="social_insta_url" value="{{$user->preferences['social']['insta']['url'] ?? ''}}" placeholder="URL" class="form-control">
                 </div>
                 <div class="col-md-4">
                     <select class="form-control" name="social_insta_follow">
+                        <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '100 - 1000' ? 'selected' : ''}}>100 -1000</option>
+                        <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '1k - 2k' ? 'selected' : ''}}>1k -2k</option>
+                        <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '2k - 5k' ? 'selected' : ''}}>2k -5k</option>
+
+
                         <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '5k - 10k' ? 'selected' : ''}}>5k - 10k</option>
                         <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '11k - 50k' ? 'selected' : ''}}>11k - 50k</option>
                         <option {{isset($user->preferences['social']['insta']['follower']) && $user->preferences['social']['insta']['follower'] == '51k - 100k' ? 'selected' : ''}}>51k - 100k</option>
@@ -222,41 +235,9 @@
                     </select>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <input type="text" readonly name="social_tiktok_label" value="Tiktok" class="form-control border-0 fw-bold">
-                </div>
-                <div class="col-md-4">
-                    <input type="url" name="social_tiktok_url" value="{{$user->preferences['social']['tiktok']['url'] ?? ''}}" placeholder="URL" class="form-control">
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control" name="social_tiktok_follow">
-                        <option {{isset($user->preferences['social']['tiktok']['follower']) && $user->preferences['social']['tiktok']['follower'] == '5k - 10k' ? 'selected' : ''}}>5k - 10k</option>
-                        <option {{isset($user->preferences['social']['tiktok']['follower']) && $user->preferences['social']['tiktok']['follower'] == '11k - 50k' ? 'selected' : ''}}>11k - 50k</option>
-                        <option {{isset($user->preferences['social']['tiktok']['follower']) && $user->preferences['social']['tiktok']['follower'] == '51k - 100k' ? 'selected' : ''}}>51k - 100k</option>
-                        <option {{isset($user->preferences['social']['tiktok']['follower']) && $user->preferences['social']['tiktok']['follower'] == '101k - 1M' ? 'selected' : ''}}>101k - 1M</option>
-                        <option {{isset($user->preferences['social']['tiktok']['follower']) && $user->preferences['social']['tiktok']['follower'] == '1M+' ? 'selected' : ''}}>1M+</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <input type="text" name="social_other_label" value="{{$user->preferences['social']['other']['label'] ?? ''}}" placeholder="Name of social media" class="form-control fw-bold">
-                </div>
-                <div class="col-md-4">
-                    <input type="url" name="social_other_url" value="{{$user->preferences['social']['other']['url'] ?? ''}}" placeholder="URL" class="form-control">
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control" name="social_other_follow">
-                        <option {{isset($user->preferences['social']['other']['follower']) && $user->preferences['social']['other']['follower'] == '5k - 10k' ? 'selected' : ''}}>5k - 10k</option>
-                        <option {{isset($user->preferences['social']['other']['follower']) && $user->preferences['social']['other']['follower'] == '11k - 50k' ? 'selected' : ''}}>11k - 50k</option>
-                        <option {{isset($user->preferences['social']['other']['follower']) && $user->preferences['social']['other']['follower'] == '51k - 100k' ? 'selected' : ''}}>51k - 100k</option>
-                        <option {{isset($user->preferences['social']['other']['follower']) && $user->preferences['social']['other']['follower'] == '101k - 1M' ? 'selected' : ''}}>101k - 1M</option>
-                        <option {{isset($user->preferences['social']['other']['follower']) && $user->preferences['social']['other']['follower'] == '1M+' ? 'selected' : ''}}>1M+</option>
-                    </select>
-                </div>
-            </div>
+
+
 
             <h4 class="fw-bold fs-4 mt-3">Bank Details</h4>
 

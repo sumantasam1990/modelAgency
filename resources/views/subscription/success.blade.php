@@ -7,7 +7,7 @@
                     <i class="fa-solid fa-circle-check"></i>
                 </p>
                 <h2 class="fw-bold fs-4 text-dark">
-                    Your payment has been <span class="badge bg-success">paid successfully</span>. We will charge you every month. Now you can use all premium features for each month. <br /><br /> Your expiry date is <span class="fw-bold">{{\Carbon\Carbon::parse($endDate->end_date)->format('jS F Y')}}</span>
+                    {{__('main.subscription_conf')}} <br /><br /> Your expiry date is <span class="fw-bold">{{\Carbon\Carbon::parse($endDate->end_date)->format('jS F Y')}}</span>
                 </h2>
                 <p class="mt-4">
                     <a class="btn btn-lg btn-dark" href="{{route('portfolio')}}"><i class="fa-solid fa-camera"></i> &nbsp; Add your photos</a> &nbsp;

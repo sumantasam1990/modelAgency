@@ -46,6 +46,27 @@ body {
     height: 100%;
 }
 
+.gold {
+    background-color: gold;
+    padding: 6px;
+    border-radius: 6px;
+
+}
+
+.silver {
+    background-color: silver;
+    padding: 6px;
+    border-radius: 6px;
+
+}
+
+.bronze {
+    background-color: #CD7F32;
+    padding: 6px;
+    border-radius: 6px;
+    color: #eeeeee;
+}
+
 .vote {
     background: #fff;
     border-radius: 6px;

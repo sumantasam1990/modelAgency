@@ -19,29 +19,29 @@
                                 <div class="flex-grow-1 ms-3">
                                     <h4 class="fw-bold fs-4 text-black">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
 
-                                    <p class="text-danger fw-bold">
+                                    <p class="text-danger fw-bold mb-1">
                                         Contest expiry: {{$contest['end']}}
                                     </p>
 
-                                    <div class="row mt-4">
+                                    <div class="row mt-2">
                                         @if($contest['winners'][0]['user_id'] != null)
-                                            <hr />
+
 
                                             @foreach($contest['winners'] as $winner)
                                                 <div class="col-md-12 mx-auto">
-                                                    <a href="{{route('profile', [$winner['username']])}}">
-                                                        <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">
-                                                    </a>
-                                                    <p class="mt-3">
-                                                        <span class="fw-bold">{{$winner['user_name']}}</span>  <br> Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
+{{--                                                    <a href="{{route('profile', [$winner['username']])}}">--}}
+{{--                                                        <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">--}}
+{{--                                                    </a>--}}
+                                                    <p class="fs-5">
+                                                        <span class="fw-bold">Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
                                                     </p>
                                                     @if($winner['rank'] > 0 && $winner['rank'] < 4 && $winner['total_votes'] > 0)
-                                                        <p>
-                                                            <span class="badge bg-warning fw-bold fs-6">
-                                                                <i class="fa-solid fa-trophy"></i>
-                                                                You Won
-                                                            </span>
-                                                        </p>
+{{--                                                        <p>--}}
+{{--                                                            <span class="badge bg-warning fw-bold fs-6">--}}
+{{--                                                                <i class="fa-solid fa-trophy"></i>--}}
+{{--                                                                You Won--}}
+{{--                                                            </span>--}}
+{{--                                                        </p>--}}
                                                     @if($contest['bank_status'] == null)
                                                         <p class="fw-semibold mt-2">
                                                             Congratulations on your <span class="fw-bold">{{$winner['rank'] ?? ''}}</span> place in the <span class="fw-bold">{{$contest['contest_name']}}</span> ! We would like fo inform

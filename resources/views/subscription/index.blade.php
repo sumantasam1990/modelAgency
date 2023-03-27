@@ -24,18 +24,21 @@
                     </div>
             @else
                 <div class="sec-box border p-4">
-                    <h2 class="fs-3 fw-bold">Premium User</h2>
-                    <h4 class="fw-semibold fs-4 mb-1">You have successfully subscribed.</h4>
-                    <p class="fs-6 text-black">Your next renewal date is <span class="fw-bold">{{\Carbon\Carbon::parse($data[0]->end_date)->format('jS F Y')}}</span></p>
+                    <h2 class="fs-3 fw-bold">{{__('main.premium')}}</h2>
+                    <h4 class="fw-semibold fs-4 mb-1">{{__('main.membership_active')}}</h4>
+{{--                    <p class="fs-6 text-black">Your next renewal date is <span class="fw-bold">{{\Carbon\Carbon::parse($data[0]->end_date)->format('jS F Y')}}</span></p>--}}
                     <div class="d-grid gap-2 col-12 mt-3">
-                        <a class="btn-lg btn btn-dark" href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; Go to vote</a>
+                        <a class="btn-lg btn btn-dark" href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; {{__('main.gotovote')}}</a>
                         @if($data[0]->user->subscribed === 1 && $data[0]->user->payment_card_id === null)
-                            <p class="fw-semibold fs-5 mt-3 text-danger">
-                                You cancelled your membership. We will not charge you from next renewal date.
-                            </p>
+{{--                            <p class="fw-semibold fs-5 mt-3 text-danger">--}}
+{{--                                You cancelled your membership. We will not charge you from next renewal date.--}}
+{{--                            </p>--}}
                         @elseif($data[0]->user->subscribed === 1 && $data[0]->user->payment_card_id !== null)
-                            <a onclick="return confirm('Are you sure? You will miss all premium features.')" class="btn-lg btn btn-danger" href="{{route('cancel.membership')}}"><i class="fa-solid fa-ban"></i> &nbsp; Cancel membership</a>
-                            <small class="text-black-50">If you cancel your membership, we will not charge you from next renewal date.</small>
+                            <p>
+                                <i class="fa-solid fa-ban"></i>
+                                {{__('main.cancel_membership')}}
+                                <a onclick="return confirm('Are you sure? You will miss all premium features.')" class="text-black text-decoration-none fw-bold" href="{{route('cancel.membership')}}">{{__('main.cancel')}}</a>
+                            </p>
                         @endif
 
 

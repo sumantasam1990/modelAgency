@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
-
+Route::get('/', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('login/post', [\App\Http\Controllers\AuthController::class, 'authenticate'])->name('login.post');
 Route::get('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');

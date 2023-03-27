@@ -455,6 +455,23 @@ class ContestService
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {
+                // Compute the maximum number of votes.
+                $max_votes = $group->max('total_votes');
+
+                // Find the IDs of the winners with the maximum number of votes.
+                $winner_ids = $group->filter(function ($item) use ($max_votes) {
+                    return $item->total_votes == $max_votes;
+                })->pluck('uid');
+
+                // Give an extra vote to the oldest winner if there is a tie.
+                if (count($winner_ids) > 1) {
+                    $oldest_winner = $group->filter(function ($item) use ($winner_ids) {
+                        return $winner_ids->contains($item->uid);
+                    })->sortBy('start')->first();
+
+                    $oldest_winner->total_votes += 1;
+                }
+
                 return [
                     'contest_id' => $group->first()->contest_id,
                     'contest_name' => $group->first()->contest_name,
@@ -469,6 +486,7 @@ class ContestService
                     }),
                 ];
             });
+
     }
 
     public function my_results()

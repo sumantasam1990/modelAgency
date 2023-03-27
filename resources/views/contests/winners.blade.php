@@ -50,7 +50,22 @@
                                     <hr />
 
                                     <div class="row mt-4">
-                                        @foreach($contest['winners'] as $winner)
+                                        @foreach($contest['winners'] as $index => $winner)
+                                            @php
+                                                switch($loop->iteration) {
+                                                    case 1:
+                                                        $position = 'gold';
+                                                        break;
+                                                    case 2:
+                                                        $position = 'silver';
+                                                        break;
+                                                    case 3:
+                                                        $position = 'bronze';
+                                                        break;
+                                                    default:
+                                                        $position = '';
+                                                }
+                                            @endphp
                                             <div class="col-md-4">
                                                 <a href="{{route('profile', [$winner['username']])}}">
                                                 <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">
@@ -59,9 +74,9 @@
                                                     <span class="fw-bold">{{$winner['user_name']}}</span>  <br> Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
                                                 </p>
                                                 <p>
-                                                    <span class="badge bg-warning fw-bold fs-6">
+                                                    <span class="{{ $position }} fw-bold fs-6">
                                                         <i class="fa-solid fa-trophy"></i>
-                                                        Winner
+                                                        {{$index+1}}{{$loop->iteration == 1 ? 'st' : ($loop->iteration == 2 ? 'nd' : ($loop->iteration == 3 ? 'rd' : 'th')) }}
                                                     </span>
                                                 </p>
                                             </div>
