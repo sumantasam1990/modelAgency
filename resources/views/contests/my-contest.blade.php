@@ -53,6 +53,12 @@
                                     </div>
 
                                 </div>
+                                <div class="flex-shrink-0">
+                                    <img class="image profile-photo" src="{{asset('storage/image/' . ($contest['contest_photo'] === null ? $myContests->portfolio_without_profile_photo->file_name.'.'.$myContests->portfolio_without_profile_photo->ext : $contest['contest_photo']) )}}" alt="contest photo">
+                                    <p class="mt-2">
+                                        <a href="{{route('portfolio', [$contest['contest_id']])}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; Change Contest Photo</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -60,20 +66,20 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <h4 class="fw-bold fs-4 mb-3">Contest Photo</h4>
-            <div class="row">
-                <div class="col-md-12">
-                    @if($myContests != null)
-                        <img src="{{asset('storage/image/' . $myContests->portfolio_without_profile_photo->file_name . '.' . $myContests->portfolio_without_profile_photo->ext)}}" alt="" class="img-fluid img-thumbnail image profile-photo">
-                        <p class="mt-2">
-                            <a href="{{route('portfolio')}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; Change Contest Photo</a>
-                        </p>
-                    @endif
+{{--        <div class="col-md-4">--}}
+{{--            <h4 class="fw-bold fs-4 mb-3">Contest Photo</h4>--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    @if($myContests != null)--}}
+{{--                        <img src="{{asset('storage/image/' . $myContests->portfolio_without_profile_photo->file_name . '.' . $myContests->portfolio_without_profile_photo->ext)}}" alt="" class="img-fluid img-thumbnail image profile-photo">--}}
+{{--                        <p class="mt-2">--}}
+{{--                            <a href="{{route('portfolio')}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; Change Contest Photo</a>--}}
+{{--                        </p>--}}
+{{--                    @endif--}}
 
-                </div>
-            </div>
-        </div>
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 
 @endsection

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
+use App\Models\ContestParticipants;
 use App\Models\Interest;
 use App\Models\Link;
 use App\Models\portfolio;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class portfolioController extends Controller
 {
-    public function index()
+    public function index(int $contest_id = 0)
     {
         $minutes = 86400;
         $data = Cache::remember('photo-user-' . Auth::id(), $minutes, function () {
@@ -30,6 +32,7 @@ class portfolioController extends Controller
 
         return view('portfolio.index', [
             'data' => $data,
+            'contest_id' => $contest_id,
 //            'links_jobs' => $links_jobs,
 //            'links_awards' => $links_awards,
 //            'links_dance' => $links_dance,
@@ -159,16 +162,24 @@ class portfolioController extends Controller
         return redirect()->back();
     }
 
-    public function mark_contest_photo(int $id): \Illuminate\Http\RedirectResponse
+    public function mark_contest_photo(int $id, int $contest_id = 0)
     {
         Cache::delete('photo-user-' . Auth::user()->id);
         Cache::delete('user-' . Auth::user()->id);
 
-        portfolio::whereUserId(Auth::user()->id)
-            ->update(['contest_photo' => 0]);
+        if (Contest::where('start', '>=', now())->where('id', $contest_id)->count('id') === 0) {
+            return redirect()->back()->with('err', 'You can not change your photo for this contest. Because It is already started.');
+        }
 
-        portfolio::whereId($id)
-            ->update(['contest_photo' => 1]);
+        $photo = portfolio::where('id', $id)
+            ->select('id', 'file_name', 'ext')
+            ->get();
+
+        if (count($photo) > 0) {
+            ContestParticipants::where('contest_id', $contest_id)
+                ->where('user_id', Auth::user()->id)
+                ->update(['contest_photo' => $photo[0]->file_name . '.' . $photo[0]->ext]);
+        }
 
         return redirect()->back();
     }

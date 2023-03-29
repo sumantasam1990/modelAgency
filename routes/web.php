@@ -16,7 +16,7 @@ Route::get('register', [\App\Http\Controllers\AuthController::class, 'register']
 Route::post('register/post', [\App\Http\Controllers\AuthController::class, 'register_post'])->name('register.post');
 
 Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
-    Route::get('portfolio',[\App\Http\Controllers\portfolioController::class, 'index'])->name('portfolio');
+    Route::get('portfolio/{contest_id?}',[\App\Http\Controllers\portfolioController::class, 'index'])->name('portfolio');
     Route::post('upload/photo', [\App\Http\Controllers\portfolioController::class, 'uploadPhoto'])->name('upload.image');
     Route::post('links/post', [\App\Http\Controllers\portfolioController::class, 'links_post'])->name('links.post');
     Route::get('delete/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'delete_photo'])->name('delete.photo');
@@ -37,10 +37,12 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success');
     Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
     Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo');
-    Route::get('mark/contest/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
+    Route::get('mark/contest/photo/{id}/{contest_id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
     Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
     Route::get('cancel/membership', [\App\Http\Controllers\PaymentController::class, 'cancel_membership'])->name('cancel.membership');
+    Route::get('about/me', [\App\Http\Controllers\ProfileController::class, 'about_me'])->name('about.me');
+    Route::post('about/me/post', [\App\Http\Controllers\ProfileController::class, 'about_post'])->name('about.me.post');
 
 
 

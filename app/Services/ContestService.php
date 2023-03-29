@@ -211,10 +211,11 @@ class ContestService
         return Contest::join('contest_participants', 'contests.id', '=', 'contest_participants.contest_id')
             ->where('contest_participants.user_id', \auth()->user()->id)
             ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->select('contests.id as contest_id', 'contests.title as title', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'contests.start', 'contests.end', 'contests.rules', 'contest_participants.contest_photo')
             ->get()
             ->map(function ($group) {
             return [
-                'contest_id' => $group->id,
+                'contest_id' => $group->contest_id,
                 'contest_name' => $group->title,
                 'contest_first_prize' => $group->prize_first,
                 'contest_second_prize' => $group->prize_second,
@@ -222,6 +223,7 @@ class ContestService
                 'start' => Carbon::parse($group->start)->format('jS F Y'),
                 'end' => Carbon::parse($group->end)->format('jS F Y'),
                 'rules' => $group->rules,
+                'contest_photo' => $group->contest_photo,
             ];
         });
     }
@@ -243,7 +245,7 @@ class ContestService
                     ->where('portfolios.profile_photo', '=', 1)
                     ->limit(1);
             })
-            ->select('contests.id as contest_id', 'contests.title as contest_name', 'contests.start', 'contests.end', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'winners.user_id as uid', 'users.name as user_name', 'users.username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext')
+            ->select('contests.id as contest_id', 'contests.title as contest_name', 'contests.start', 'contests.end', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'winners.user_id as uid', 'users.name as user_name', 'users.username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.winner_photo')
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
             ->where('winners.rank', '>', 0)
@@ -267,7 +269,7 @@ class ContestService
                             'user_name' => $item->user_name,
                             'username' => $item->username,
                             'user_image' => [
-                                'image_path' => $item->file_name . '.' . $item->ext,
+                                'image_path' => $item->winner_photo,
                             ],
                             'total_votes' => $item->total_votes,
                         ];
@@ -306,7 +308,8 @@ class ContestService
             ->select(
                 'contests.id as contest_id', 'contests.title as contest_name', 'start', 'end', 'prize_first', 'prize_second', 'prize_third', 'winners.user_id as uid', 'users.name as user_name', 'username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.rank as rank', 'bank_transfers.acc_no as acc_no',
                 DB::raw('GROUP_CONCAT(IF(configures.key = "bank", configures.value, NULL)) as bank'),
-                DB::raw('GROUP_CONCAT(IF(configures.key = "pix", configures.value, NULL)) as pix')
+                DB::raw('GROUP_CONCAT(IF(configures.key = "pix", configures.value, NULL)) as pix'),
+                'users.wp as wp'
             )
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
@@ -342,6 +345,7 @@ class ContestService
                             'user_bank' => $item->bank ?? 'xxxxxxxxx',
                             'user_pix' => $item->pix ?? 'xxxxxxxxx',
                             'accMatch' => $accMatch,
+                            'wp' => $item->wp,
                         ];
                     })->toArray(),
                 ];

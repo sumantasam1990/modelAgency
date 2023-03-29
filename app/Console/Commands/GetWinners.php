@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Mail\SendWinnersEmail;
+use App\Models\ContestParticipants;
+use App\Models\portfolio;
 use App\Models\Winner;
 use App\Services\ContestService;
 use Illuminate\Console\Command;
@@ -43,11 +45,32 @@ class GetWinners extends Command
                     ->get();
                 if (count($winnerChk) === 0)
                 {
+                    $photo = ContestParticipants::where('user_id', $d['user_id'])
+                        ->where('contest_id', $da['contest_id'])
+                        ->select('id', 'contest_photo')
+                        ->get();
+
+                    if(count($photo) > 0) {
+                        if ($photo[0]->contest_photo != null) {
+                            $contest_photo = $photo[0]->contest_photo;
+                        } else {
+                            $portfolio = portfolio::where('user_id', $d['user_id'])
+                                ->select('id', 'file_name', 'ext')
+                                ->where('contest_photo', 1)
+                                ->get();
+
+                            if (count($portfolio) > 0) {
+                                $contest_photo = $portfolio[0]->file_name . '.' . $portfolio[0]->ext;
+                            }
+                        }
+                    }
+
                     $winner = new Winner;
                     $winner->contest_id = $da['contest_id'];
                     $winner->user_id = $d['user_id'];
                     $winner->total_votes = (int)$d['total_votes'];
                     $winner->rank = (int)$d['rank'];
+                    $winner->winner_photo = $contest_photo ?? null;
                     $winner->save();
 
                     if($d['rank'] > 0 && $d['rank'] < 4)

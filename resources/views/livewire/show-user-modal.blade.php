@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <div id="userInfo">
                         @if ($data)
-                            <p>{{ $data->content }}</p>
+                            <p>{{ $data->about }}</p>
                         @endif
                     </div>
                 </div>

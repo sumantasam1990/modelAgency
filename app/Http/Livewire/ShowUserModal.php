@@ -15,7 +15,8 @@ class ShowUserModal extends Component
 
     public function showUser()
     {
-        $this->data = Interest::whereUserId($this->userId)
+        $this->data = User::whereId($this->userId)
+            ->select('about')
             ->first();
     }
     public function render()

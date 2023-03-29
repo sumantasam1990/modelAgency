@@ -20,7 +20,7 @@ class ContestsController extends Controller
         return view('contests.index_vote');
     }
 
-    public function my_contests(ContestService $contestService): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function my_contests(ContestService $contestService)
     {
        // Cache::delete('photo-user-' . Auth::user()->id);
         $myContests = $contestService->userContestPhoto();

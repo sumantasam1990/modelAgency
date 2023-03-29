@@ -39,8 +39,8 @@
                                     <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark btn-sm">Mark it profile photo</a>
                                 @endif
 
-                                @if($image->contest_photo == 0)
-                                    <a href="{{route('mark.contest.photo', [$image->id])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
+                                @if($image->contest_photo == 0 && $contest_id > 0)
+                                    <a href="{{route('mark.contest.photo', [$image->id, $contest_id])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
                                 @endif
                                 <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i> Delete

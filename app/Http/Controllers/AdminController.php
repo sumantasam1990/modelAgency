@@ -436,10 +436,20 @@ class AdminController extends Controller
 
     public function bank_transfer_post(Request $request): \Illuminate\Routing\Redirector|Application|RedirectResponse
     {
+        $data = Configure::with('user')
+            ->where('user_id', $request->_user)
+            ->whereIn('key', ['pix'])
+            ->select('id', 'value', 'user_id')
+            ->get();
+
+        if (count($data) === 0) {
+            return redirect(route('admin.winners'));
+        }
+
         $user = User::whereId($request->_user)->select('id', 'email', 'name')->first();
         $contest = Contest::whereId($request->_contest)->select('title', 'id')->first();
 
-        $config = Configure::where('key', $request->_bank)
+        $config = Configure::where('key', 'pix')
             ->where('user_id', $request->_user)
             ->select('id', 'value')
             ->first();
@@ -454,7 +464,8 @@ class AdminController extends Controller
         if ($save->id) {
             $array_data = [
                 'prize_money' => $request->_prize,
-                'to' => $request->_bank == 'bank' ? 'PAGSEGURO' : 'PIX',
+                //'to' => $request->_bank == 'bank' ? 'PAGSEGURO' : 'PIX',
+                'to' => 'PIX',
                 'name' => $user->name,
                 'contest_name' => $contest->title,
             ];

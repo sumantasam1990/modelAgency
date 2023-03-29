@@ -248,12 +248,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="d-flex flex-row justify-content-between flex-wrap">
-                            @for ($i = 65; $i <= 90; $i++)
-                                <p class="fs-5">
-                                    <a class="text-decoration-none text-black"
-                                       href="?alpha={{chr($i)}}">{{ chr($i) }}</a>
-                                </p>
-                            @endfor
+{{--                            @for ($i = 65; $i <= 90; $i++)--}}
+{{--                                <p class="fs-5">--}}
+{{--                                    <a class="text-decoration-none text-black"--}}
+{{--                                       href="?alpha={{chr($i)}}">{{ chr($i) }}</a>--}}
+{{--                                </p>--}}
+{{--                            @endfor--}}
                         </div>
                     </div>
                 </div>

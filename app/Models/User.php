@@ -161,6 +161,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'waist' ,
         'height' ,
         'hair' ,
+        'about',
     ];
 
     /**
@@ -286,4 +287,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Winner::class);
     }
+
+
 }

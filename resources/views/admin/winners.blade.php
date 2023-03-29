@@ -54,8 +54,8 @@
 
                     <header class="d-flex flex-row justify-content-between align-items-baseline mb-3 fw-bold">
                         <div style="width: 100px;">Name of model</div>
-                        <div style="width: 100px;">Bank Account No</div>
-                        <div style="width: 100px;">Pix ID</div>
+                        <div style="width: 100px;">WhatsApp</div>
+                        <div style="width: 100px;">Pix</div>
                         <div style="width: 100px;">Prize</div>
                         <div style="width: 100px;">Status</div>
                     </header>
@@ -77,7 +77,7 @@
                             <div style="width: 100px;">{{$winner['user_name']}}</div>
                             <div style="width: 100px;">
 
-                                <span class="fw-bold">{{$winner['user_bank']}}</span>
+                                <span class="fw-bold">{{$winner['wp']}}</span>
                             </div>
                             <div style="width: 100px;">
                                 <span class="fw-bold">{{$winner['user_pix']}}</span>
@@ -103,7 +103,27 @@
                                 @if($winner['accMatch'] === 0)
                                     <a class="btn btn-success btn-sm" href="#"><i class="fa-solid fa-check"></i></a>
                                 @else
-                                    <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id'], $prize])}}"><i class="fa-solid fa-hourglass-start"></i></a>
+{{--                                    <a class="btn btn-outline-dark btn-sm" href="{{route('winner.bank.transfer', [$d['contest_id'], $winner['user_id'], $prize])}}"><i class="fa-solid fa-hourglass-start"></i></a>--}}
+
+                                    @php
+                                    if($i === 1) {
+                                        $prize_money = $d['first_prize'];
+                                    } elseif ($i === 2) {
+                                        $prize_money = $d['second_prize'];
+                                    } else {
+                                        $prize_money = $d['third_prize'];
+                                    }
+                                    @endphp
+                                    <form onsubmit="return confirm('Are you sure?');" action="{{route('bank.transfer.post')}}" method="post">
+                                        @csrf
+
+                                        <input type="hidden" name="_user" value="{{$winner['user_id']}}">
+                                        <input type="hidden" name="_contest" value="{{$d['contest_id']}}">
+                                        <input type="hidden" name="_prize" value="{{$prize_money}}">
+                                        <button type="submit" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-hourglass-start"></i></button>
+                                    </form>
+
+
                                 @endif
                             </div>
                         </div>

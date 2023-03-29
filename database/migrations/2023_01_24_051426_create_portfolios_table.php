@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('ext');
             $table->integer('profile_photo')->default(0)->index();
             $table->integer('contest_photo')->default(0)->index();
+            $table->bigInteger('contest_id')->default(0)->index();
             $table->timestamps();
         });
     }

@@ -96,4 +96,19 @@ class ProfileController extends Controller
 
         return redirect()->back();
     }
+
+    public function about_me()
+    {
+        return view('profile.about');
+    }
+
+    public function about_post(Request $request)
+    {
+        DB::table('users')->updateOrInsert(
+            ['id' => Auth::user()->id],
+            ['about' => $request->about]
+        );
+
+        return redirect()->back()->with('msg', 'Saved successfully.');
+    }
 }
