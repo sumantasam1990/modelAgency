@@ -114,6 +114,7 @@ class SubscriptionController extends Controller
             $responseBody = $response->getBody()->getContents();
             $response = json_decode($responseBody, true);
 
+
             if (isset($response) && !empty($response)) {
                 $cardId = $response['charges'][0]['payment_method']['card']['id'];
 
@@ -229,6 +230,9 @@ class SubscriptionController extends Controller
                             'amount' => [
                                 'value' => 19,
                                 'currency' => 'BRL',
+                            ],
+                            'plan' => [
+                                'code' => '7224F1DC-C2C2-104C-C4D6-AFAB9A22BE37'
                             ],
                             'payment_method' => [
                                 'type' => 'CREDIT_CARD',

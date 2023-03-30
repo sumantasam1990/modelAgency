@@ -164,7 +164,7 @@ Route::get('test/payment', function () {
 });
 
 Route::post('create-payment-with-pre-approval', function (\Illuminate\Http\Request $request) {
-Log::debug('hiiii');
+
     $plan = [
         'body' => [
             'reference' => 'plano laravel pagseguro',
@@ -247,3 +247,20 @@ Log::debug('hiiii');
 //        return response()->json(['success' => false]);
 //    }
 });
+
+Route::get('get/price', function (Request $request) {
+    $planCode = '7224F1DC-C2C2-104C-C4D6-AFAB9A22BE37';
+    $client = new \GuzzleHttp\Client();
+    $response = $client->get("https://ws.pagseguro.uol.com.br/pre-approvals/{$planCode}", [
+        'headers' => [
+            'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
+            'Content-Type' => 'application/json',
+        ]
+    ]);
+    $planData = json_decode($response->getBody()->getContents(), true);
+    //$price = $planData['preApproval']['charge']['amount']['value'];
+
+    return $planData;
+
+
+})->name('get.price');

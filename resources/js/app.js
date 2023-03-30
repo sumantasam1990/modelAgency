@@ -91,7 +91,7 @@ form.addEventListener('submit', (event) => {
     })
         .then(response => response.json())
         .then(data => {
-            //console.log(data);
+            // console.log(data);
             if ( data.status === 'PAID') {
                 window.location.href='/model/success';
             } else {
