@@ -253,7 +253,7 @@ Route::get('get/price', function (Request $request) {
     $client = new \GuzzleHttp\Client();
     $response = $client->get("https://ws.pagseguro.uol.com.br/pre-approvals/{$planCode}", [
         'headers' => [
-            'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
+            'Authorization' => 'Bearer ' . env('LIVE_TOKEN'),
             'Content-Type' => 'application/json',
         ]
     ]);
