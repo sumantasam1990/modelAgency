@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->json('preferences')->nullable()->index();
+            $table->json('preferences')->nullable();
             $table->integer('status')->default(0)->index();
             $table->integer('subscribed')->default(0)->index();
             $table->string('payment_card_id')->nullable()->index();

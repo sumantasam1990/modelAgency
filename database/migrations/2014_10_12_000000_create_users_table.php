@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('civil');
             $table->rememberToken();
             $table->string('username')->unique()->index();
-            $table->text('about')->nullable()->index();
+            $table->text('about')->nullable();
             $table->timestamps();
         });
     }
