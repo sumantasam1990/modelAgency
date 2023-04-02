@@ -6,8 +6,10 @@
         </div>
         <div class="col-md-4 box h-100">
             @include('alert')
-            <h1 class="fs-2 fw-bold text-capitalize">EUMODELO</h1>
-            <h5 class="text-black-50 fs-5">Access my modeling panel</h5>
+            <h1 class="fs-2 fw-bold text-capitalize mb-3">
+                <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
+            </h1>
+            <h5 class="text-black-50 fs-5">Login Now</h5>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group mb-3">
@@ -52,7 +54,7 @@
                         </div>
                         <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input type="email" name="email" value="man@gmail.com" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
+                            <input type="email" name="email" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
@@ -61,13 +63,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Password*</label>
-                                    <input type="password" name="password" value="123456789" placeholder="" class="form-control @error('password') is-invalid @enderror">
+                                    <input type="password" name="password" placeholder="" class="form-control @error('password') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Confirm Password*</label>
-                                    <input type="password" name="password_confirmation" value="123456789" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
+                                    <input type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
                                 </div>
                             </div>
 
@@ -88,13 +90,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>District*</label>
-                                    <input type="text" name="_district" placeholder="" value="north" class="form-control @error('_district') is-invalid @enderror">
+                                    <input type="text" name="_district" placeholder="" class="form-control @error('_district') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>WhatsApp*</label>
-                                    <input type="text" name="_wp" placeholder="" value="+91 5656565656" class="form-control @error('_wp') is-invalid @enderror">
+                                    <input type="text" name="_wp" placeholder="" class="form-control @error('_wp') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -116,6 +118,7 @@
                                         <option value="">Choose</option>
                                         <option>Single</option>
                                         <option>Married</option>
+                                        <option value="relationship">In a relationship</option>
                                     </select>
                                 </div>
                             </div>
@@ -127,7 +130,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-2">
                                     <label>Age*</label>
-                                    <input type="date" name="_age" placeholder="d/m/Y" value="05/08/1992" class="form-control">
+                                    <input type="date" name="_age" placeholder="d/m/Y" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -135,12 +138,15 @@
                                     <label>Height(m)*</label>
                                     <select class="form-control" name="_height">
                                         <option value="">Choose</option>
-                                        @for ($i = 0.1; $i <= 20; $i++)
-                                            @for ($j = 0; $j <= 9; $j++)
-                                                @php $value = $i + ($j / 10); @endphp
-                                                <option value="{{ $value }}">{{ $value }} meters</option>
-                                            @endfor
-                                        @endfor
+                                        @foreach(range(20, 220) as $number)
+                                            <option value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>
+                                        @endforeach
+{{--                                        @for ($i = 0.1; $i <= 20; $i++)--}}
+{{--                                            @for ($j = 0; $j <= 9; $j++)--}}
+{{--                                                @php $value = $i + ($j / 10); @endphp--}}
+{{--                                                <option value="{{ $value }}">{{ $value }} meters</option>--}}
+{{--                                            @endfor--}}
+{{--                                        @endfor--}}
                                     </select>
                                 </div>
                             </div>
@@ -210,10 +216,14 @@
                                     <label>Hair Color*</label>
                                     <select class="form-control" name="hair">
                                         <option value="">Choose</option>
-                                        <option>White</option>
+                                        <option>Bald</option>
                                         <option>Black</option>
-                                        <option>Blond</option>
-                                        <option>Color</option>
+                                        <option>Blonde</option>
+                                        <option>Brown</option>
+                                        <option>Gray</option>
+                                        <option>White</option>
+                                        <option>Red</option>
+                                        <option>Colored</option>
                                     </select>
                                 </div>
                             </div>
@@ -222,12 +232,11 @@
                                     <label>Eyes color*</label>
                                     <select class="form-control" name="eyes">
                                         <option value="">Choose</option>
-                                        <option>Blue</option>
                                         <option>Brown</option>
-                                        <option>Green</option>
-                                        <option>Hazel</option>
                                         <option>Black</option>
-                                        <option>Purple</option>
+                                        <option>Green</option>
+                                        <option>Blue</option>
+                                        <option>Honey</option>
                                     </select>
                                 </div>
                             </div>

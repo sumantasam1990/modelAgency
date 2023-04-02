@@ -41,6 +41,9 @@
 
             <div class="row mt-3">
                 <div class="col-md-10">
+                    @if(count($data) === 0)
+                        <p class="fw-semibold">No contest found.</p>
+                    @endif
                     @foreach($data as $contest)
                         <div class="sec-box mb-3">
                             <div class="d-flex text-center">

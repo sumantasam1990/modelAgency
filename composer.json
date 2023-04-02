@@ -11,7 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
-        "livewire/livewire": "^2.11",
+        "livewire/livewire": "^2.12",
         "michael/laravelpagseguro": "dev-master",
         "pagseguro/pagseguro-php-sdk": "^4.2"
     },

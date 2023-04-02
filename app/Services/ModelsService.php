@@ -130,8 +130,8 @@ class ModelsService
                 'name' => $user->name,
                 'email' => $user->email,
                 'gender' => $user->gender,
-                'city' => $user->city_name->nome,
-                'state' => $user->state_name->nome,
+                'city' => $user->city_name->nome ?? '',
+                'state' => $user->state_name->nome ?? '',
                 'district' => $user->district,
                 'civil' => $user->civil,
                 'wp' => $user->wp,
@@ -248,7 +248,7 @@ class ModelsService
                             'reference_id' => 'monthly_subscription_infinite',
                             'name' => 'subscription',
                             'quantity' => 1,
-                            'unit_amount' => 1900,
+                            'unit_amount' => 10000,
                         ],
                     ],
 //                    'shipping' => [
@@ -271,7 +271,7 @@ class ModelsService
                             'reference_id' => md5(uniqid().time().$cardId),
                             'description' => 'subscription',
                             'amount' => [
-                                'value' => 1900,
+                                'value' => 10000,
                                 'currency' => 'BRL',
                             ],
                             'payment_method' => [

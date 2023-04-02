@@ -16,29 +16,29 @@
                             <div class="form-group">
                                 <label for="cardNumber">Card Number*</label>
                                 <div class="input-group">
-                                    <input type="text" value="4111111111111111" class="form-control" id="cardNumber" placeholder="Enter card number" required>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col form-group">
                                     <label for="expiryDate">Expiry Date*</label>
-                                    <input type="text" value="10/2026" class="form-control" id="expiryDate" placeholder="MM/YYYY" required>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YYYY" required>
                                 </div>
                                 <div class="col form-group">
                                     <label for="cvv">CVV*</label>
-                                    <input type="text" value="234" class="form-control" name="cvv" id="cvv" placeholder="Enter CVV" required>
+                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter CVV" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="cardHolder">Cardholder Name*</label>
-                                <input type="text" value="John doe" class="form-control" name="cardHolder" id="cardHolder" placeholder="Enter cardholder name" required>
+                                <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Enter cardholder name" required>
                             </div>
                             <div class="form-group">
                                 <label for="cardHolder">Tax ID*</label>
-                                <input type="text" value="12345678909" class="form-control" name="tax" id="tax" placeholder="Enter your tax id" required>
+                                <input type="text" class="form-control" name="tax" id="tax" placeholder="Enter your tax id" required>
                             </div>
                             <div class="d-grid gap-2 mx-auto col-5 mt-3">
-                                <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pay $19.99</button>
+                                <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pay R$100</button>
                                 <small class="fw-bold text-black-50 text-center">We will charge you every month.</small>
                                 <p class="mt-3 fw-bold text-black text-uppercase fs-6 text-center d-none" id="pay_proc_msg">
                                     Please wait... Do not close the browser. We are processing your payment...

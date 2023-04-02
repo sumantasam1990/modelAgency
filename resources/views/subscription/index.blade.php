@@ -54,7 +54,7 @@
                         Purchase a subscription
                     </p>
                     <h2 class="fs-2 fw-bold">
-                        $19.99/month
+                        R$100/month
                     </h2>
                     <h5 class="mt-4 fw-bold fs-5">Unlock all features</h5>
                     <p class="mb-1">You can participate any contest</p>

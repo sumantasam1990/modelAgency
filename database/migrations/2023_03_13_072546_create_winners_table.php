@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('total_votes')->index()->default(0);
             $table->integer('rank')->index();
+            $table->string('winner_photo')->nullable();
 
             $table->timestamps();
         });

@@ -64,7 +64,7 @@ class SubscriptionController extends Controller
                             "reference_id" => "monthly_subscription_one",
                             "name" => "subscription",
                             "quantity" => 1,
-                            "unit_amount" => 1900
+                            "unit_amount" => 10000
                         ]
                     ],
 //                    "shipping" => [
@@ -87,7 +87,7 @@ class SubscriptionController extends Controller
                             "reference_id" => md5(uniqid().time().Auth::user()->id),
                             "description" => "subscription",
                             "amount" => [
-                                "value" => 1900,
+                                "value" => 10000,
                                 "currency" => "BRL"
                             ],
                             "payment_method" => [
@@ -205,7 +205,7 @@ class SubscriptionController extends Controller
                             'reference_id' => 'referencia do item',
                             'name' => 'nome do item',
                             'quantity' => 1,
-                            'unit_amount' => 19,
+                            'unit_amount' => 10000,
                         ],
                     ],
 //                    'shipping' => [
@@ -228,7 +228,7 @@ class SubscriptionController extends Controller
                             'reference_id' => 'referencia da cobranca',
                             'description' => 'descricao da cobranca',
                             'amount' => [
-                                'value' => 19,
+                                'value' => 10000,
                                 'currency' => 'BRL',
                             ],
                             'plan' => [
