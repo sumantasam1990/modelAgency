@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 Route::get('/', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::get('privacy/policy', function () {
+Route::get('terms', function () {
    return view('privacy');
 })->name('privacy');
 Route::get('sub/policy', function () {

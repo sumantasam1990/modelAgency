@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-10 mx-auto">
             <div class="d-flex align-items-start">
-                <img src="{{asset('storage/image/' . $data->portfolio->file_name . '.' . $data->portfolio->ext)}}" class="mr-md-3 rounded-circle p-2 border profile-photo" alt="{{$data->name}}">
+                <img src="{{asset('storage/image/' . $data->portfolio->file_name . '.' . $data->portfolio->ext)}}" class="mr-md-3 rounded-circle p-2 border profile-main-photo" alt="{{$data->name}}">
                 <div class="d-flex flex-column ml-3">
                     <h4 class="mb-0 fw-bold fs-2">{{$data->name}}</h4>
 

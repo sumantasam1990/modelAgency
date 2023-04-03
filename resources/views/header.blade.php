@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-2" style="margin: 0; padding: 0;">
 
-                <div class="left-sidebar" style="height: 100vh; overflow: scroll;">
+                <div class="left-sidebar" id="left-sidebar-id" style="height: 100vh;">
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
                         {{auth()->user()->name}}
                     </h2>
@@ -108,6 +108,12 @@
 
             <div class="col-md-10">
                 <div class="right-sidebar mt-5">
+
+                    <div class="mb-3">
+                        <button type="button" onclick="menu();" id="men_u" class="menu_btn"><i class="fa-solid fa-bars"></i></button>
+                        <button style="float: right; display: none;" type="button" class="menu_btn" onclick="menu_off();" id="men_u_off"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+
                     @include('alert')
 
                     @yield('content')
@@ -150,6 +156,28 @@
         }
     </script>
 
+
+    <script>
+        function menu() {
+            var left = document.getElementById('left-sidebar-id');
+            var menu_btn = document.getElementById('men_u');
+            var menuOffBtn = document.getElementById('men_u_off');
+
+            left.style.display = 'block';
+            menu_btn.style.display = 'none';
+            menuOffBtn.style.display = 'block';
+        }
+
+        function menu_off() {
+            var left = document.getElementById('left-sidebar-id');
+            var menu_btn = document.getElementById('men_u');
+            var menuOffBtn = document.getElementById('men_u_off');
+
+            left.style.display = 'none';
+            menu_btn.style.display = 'block';
+            menuOffBtn.style.display = 'none';
+        }
+    </script>
 
 
     </body>

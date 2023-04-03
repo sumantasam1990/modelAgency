@@ -48,20 +48,43 @@
                 @endif
             @endif
             @if(count($data) === 0)
-                <div class="sec-box border text-center p-4">
-                    <h4 class="fw-bold fs-3 mb-1">Subscription</h4>
-                    <p class="text-black-50">
-                        Purchase a subscription
-                    </p>
-                    <h2 class="fs-2 fw-bold">
-                        R$100/month
-                    </h2>
-                    <h5 class="mt-4 fw-bold fs-5">Unlock all features</h5>
-                    <p class="mb-1">You can participate any contest</p>
-                    <p class="mb-1">Earn real money</p>
-                    <p class="mb-1">Get premium support</p>
+                <div class="sec-box border text-left p-4">
+                    <h4 class="fw-bold fs-3 mb-1">ASSINATURA EUMODELO</h4>
+
+                    <div class="p-2">
+                        <p>
+                            Seja bem-vindo(a) à eumodelo!
+                        </p>
+
+                        <p>
+                            Para ter acesso completo ao seu painel eumodelo, é necessário se tornar um assinante.
+                        </p>
+
+                        <p>
+                            Com a assinatura, você poderá:
+                        </p>
+
+                        <ul>
+                            <li>Completar seu perfil profissional</li>
+                            <li>Adicionar suas melhores fotos</li>
+                            <li>Apresentar-se para produtores artísticos</li>
+                            <li>Participar de concursos de beleza</li>
+                            <li>Competir por prêmios em dinheiro</li>
+                        </ul>
+
+                        <p class="mt-3">
+                            A assinatura custa R$100 por mês e é cobrada no cartão de crédito pelo Pagseguro. Você poderá cancelar a qualquer momento antes da próxima cobrança.
+                        </p>
+
+                        <p>
+                            Clique no botão abaixo para assinar agora e amplie seu potencial com a eumodelo.
+                        </p>
+
+                    </div>
+
+
                     <div class="d-grid gap-2 col-8 mt-4 mx-auto">
-                        <a class="btn btn-dark btn-lg text-uppercase" href="{{route('subscription.create')}}">Subscribe</a>
+                        <a class="btn btn-dark btn-lg text-uppercase" href="{{route('subscription.create')}}">Assinar</a>
                     </div>
                 </div>
             @endif

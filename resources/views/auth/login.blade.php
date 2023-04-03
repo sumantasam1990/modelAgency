@@ -4,7 +4,7 @@
         <div class="col-md-9">
 
         </div>
-        <div class="col-md-3 box h-100 position-relative">
+        <div class="col-md-3 box h-100 position-relative pad">
             @include('alert')
             <h1 class="fs-2 fw-bold text-capitalize mb-3">
                 <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
@@ -14,11 +14,11 @@
                 @csrf
                 <div class="form-group mb-3 mt-4">
                     <label>Email*</label>
-                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent;">
+                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 2px solid #000; color: #000; font-weight: bold;">
                 </div>
                 <div class="form-group">
                     <label>Password*</label>
-                    <input type="password" name="password" class="form-control" style="background: transparent;">
+                    <input type="password" name="password" class="form-control" style="background: transparent; border: 2px solid #000; color: #000; font-weight: bold;">
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-7 mt-4">
@@ -301,7 +301,7 @@
                         <div class="form-check">
                             <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
-                                I Agree <a target="_blank" href="{{route('privacy')}}"> Privacy Policy/Terms </a>
+                                I Agree <a target="_blank" href="{{route('privacy')}}"> Terms & Conditions </a>
                             </label>
                         </div>
 

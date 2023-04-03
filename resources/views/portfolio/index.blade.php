@@ -12,7 +12,7 @@
                     @csrf
 
                     <input type="file" name="image" id="fileInput" class="form-control d-none" onchange="showPreview(event)">
-                    <div class="d-grid gap-2 mx-auto col-5 mt-3">
+                    <div class="d-grid gap-2 mx-auto col-sm-10 mt-3">
                         <button type="button" onclick="document.getElementById('fileInput').click()" href="" class="btn btn-secondary btn-lg"><i class="fa-solid fa-camera"></i> &nbsp; Add photo</button>
                     </div>
 
@@ -21,7 +21,7 @@
                         <img id="file-preview">
                     </div>
 
-                    <div class="d-grid gap-2 mx-auto col-4 mt-3">
+                    <div class="d-grid gap-2 mx-auto col-sm-10 mt-3">
                         <button type="submit" class="btn btn-dark btn-lg"><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Upload</button>
                     </div>
                 </form>
