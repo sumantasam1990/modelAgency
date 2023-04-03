@@ -6,19 +6,19 @@
         </div>
         <div class="col-md-3 box h-100 position-relative pad">
             @include('alert')
-            <h1 class="fs-2 fw-bold text-capitalize mb-3">
-                <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
+            <h1 class="fs-2 fw-bold text-capitalize mb-3 text-center">
+                <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 200px;">
             </h1>
-            <h5 class="text-black-50 fs-5">Access my modeling panel</h5>
+            <h5 class="text-black-50 fs-5 text-center">Access my modeling panel</h5>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group mb-3 mt-4">
                     <label>Email*</label>
-                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 2px solid #000; color: #000; font-weight: bold;">
+                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
                 <div class="form-group">
                     <label>Password*</label>
-                    <input type="password" name="password" class="form-control" style="background: transparent; border: 2px solid #000; color: #000; font-weight: bold;">
+                    <input type="password" name="password" class="form-control" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-7 mt-4">
@@ -28,11 +28,14 @@
 
             </form>
 
-            <div class="mt-3 text-black-50 position-absolute" style="bottom: 10px; left: 30%;">
-                <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
-                <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
-                <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
-                <p class="fw-semibold mt-2" style="margin-left: -30px;">
+            <div class="mt-3 text-black-50 position-absolute" style="bottom: -40px; left: 30%;">
+                <div style="margin-left: 25px;">
+                    <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
+                    <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
+                    <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
+                </div>
+
+                <p class="fw-semibold mt-2" style="margin-left: -20px;">
                     CNPJ - 49.582.909/0001-94
                 </p>
             </div>
