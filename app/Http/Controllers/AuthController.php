@@ -36,7 +36,7 @@ class AuthController extends Controller
             }
             else
             {
-                return redirect()->intended('model/portfolio');
+                return redirect()->intended('model/edit/profile');
             }
 
         }

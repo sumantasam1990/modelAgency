@@ -37,9 +37,9 @@
                                 <label for="cardHolder">Tax ID*</label>
                                 <input type="text" class="form-control" name="tax" id="tax" placeholder="Enter your tax id" required>
                             </div>
-                            <div class="d-grid gap-2 mx-auto col-5 mt-3">
-                                <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pay R$100</button>
-                                <small class="fw-bold text-black-50 text-center">We will charge you every month.</small>
+                            <div class="d-grid gap-2 mx-auto col-10 mt-3">
+                                <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pagar R$100</button>
+                                <p class="fw-bold text-black-50 text-center mt-3">Este pagaento sera prossessado pelo <img src="{{asset('images/PagSeguro.png')}}"></p>
                                 <p class="mt-3 fw-bold text-black text-uppercase fs-6 text-center d-none" id="pay_proc_msg">
                                     Please wait... Do not close the browser. We are processing your payment...
                                 </p>

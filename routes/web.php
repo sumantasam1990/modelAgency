@@ -10,6 +10,14 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 Route::get('/', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('privacy/policy', function () {
+   return view('privacy');
+})->name('privacy');
+Route::get('sub/policy', function () {
+    return view('subscriptionpolicy');
+})->name('sub.policy');
+
+
 Route::get('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('login/post', [\App\Http\Controllers\AuthController::class, 'authenticate'])->name('login.post');
 Route::get('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');

@@ -61,6 +61,7 @@
                             <option value="">Choose</option>
                             <option {{$user->civil == 'Single' ? 'selected' : ''}}>Single</option>
                             <option {{$user->civil == 'Married' ? 'selected' : ''}}>Married</option>
+                            <option value="relationship" {{$user->civil == 'relationship' ? 'selected' : ''}}>In a relationship</option>
                         </select>
                     </div>
                 </div>
@@ -80,12 +81,15 @@
                         <label>Height(m)*</label>
                         <select class="form-control" name="_height">
                             <option value="">Choose</option>
-                            @for ($i = 0.1; $i <= 20; $i++)
-                                @for ($j = 0; $j <= 9; $j++)
-                                    @php $value = $i + ($j / 10); @endphp
-                                    <option {{$user->height === $value ? 'selected' : ''}} value="{{ $value }}">{{ $value }} meters</option>
-                                @endfor
-                            @endfor
+                            @foreach(range(20, 220) as $number)
+                                <option {{$user->height === number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>
+                            @endforeach
+{{--                            @for ($i = 0.1; $i <= 20; $i++)--}}
+{{--                                @for ($j = 0; $j <= 9; $j++)--}}
+{{--                                    @php $value = $i + ($j / 10); @endphp--}}
+{{--                                    <option {{$user->height === $value ? 'selected' : ''}} value="{{ $value }}">{{ $value }} meters</option>--}}
+{{--                                @endfor--}}
+{{--                            @endfor--}}
                         </select>
                     </div>
                 </div>
@@ -105,20 +109,41 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Bust(cm)*</label>
-                        <input type="number" name="bust" value="{{$user->bust ?? ''}}" placeholder="" class="form-control">
+                        <label>Bust*</label>
+{{--                        <input type="number" name="bust" value="{{$user->bust ?? ''}}" placeholder="" class="form-control">--}}
+                        <select class="form-control" name="bust">
+                            <option value="">Choose</option>
+                            <option {{$user->bust == 'Small' ? 'selected' : ''}}>Small</option>
+                            <option {{$user->bust == 'Medium' ? 'selected' : ''}}>Medium</option>
+                            <option {{$user->bust == 'Large' ? 'selected' : ''}}>Large</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Waist(cm)*</label>
-                        <input type="number" name="waist" value="{{$user->waist}}" placeholder="" class="form-control">
+                        <label>Waist*</label>
+{{--                        <input type="number" name="waist" value="{{$user->waist}}" placeholder="" class="form-control">--}}
+
+                        <select class="form-control" name="waist">
+                            <option value="">Choose</option>
+                            <option {{$user->waist == 'Thin' ? 'selected' : ''}}>Thin</option>
+                            <option {{$user->waist == 'Medium' ? 'selected' : ''}}>Medium</option>
+                            <option {{$user->waist == 'Large' ? 'selected' : ''}}>Large</option>
+                        </select>
+
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Hips(cm)*</label>
-                        <input type="number" name="hips" value="{{$user->hips}}" placeholder="" class="form-control">
+                        <label>Hips*</label>
+{{--                        <input type="number" name="hips" value="{{$user->hips}}" placeholder="" class="form-control">--}}
+
+                        <select class="form-control" name="hips">
+                            <option value="">Choose</option>
+                            <option {{$user->hips == 'Small' ? 'selected' : ''}}>Small</option>
+                            <option {{$user->hips == 'Medium' ? 'selected' : ''}}>Medium</option>
+                            <option {{$user->hips == 'Large' ? 'selected' : ''}}>Large</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -139,10 +164,14 @@
                         <label>Hair Color(m)*</label>
                         <select class="form-control" name="hair">
                             <option value="">Choose</option>
-                            <option {{$user->hair == 'White' ? 'selected' : ''}}>White</option>
+                            <option {{$user->hair == 'Bald' ? 'selected' : ''}}>Bald</option>
                             <option {{$user->hair == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->hair == 'Blond' ? 'selected' : ''}}>Blond</option>
-                            <option {{$user->hair == 'Color' ? 'selected' : ''}}>Color</option>
+                            <option {{$user->hair == 'Blonde' ? 'selected' : ''}}>Blonde</option>
+                            <option {{$user->hair == 'Brown' ? 'selected' : ''}}>Brown</option>
+                            <option {{$user->hair == 'Gray' ? 'selected' : ''}}>Gray</option>
+                            <option {{$user->hair == 'White' ? 'selected' : ''}}>White</option>
+                            <option {{$user->hair == 'Red' ? 'selected' : ''}}>Red</option>
+                            <option {{$user->hair == 'Colored' ? 'selected' : ''}}>Colored</option>
                         </select>
                     </div>
                 </div>
@@ -151,12 +180,11 @@
                         <label>Eyes color*</label>
                         <select class="form-control" name="eyes">
                             <option value="">Choose</option>
-                            <option {{$user->eyes == 'Blue' ? 'selected' : ''}}>Blue</option>
                             <option {{$user->eyes == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->eyes == 'Green' ? 'selected' : ''}}>Green</option>
-                            <option {{$user->eyes == 'Hazel' ? 'selected' : ''}}>Hazel</option>
                             <option {{$user->eyes == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->eyes == 'Purple' ? 'selected' : ''}}>Purple</option>
+                            <option {{$user->eyes == 'Green' ? 'selected' : ''}}>Green</option>
+                            <option {{$user->eyes == 'Blue' ? 'selected' : ''}}>Blue</option>
+                            <option {{$user->eyes == 'Honey' ? 'selected' : ''}}>Honey</option>
                         </select>
                     </div>
                 </div>
@@ -271,13 +299,17 @@
 
             <h4 class="fw-bold fs-4 mt-3">Bank Details</h4>
 
+            @php
+                $exp = explode(',', $user->configure_pix->value ?? '');
+            @endphp
             <div class="row mt-2">
-{{--                <div class="col-md-6">--}}
-{{--                    <input type="text" name="bank" value="{{ $user->configure_bank->value ?? '' }}" placeholder="Account number" class="form-control border-2 fw-bold">--}}
-{{--                </div>--}}
-                <div class="col-md-12">
-                    <label>Pix Email, Code Or, Phone</label>
-                    <input type="text" name="pix" value="{{ $user->configure_pix->value ?? '' }}" placeholder="Pix Email Or, Pix Code Or, Pix Phone any one..." class="form-control border-2 fw-bold">
+                <div class="col-md-6">
+                    <label>Pix Name</label>
+                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="Pix Name" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-6">
+                    <label>Pix Email/Code/Phone</label>
+                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="Pix Email Or, Pix Code Or, Pix Phone any one..." class="form-control border-2 fw-bold">
                 </div>
             </div>
 

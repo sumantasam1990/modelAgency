@@ -37,7 +37,7 @@
                                             <div class="col-6">
                                                 <select name="age_from" class="form-control">
                                                     <option value="">from</option>
-                                                    @for ($i = 1; $i <= 11; $i++)
+                                                    @for ($i = 1; $i <= 12; $i++)
                                                         <option value="{{ $i }}_m">{{ $i }} months</option>
                                                     @endfor
                                                         @for ($i = 1; $i <= 100; $i++)
@@ -48,7 +48,7 @@
                                             <div class="col-6">
                                                 <select name="age_to" class="form-control">
                                                     <option value="">to</option>
-                                                    @for ($i = 1; $i <= 11; $i++)
+                                                    @for ($i = 1; $i <= 12; $i++)
                                                         <option value="{{ $i }}_m">{{ $i }} months</option>
                                                     @endfor
                                                     @for ($i = 1; $i <= 100; $i++)
@@ -88,23 +88,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="mb-3">
-                                        <label>Dress Size</label>
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <select name="dress_size[]" multiple class="form-control" style="height: 250px;">
+{{--                                <div class="col-md-8">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label>Dress Size</label>--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-10">--}}
+{{--                                                <select name="dress_size[]" multiple class="form-control" style="height: 250px;">--}}
 
-                                                    @foreach($arr as $a)
-                                                        <option value="{{$a}}">{{$a}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+{{--                                                    @foreach($arr as $a)--}}
+{{--                                                        <option value="{{$a}}">{{$a}}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
 
-                                        </div>
-                                    </div>
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
-                                </div>
+{{--                                </div>--}}
 
                                 <div class="col-md-4">
                                     <label>Gender</label>

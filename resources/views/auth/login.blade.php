@@ -1,32 +1,45 @@
 @include('header')
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 hero">
     <div class="row h-100">
-        <div class="col-md-8 hero">
+        <div class="col-md-9">
 
         </div>
-        <div class="col-md-4 box h-100">
+        <div class="col-md-3 box h-100 position-relative">
             @include('alert')
             <h1 class="fs-2 fw-bold text-capitalize mb-3">
                 <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
             </h1>
-            <h5 class="text-black-50 fs-5">Login Now</h5>
+            <h5 class="text-black-50 fs-5">Access my modeling panel</h5>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
-                <div class="form-group mb-3">
+                <div class="form-group mb-3 mt-4">
                     <label>Email*</label>
-                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com">
+                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent;">
                 </div>
                 <div class="form-group">
                     <label>Password*</label>
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password" class="form-control" style="background: transparent;">
                 </div>
 
-                <div class="d-grid gap-2 mx-auto col-8 mt-4">
+                <div class="d-grid gap-2 mx-auto col-7 mt-4">
                     <button type="submit" class="btn btn-dark">Sign In</button>
-                    <a class="btn btn-light text-capitalize mt-4" data-bs-toggle="modal" data-bs-target="#signup" href="#">Create your account</a>
+                    <a class="btn btn-outline-dark text-capitalize mt-4 fw-bold" data-bs-toggle="modal" data-bs-target="#signup" href="#">Create your account</a>
                 </div>
 
             </form>
+
+            <div class="mt-3 text-black-50 position-absolute" style="bottom: 10px; left: 30%;">
+                <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
+                <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
+                <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
+                <p class="fw-semibold mt-2" style="margin-left: -30px;">
+                    CNPJ - 49.582.909/0001-94
+                </p>
+            </div>
+
+
+
+
         </div>
     </div>
 </div>
@@ -35,7 +48,7 @@
 
 <!-- Register Modal -->
 <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Create Your Account</h1>
@@ -73,7 +86,9 @@
                                 </div>
                             </div>
 
-                            <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />
+                        </div>
+
+{{--                            <livewire:state-city-select-box :selectedState="request('state')" :selectedCity="request('city')" />--}}
 
 {{--                            <div class="col-6">--}}
 {{--                                <div class="form-group mb-2">--}}
@@ -87,259 +102,208 @@
 {{--                                    <input type="text" name="_city" placeholder="" class="form-control @error('_city') is-invalid @enderror">--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>District*</label>
-                                    <input type="text" name="_district" placeholder="" class="form-control @error('_district') is-invalid @enderror">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>WhatsApp*</label>
-                                    <input type="text" name="_wp" placeholder="" class="form-control @error('_wp') is-invalid @enderror">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>Gender*</label>
-                                    <select class="form-control @error('_gender') is-invalid @enderror" name="_gender">
-                                        <option value="" selected>Select</option>
-                                        <option>Female</option>
-                                        <option>Male</option>
-                                        <option value="male_trans">Male trans</option>
-                                        <option value="female_trans">Female trans</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group mb-2">
-                                    <label>Civil Status*</label>
-                                    <select class="form-control @error('_civil_status') is-invalid @enderror" name="_civil_status">
-                                        <option value="">Choose</option>
-                                        <option>Single</option>
-                                        <option>Married</option>
-                                        <option value="relationship">In a relationship</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>District*</label>--}}
+{{--                                    <input type="text" name="_district" placeholder="" class="form-control @error('_district') is-invalid @enderror">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>WhatsApp*</label>--}}
+{{--                                    <input type="text" name="_wp" placeholder="" class="form-control @error('_wp') is-invalid @enderror">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Gender*</label>--}}
+{{--                                    <select class="form-control @error('_gender') is-invalid @enderror" name="_gender">--}}
+{{--                                        <option value="" selected>Select</option>--}}
+{{--                                        <option>Female</option>--}}
+{{--                                        <option>Male</option>--}}
+{{--                                        <option value="male_trans">Male trans</option>--}}
+{{--                                        <option value="female_trans">Female trans</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-6">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Civil Status*</label>--}}
+{{--                                    <select class="form-control @error('_civil_status') is-invalid @enderror" name="_civil_status">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        <option>Single</option>--}}
+{{--                                        <option>Married</option>--}}
+{{--                                        <option value="relationship">In a relationship</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <h4 class="fw-bold fs-4 mt-3">Body Characteristics</h4>
+{{--                        <h4 class="fw-bold fs-4 mt-3">Body Characteristics</h4>--}}
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Age*</label>
-                                    <input type="date" name="_age" placeholder="d/m/Y" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Height(m)*</label>
-                                    <select class="form-control" name="_height">
-                                        <option value="">Choose</option>
-                                        @foreach(range(20, 220) as $number)
-                                            <option value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>
-                                        @endforeach
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Age*</label>--}}
+{{--                                    <input type="date" name="_age" placeholder="d/m/Y" class="form-control">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Height(m)*</label>--}}
+{{--                                    <select class="form-control" name="_height">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        @foreach(range(20, 220) as $number)--}}
+{{--                                            <option value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>--}}
+{{--                                        @endforeach--}}
 {{--                                        @for ($i = 0.1; $i <= 20; $i++)--}}
 {{--                                            @for ($j = 0; $j <= 9; $j++)--}}
 {{--                                                @php $value = $i + ($j / 10); @endphp--}}
 {{--                                                <option value="{{ $value }}">{{ $value }} meters</option>--}}
 {{--                                            @endfor--}}
 {{--                                        @endfor--}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Skin color*</label>
-                                    <select class="form-control" name="_skin">
-                                        <option value="">Choose</option>
-                                        <option>White</option>
-                                        <option>Brown</option>
-                                        <option>Black</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Bust(cm)*</label>
-                                    <select class="form-control" name="bust">
-                                        <option value="">Choose</option>
-                                        @for($i=5; $i<=50; $i++)
-                                            <option value="{{$i}}">{{$i}}cm.</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Waist(cm)*</label>
-                                    <select class="form-control" name="waist">
-                                        <option value="">Choose</option>
-                                        @for($i=5; $i<=50; $i++)
-                                            <option value="{{$i}}">{{$i}}cm.</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Hips(cm)*</label>
-                                    <select class="form-control" name="hips">
-                                        <option value="">Choose</option>
-                                        @for($i=5; $i<=50; $i++)
-                                            <option value="{{$i}}">{{$i}}cm.</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Dress Size*</label>
-                                    <select class="form-control" name="dress">
-                                        <option value="">Choose</option>
-                                        @foreach($arr as $a)
-                                            <option value="{{$a}}">{{$a}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Hair Color*</label>
-                                    <select class="form-control" name="hair">
-                                        <option value="">Choose</option>
-                                        <option>Bald</option>
-                                        <option>Black</option>
-                                        <option>Blonde</option>
-                                        <option>Brown</option>
-                                        <option>Gray</option>
-                                        <option>White</option>
-                                        <option>Red</option>
-                                        <option>Colored</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-2">
-                                    <label>Eyes color*</label>
-                                    <select class="form-control" name="eyes">
-                                        <option value="">Choose</option>
-                                        <option>Brown</option>
-                                        <option>Black</option>
-                                        <option>Green</option>
-                                        <option>Blue</option>
-                                        <option>Honey</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-3">
-                                <div class="mb-2 form-check">
-                                    <input type="checkbox" class="form-check-input" name="other[]"
-                                           value="fitness">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Fitness
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-2 form-check">
-                                    <input type="checkbox" class="form-check-input" name="other[]"
-                                           value="tatoo">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Tatoo
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-2 form-check">
-                                    <input type="checkbox" class="form-check-input" name="other[]"
-                                           value="piercing">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Piercing
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-2 form-check">
-                                    <input type="checkbox" class="form-check-input" name="other[]"
-                                           value="silicone">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Silicone
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-{{--                        <h4 class="fw-bold fs-4 mt-3">Main Social Networks</h4>--}}
-
-{{--                        <div class="row mt-2">--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <label>Instagram</label>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
 {{--                            <div class="col-md-4">--}}
-{{--                                <input type="url" name="url" placeholder="URL" class="form-control">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Skin color*</label>--}}
+{{--                                    <select class="form-control" name="_skin">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        <option>White</option>--}}
+{{--                                        <option>Brown</option>--}}
+{{--                                        <option>Black</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Bust(cm)*</label>--}}
+{{--                                    <select class="form-control" name="bust">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        @for($i=5; $i<=50; $i++)--}}
+{{--                                            <option value="{{$i}}">{{$i}}cm.</option>--}}
+{{--                                        @endfor--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
 {{--                            <div class="col-md-4">--}}
-{{--                                <select class="form-control" name="followers">--}}
-{{--                                    <option value="">Choose</option>--}}
-{{--                                    <option>5k - 10k</option>--}}
-{{--                                    <option>11k - 50k</option>--}}
-{{--                                    <option>51k - 100k</option>--}}
-{{--                                    <option>101k - 1M</option>--}}
-{{--                                    <option>1M+</option>--}}
-{{--                                </select>--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Waist(cm)*</label>--}}
+{{--                                    <select class="form-control" name="waist">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        @for($i=5; $i<=50; $i++)--}}
+{{--                                            <option value="{{$i}}">{{$i}}cm.</option>--}}
+{{--                                        @endfor--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Hips(cm)*</label>--}}
+{{--                                    <select class="form-control" name="hips">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        @for($i=5; $i<=50; $i++)--}}
+{{--                                            <option value="{{$i}}">{{$i}}cm.</option>--}}
+{{--                                        @endfor--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Dress Size*</label>--}}
+{{--                                    <select class="form-control" name="dress">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        @foreach($arr as $a)--}}
+{{--                                            <option value="{{$a}}">{{$a}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Hair Color*</label>--}}
+{{--                                    <select class="form-control" name="hair">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        <option>Bald</option>--}}
+{{--                                        <option>Black</option>--}}
+{{--                                        <option>Blonde</option>--}}
+{{--                                        <option>Brown</option>--}}
+{{--                                        <option>Gray</option>--}}
+{{--                                        <option>White</option>--}}
+{{--                                        <option>Red</option>--}}
+{{--                                        <option>Colored</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group mb-2">--}}
+{{--                                    <label>Eyes color*</label>--}}
+{{--                                    <select class="form-control" name="eyes">--}}
+{{--                                        <option value="">Choose</option>--}}
+{{--                                        <option>Brown</option>--}}
+{{--                                        <option>Black</option>--}}
+{{--                                        <option>Green</option>--}}
+{{--                                        <option>Blue</option>--}}
+{{--                                        <option>Honey</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
 
 {{--                        <div class="row mt-2">--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <label>Tiktok</label>--}}
+{{--                            <div class="col-md-3">--}}
+{{--                                <div class="mb-2 form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="other[]"--}}
+{{--                                           value="fitness">--}}
+{{--                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                        Fitness--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <input type="url" name="" placeholder="URL" class="form-control">--}}
+{{--                            <div class="col-md-3">--}}
+{{--                                <div class="mb-2 form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="other[]"--}}
+{{--                                           value="tatoo">--}}
+{{--                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                        Tatoo--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <select class="form-control" name="">--}}
-{{--                                    <option value="">Choose</option>--}}
-{{--                                    <option>5k - 10k</option>--}}
-{{--                                    <option>11k - 50k</option>--}}
-{{--                                    <option>51k - 100k</option>--}}
-{{--                                    <option>101k - 1M</option>--}}
-{{--                                    <option>1M+</option>--}}
-{{--                                </select>--}}
+{{--                            <div class="col-md-3">--}}
+{{--                                <div class="mb-2 form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="other[]"--}}
+{{--                                           value="piercing">--}}
+{{--                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                        Piercing--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-3">--}}
+{{--                                <div class="mb-2 form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="other[]"--}}
+{{--                                           value="silicone">--}}
+{{--                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                        Silicone--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
 
-{{--                        <div class="row mt-2">--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <input type="text" name="" placeholder="Name of social media" class="form-control">--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <input type="url" name="" placeholder="URL" class="form-control">--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-4">--}}
-{{--                                <select class="form-control" name="">--}}
-{{--                                    <option value="">Choose</option>--}}
-{{--                                    <option>5k - 10k</option>--}}
-{{--                                    <option>11k - 50k</option>--}}
-{{--                                    <option>51k - 100k</option>--}}
-{{--                                    <option>101k - 1M</option>--}}
-{{--                                    <option>1M+</option>--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
 
+
+                        <div class="form-check">
+                            <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                I Agree <a target="_blank" href="{{route('privacy')}}"> Privacy Policy/Terms </a>
+                            </label>
+                        </div>
 
                         <div class="d-grid gap-2 mx-auto col-4 mt-4">
                             <button type="submit" class="btn btn-dark">Sign Up</button>

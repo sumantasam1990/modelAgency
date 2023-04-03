@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-2" style="margin: 0; padding: 0;">
 
-                <div class="left-sidebar">
+                <div class="left-sidebar" style="height: 100vh; overflow: scroll;">
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
                         {{auth()->user()->name}}
                     </h2>
@@ -65,30 +65,41 @@
 
                         <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Photos</a> </li>
 
-                        <li style="margin-left: 30px;" class="mb-0 {{ (request()->is('model/edit/profile')) ? 'active' : '' }}"><a href="{{route('edit.profile')}}"> &nbsp; Edit Profile</a> </li>
+                        <li style="margin-left: 30px;" class="mb-0 {{ (request()->is('model/edit/profile')) ? 'active' : '' }}"><a href="{{route('edit.profile')}}"><i class="fa-solid fa-user-pen"></i> &nbsp; Edit Profile</a> </li>
 
-                        <li style="margin-left: 30px; padding: 6px;" class="{{ (request()->is('model/about/me')) ? 'active' : '' }}"><a href="{{route('about.me')}}"> &nbsp; About Me</a> </li>
+                        <li style="margin-left: 30px; padding: 6px;" class="{{ (request()->is('model/about/me')) ? 'active' : '' }}"><a href="{{route('about.me')}}"><i class="fa-solid fa-user-check"></i> &nbsp; About Me</a> </li>
 
                         <li class="{{ (request()->is('model/help')) ? 'active' : '' }}"><a href="{{route('help')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
 
                         <li class="{{ (request()->is('model/subscription/now') || request()->is('model/subscription')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
 
                         @auth()
-                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
+{{--                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>--}}
                         @else
                             <li class="active"><a href="{{route('register')}}"><i class="fa-solid fa-user-plus"></i> &nbsp; Register</a> </li>
                             <li><a href="{{route('login')}}"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In</a> </li>
                         @endauth
 
+
+
                     </ul>
 
-                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center mt-5">
-                        <h5 class="fs-5 fw-semibold text-black-50">EUMODELO</h5>
+                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center mt-2">
+                        <h5 class="fs-5 fw-semibold text-black-50">
+                            <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
+                        </h5>
+
                         <p class="mt-3 text-black-50">
-                            <i class="fa-brands fa-facebook fs-4 mr-3"></i>
-                            <i class="fa-brands fa-instagram fs-4 mr-3"></i>
-                            <i class="fa-brands fa-tiktok fs-4"></i>
+                            <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
+                            <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
+                            <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
                         </p>
+
+                        <a class="text-light mb-3" href="{{route('logout')}}">Sign out</a>
+                        <a class="text-light" href="{{route('privacy')}}">Privacy policy</a>
+                        <a class="text-light" href="{{route('sub.policy')}}">Subscription policy</a>
+
+
                     </div>
 
                 </div>

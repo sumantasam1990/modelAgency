@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('command:sendemailtowinners')->everyMinute();
         $schedule->command('save:winners')->daily()->runInBackground();
         $schedule->command('monthly:subscription')->twiceDaily()->runInBackground();
+
+//        $schedule->command('report:generate')
+//            ->everyMinute()
+//            ->emailOutputTo('sumantasam1990@gmail.com');
     }
 
     /**

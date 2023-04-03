@@ -15,9 +15,13 @@
                             @php
                                 $age = \Carbon\Carbon::createFromFormat('Y-m-d', $data->age)->age;
                             @endphp
-                                    {{$age}}
+                                    @if($age > 12)
+                                        {{$age}} years
+                                    @else
+                                        {{$age}} months
+                                    @endif
                         </span> </p>
-                            <p class="mb-0 fw-bold fs-5">{{$contestsWon}} contests won</p>
+{{--                            <p class="mb-0 fw-bold fs-5">{{$contestsWon}} contests won</p>--}}
                         </div>
 {{--                        <div class="col-md-5">--}}
 {{--                            <p class="mb-0 fw-semibold">Height: <span class="fw-bold">{{$data->height}}</span></p>--}}

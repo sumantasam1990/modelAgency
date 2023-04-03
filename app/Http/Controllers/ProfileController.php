@@ -90,7 +90,7 @@ class ProfileController extends Controller
         {
             DB::table('configures')->updateOrInsert(
                 ['user_id' => Auth::user()->id, 'key' => 'pix'],
-                ['value' => $request->pix]
+                ['value' => $request->pix_name . ',' . $request->pix]
             );
         }
 
