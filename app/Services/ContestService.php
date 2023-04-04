@@ -707,7 +707,7 @@ class ContestService
             });
     }
 
-    public function putUserIntoParticipants(int $userId): void
+    public function putUserIntoParticipants(int $userId)
     {
         $contests = Contest::with('category')
             ->where('end', '>', now())
@@ -715,8 +715,10 @@ class ContestService
                 $userHeight = User::find($userId)->height;
                 $dateOfBirth = User::find($userId)->age;
                 $age = \Carbon\Carbon::parse($dateOfBirth)->diffInMonths(Carbon::now());
+                $gender = User::find($userId)->gender;
 
-                $query->where('_gender', User::find($userId)->gender)
+
+                $query->whereRaw("FIND_IN_SET('$gender', _gender) > 0")
                     ->whereRaw("SUBSTRING_INDEX(_height, ',', 1) <= $userHeight")
                     ->whereRaw("SUBSTRING_INDEX(_height, ',', -1) >= $userHeight")
                     ->where(function ($q) use ($userId, $age) {

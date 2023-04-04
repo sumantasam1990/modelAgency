@@ -51,12 +51,20 @@ class AdminController extends Controller
         if (!empty($request->age_from))
         {
             $from = explode('_', $request->age_from);
-            $fromInMonths = (int)$from[0] * 12;
+            if ($from[1] == 'm') {
+                $fromInMonths = (int)$from[0];
+            } else {
+                $fromInMonths = (int)$from[0] * 12;
+            }
         }
         if (!empty($request->age_to))
         {
             $to = explode('_', $request->age_to);
-            $toInMonths = (int)$to[0] * 12;
+            if ($to[1] == 'y') {
+                $toInMonths = (int)$to[0] * 12;
+            } else {
+                $toInMonths = (int)$to[0];
+            }
         }
 
         $category = new Category;
@@ -168,7 +176,19 @@ class AdminController extends Controller
                 return redirect()->back()->with('msg', 'Successfully created a contest.');
             } else
             {
-                return 'No model found in this category.';
+                $contest = new Contest;
+
+                $contest->title = $request->contest_name;
+                $contest->start = $request->date_from;
+                $contest->category_id = $request->category;
+                $contest->end = $request->date_to;
+                $contest->prize_first = $request->contest_price_first;
+                $contest->prize_second = $request->contest_price_second;
+                $contest->prize_third = $request->contest_price_third;
+                $contest->rules = $request->rules;
+                $contest->save();
+
+                return redirect()->back()->with('msg', 'Successfully created a contest.');
             }
     }
 

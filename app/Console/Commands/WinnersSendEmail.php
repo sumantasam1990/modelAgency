@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\SendWinnersEmail;
+use App\Models\Winner;
 use App\Services\ContestService;
 use Illuminate\Console\Command;
 use Mail;
@@ -31,6 +32,7 @@ class WinnersSendEmail extends Command
     public function handle(ContestService $contestService)
     {
         $data = $contestService->getWinnersJob();
+
         foreach ($data as $d)
         {
             $i = 1;

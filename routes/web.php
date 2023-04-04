@@ -131,8 +131,8 @@ Route::get('resend/email/verification', function (Request $request) {
 
 // testing query ---------------------------------------------------
 
-Route::get('/test/query', function (\App\Services\ModelsService $modelsService) {
-
+Route::get('/test/query', function (\App\Services\ContestService $contestService) {
+    //return $contestService->putUserIntoParticipants(4);
 });
 
 Route::get('test/mailable', function () {

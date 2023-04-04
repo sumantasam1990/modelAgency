@@ -81,7 +81,9 @@ class GetWinners extends Command
                             'end' => $da['end'],
                             'index' => (int)$d['rank'],
                         ];
-                        Mail::to($d['user_email'])->queue(new SendWinnersEmail($array_data));
+                        if ($d['total_votes'] > 0) {
+                            Mail::to($d['user_email'])->queue(new SendWinnersEmail($array_data));
+                        }
                     }
                 }
             }
