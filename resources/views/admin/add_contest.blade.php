@@ -23,7 +23,7 @@
 
                             <div class="mb-3">
                                 <label>Model Category*</label>
-                                <select class="form-control" name="category" id="my-select-hgvvhj">
+                                <select required class="form-control" name="category" id="my-select-hgvvhj">
                                     <option value="">Select category</option>
                                     @foreach($data as $d)
                                         <option value="{{$d->id}}">{{$d->title}}</option>
@@ -36,7 +36,7 @@
 
                             <div class="mb-3">
                                 <label>Contest Name*</label>
-                                <input type="text" class="form-control" name="contest_name" placeholder="eg. Male fashion contest">
+                                <input required type="text" class="form-control" name="contest_name" placeholder="eg. Male fashion contest">
                                 @error('contest_name')
                                 <div class="text-danger fw-bold">{{$message}}</div>
                                 @enderror
@@ -48,10 +48,10 @@
                                         <label>Contest Date*</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="date" name="date_from" class="form-control" placeholder="">
+                                                <input required type="date" name="date_from" class="form-control" placeholder="">
                                             </div>
                                             <div class="col-6">
-                                                <input type="date" name="date_to" class="form-control" placeholder="">
+                                                <input required type="date" name="date_to" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -61,13 +61,13 @@
                                         <label>Contest Price*</label>
                                         <div class="row">
                                             <div class="col-4">
-                                                <input type="text" name="contest_price_first" class="form-control" placeholder="First place ($)">
+                                                <input required type="text" name="contest_price_first" class="form-control" placeholder="First place ($)">
                                             </div>
                                             <div class="col-4">
-                                                <input type="text" name="contest_price_second" class="form-control" placeholder="Second place ($)">
+                                                <input required type="text" name="contest_price_second" class="form-control" placeholder="Second place ($)">
                                             </div>
                                             <div class="col-4">
-                                                <input type="text" name="contest_price_third" class="form-control" placeholder="Third place ($)">
+                                                <input required type="text" name="contest_price_third" class="form-control" placeholder="Third place ($)">
                                             </div>
                                         </div>
                                     </div>

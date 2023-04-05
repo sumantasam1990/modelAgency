@@ -123,13 +123,17 @@ class portfolioController extends Controller
     public function delete_photo($id): string|\Illuminate\Http\RedirectResponse
     {
         try {
+            $photo = portfolio::where('user_id', Auth::user()->id)->count('id');
+            if ($photo === 1) {
+                return back()->with('err', 'You can not delete your single photo. Upload one more to delete.');
+            }
             Cache::delete('photo-user-' . Auth::user()->id);
             $avatar = portfolio::findOrFail($id);
             if(Storage::delete('public/image/' . $avatar->file_name . '.' . $avatar->ext)) {
                 $avatar->delete();
             }
 
-            return back()->with("msg", "Photo deleted successfully.");
+            return back()->with("msg", "Your photo has been uploaded successfully.");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -166,6 +170,13 @@ class portfolioController extends Controller
     {
         Cache::delete('photo-user-' . Auth::user()->id);
         Cache::delete('user-' . Auth::user()->id);
+
+        if ($contest_id === 0) {
+            portfolio::where('user_id', Auth::user()->id)->update(['contest_photo' => 0]);
+            portfolio::where('id', $id)->where('user_id', Auth::user()->id)->update(['contest_photo' => 1]);
+
+            return redirect()->back();
+        }
 
         if (Contest::where('start', '>=', now())->where('id', $contest_id)->count('id') === 0) {
             return redirect()->back()->with('err', 'You can not change your photo for this contest. Because It is already started.');

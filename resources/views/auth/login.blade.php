@@ -14,11 +14,11 @@
                 @csrf
                 <div class="form-group mb-3 mt-4">
                     <label>Email*</label>
-                    <input type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
+                    <input required type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
                 <div class="form-group">
                     <label>Password*</label>
-                    <input type="password" name="password" class="form-control" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
+                    <input required type="password" name="password" class="form-control" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-7 mt-4">
@@ -63,14 +63,14 @@
                         @csrf
                         <div class="form-group mb-2">
                             <label>Name*</label>
-                            <input type="text" name="_name" placeholder="eg. John doe" class="form-control @error('_name') is-invalid @enderror">
+                            <input required type="text" name="_name" placeholder="eg. John doe" class="form-control @error('_name') is-invalid @enderror">
                             @if ($errors->has('_name'))
                                 <span class="text-danger">{{ $errors->first('_name') }}</span>
                             @endif
                         </div>
                         <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input type="email" name="email" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
+                            <input required type="email" name="email" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
@@ -79,13 +79,13 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Password*</label>
-                                    <input type="password" name="password" placeholder="" class="form-control @error('password') is-invalid @enderror">
+                                    <input required type="password" name="password" placeholder="" class="form-control @error('password') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label>Confirm Password*</label>
-                                    <input type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
+                                    <input required type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
                                 </div>
                             </div>
 
@@ -304,7 +304,7 @@
                         <div class="form-check">
                             <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
-                                I Agree <a target="_blank" href="{{route('privacy')}}"> Terms & Conditions </a>
+                                I Agree <a target="_blank" href="{{route('terms')}}"> Terms & Conditions </a>
                             </label>
                         </div>
 

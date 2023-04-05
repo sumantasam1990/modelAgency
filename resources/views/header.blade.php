@@ -74,7 +74,7 @@
                         <li class="{{ (request()->is('model/subscription/now') || request()->is('model/subscription')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
 
                         @auth()
-{{--                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>--}}
+                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
                         @else
                             <li class="active"><a href="{{route('register')}}"><i class="fa-solid fa-user-plus"></i> &nbsp; Register</a> </li>
                             <li><a href="{{route('login')}}"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In</a> </li>
@@ -86,18 +86,18 @@
 
                     <div class="d-flex flex-column justify-content-center align-content-center align-items-center mt-2">
                         <h5 class="fs-5 fw-semibold text-black-50">
-                            <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 300px;">
+                            <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 150px;">
                         </h5>
 
                         <p class="mt-3 text-black-50">
-                            <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
-                            <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
-                            <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
+                            <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-6 mr-3"></i></a>
+                            <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-6 mr-3"></i></a>
+                            <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-6"></i></a>
                         </p>
 
-                        <a class="text-light mb-3" href="{{route('logout')}}">Sign out</a>
-                        <a class="text-light" href="{{route('privacy')}}">Privacy policy</a>
-                        <a class="text-light" href="{{route('sub.policy')}}">Subscription policy</a>
+{{--                        <a class="text-light mb-3" href="{{route('logout')}}">Sign out</a>--}}
+                        <a class="text-light" href="{{route('privacy')}}">{{__('main.privacy')}}</a>
+                        <a class="text-light" href="{{route('terms')}}">{{__('main.terms')}}</a>
 
 
                     </div>
@@ -110,7 +110,7 @@
                 <div class="right-sidebar mt-5">
 
                     <div class="mb-3">
-                        <button type="button" onclick="menu();" id="men_u" class="menu_btn"><i class="fa-solid fa-bars"></i></button>
+                        <button type="button" onclick="menu();" id="men_u" class="menu_btn">Menu</button>
                         <button style="float: right; display: none;" type="button" class="menu_btn" onclick="menu_off();" id="men_u_off"><i class="fa-solid fa-xmark"></i></button>
                     </div>
 

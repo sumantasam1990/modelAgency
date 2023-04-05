@@ -52,7 +52,7 @@
         <div class="col-md-10 mx-auto">
             <div class="row">
                 @foreach($data->portfolios as $photo)
-                    <div class="col-md-3 mb-1 p-2 text-center">
+                    <div class="col-md-4 col-4 col-sm-4 col-xl-4 col-xxl-4 mb-1 p-2 text-center">
                         <img src="{{asset('storage/image/' . $photo->file_name . '.' . $photo->ext)}}" alt="" class="img-fluid grid-photo" alt="{{$data->name}}">
                     </div>
                 @endforeach

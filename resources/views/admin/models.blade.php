@@ -146,6 +146,14 @@
                         </label>
                     </div>
 
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" name="civil[]"
+                               value="married" {{isset(request('civil')[0]) && in_array('relationship', request('civil')) ? 'checked' : ''}}>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            In a relationship
+                        </label>
+                    </div>
+
 {{--                    <h5 class="fs-6 fw-bold text-black-50">Age(in months)</h5>--}}
 {{--                    <div class="row">--}}
 {{--                        <div class="col-md-6">--}}
@@ -161,23 +169,17 @@
                         <div class="col-md-6">
                             <select class="form-control" name="h_from">
                                 <option value="">Choose</option>
-                                @for ($i = 0.1; $i <= 20; $i++)
-                                    @for ($j = 0; $j <= 9; $j++)
-                                        @php $value = $i + ($j / 10); @endphp
-                                        <option value="{{ $value }}">{{ $value }} meters</option>
-                                    @endfor
-                                @endfor
+                                @foreach(range(20, 220) as $number)
+                                    <option>{{number_format($number / 100, 2)}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
                             <select class="form-control" name="h_to">
                                 <option value="">Choose</option>
-                                @for ($i = 0.1; $i <= 20; $i++)
-                                    @for ($j = 0; $j <= 9; $j++)
-                                        @php $value = $i + ($j / 10); @endphp
-                                        <option value="{{ $value }}">{{ $value }} meters</option>
-                                    @endfor
-                                @endfor
+                                @foreach(range(20, 220) as $number)
+                                    <option>{{number_format($number / 100, 2)}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -206,10 +208,14 @@
                     <div class="mb-2">
                         <select class="form-control" name="hair">
                             <option value="">Choose</option>
-                            <option {{request('hair') == "White" ? 'selected' : ''}}>White</option>
-                            <option {{request('hair') == "Black" ? 'selected' : ''}}>Black</option>
-                            <option {{request('hair') == "Blond" ? 'selected' : ''}}>Blond</option>
-                            <option {{request('hair') == "Color" ? 'selected' : ''}}>Color</option>
+                            <option {{request('hair') == 'Bald' ? 'selected' : ''}}>Bald</option>
+                            <option {{request('hair') == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option {{request('hair') == 'Blonde' ? 'selected' : ''}}>Blonde</option>
+                            <option {{request('hair') == 'Brown' ? 'selected' : ''}}>Brown</option>
+                            <option {{request('hair') == 'Gray' ? 'selected' : ''}}>Gray</option>
+                            <option {{request('hair') == 'White' ? 'selected' : ''}}>White</option>
+                            <option {{request('hair') == 'Red' ? 'selected' : ''}}>Red</option>
+                            <option {{request('hair') == 'Colored' ? 'selected' : ''}}>Colored</option>
                         </select>
                     </div>
 
@@ -217,12 +223,11 @@
                     <div class="mb-2">
                         <select class="form-control" name="eyes">
                             <option value="">Choose</option>
-                            <option {{request('eyes') == "Blue" ? 'selected' : ''}}>Blue</option>
-                            <option {{request('eyes') == "Brown" ? 'selected' : ''}}>Brown</option>
-                            <option {{request('eyes') == "Green" ? 'selected' : ''}}>Green</option>
-                            <option {{request('eyes') == "Hazel" ? 'selected' : ''}}>Hazel</option>
-                            <option {{request('eyes') == "Black" ? 'selected' : ''}}>Black</option>
-                            <option {{request('eyes') == "Purple" ? 'selected' : ''}}>Purple</option>
+                            <option {{request('eyes') == 'Brown' ? 'selected' : ''}}>Brown</option>
+                            <option {{request('eyes') == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option {{request('eyes') == 'Green' ? 'selected' : ''}}>Green</option>
+                            <option {{request('eyes') == 'Blue' ? 'selected' : ''}}>Blue</option>
+                            <option {{request('eyes') == 'Honey' ? 'selected' : ''}}>Honey</option>
                         </select>
                     </div>
 

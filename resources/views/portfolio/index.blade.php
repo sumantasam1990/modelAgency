@@ -31,22 +31,33 @@
         <div class="col-md-6">
             <div class="uploaded-images mb-5">
                 <div class="row">
+
                     @foreach($data->portfolios as $image)
-                        <div class="col-md-4 mb-2">
-                            <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img profile-photo" alt="">
+                        <div class="col-md-6 col-6 col-sm-6 col-xl-6 col-xxl-6 mb-2">
+                            <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img grid-photo" alt="">
                             <div class="d-grid gap-2 col-12 mt-2">
                                 @if($image->profile_photo == 0)
                                     <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark btn-sm">Mark it profile photo</a>
                                 @endif
 
-                                @if($image->contest_photo == 0 && $contest_id > 0)
-                                    <a href="{{route('mark.contest.photo', [$image->id, $contest_id])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
+                                @if($image->contest_photo == 0)
+                                    <a href="{{route('mark.contest.photo', [$image->id, $contest_id ?? 0])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
                                 @endif
-                                <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Delete
-                                </a>
+
+                                @if(count($data->portfolios) > 1 && $image->contest_photo === 0 && $image->profile_photo === 0)
+                                    <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                @endif
+
+                                @if($image->contest_photo === 1 && $image->profile_photo === 1)
+                                    <p class="fw-bold text-success text-center mb-1">Default</p>
+                                    <p class="fst-italic fw-semibold text-dark fs-6">Mark another photo as profile and contest photo then you can delete the default photo.</p>
+                                @endif
+
                             </div>
                         </div>
+
                     @endforeach
                 </div>
             </div>

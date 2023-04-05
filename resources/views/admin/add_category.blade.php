@@ -66,23 +66,17 @@
                                             <div class="col-6">
                                                 <select class="form-control" name="height_from">
                                                     <option value="">from</option>
-                                                    @for ($i = 0.1; $i <= 20; $i++)
-                                                        @for ($j = 0; $j <= 9; $j++)
-                                                            @php $value = $i + ($j / 10); @endphp
-                                                            <option value="{{ $value }}">{{ $value }} meters</option>
-                                                        @endfor
-                                                    @endfor
+                                                    @foreach(range(20, 220) as $number)
+                                                        <option>{{number_format($number / 100, 2)}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-6">
                                                 <select class="form-control" name="height_to">
                                                     <option value="">to</option>
-                                                    @for ($i = 0.1; $i <= 20; $i++)
-                                                        @for ($j = 0; $j <= 9; $j++)
-                                                            @php $value = $i + ($j / 10); @endphp
-                                                            <option value="{{ $value }}">{{ $value }} meters</option>
-                                                        @endfor
-                                                    @endfor
+                                                    @foreach(range(20, 220) as $number)
+                                                        <option>{{number_format($number / 100, 2)}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
