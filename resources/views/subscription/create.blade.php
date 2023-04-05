@@ -46,7 +46,7 @@
                             </div>
                             <div class="d-grid gap-2 mx-auto col-10 mt-3">
                                 <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pagar R$100</button>
-                                <p class="fw-bold text-black-50 text-center mt-3">Este pagaento sera prossessado pelo <img src="{{asset('images/PagSeguro.png')}}"></p>
+                                <p class="fw-bold text-black-50 text-center mt-3">Este pagamento será processado por <img src="{{asset('images/PagSeguro.png')}}"></p>
                                 <p class="mt-3 fw-bold text-black text-uppercase fs-6 text-center d-none" id="pay_proc_msg">
                                     Please wait... Do not close the browser. We are processing your payment...
                                 </p>
@@ -60,3 +60,29 @@
     <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"></script>
 
 @endsection
+
+<script>
+    function validateInputCard(input) {
+        var stripped = input.replace(/\D/g, '');
+
+        if (stripped.length === 16) {
+            return true;
+        } else {
+            alert('Card number is invalid.');
+            return false;
+        }
+    }
+
+    function validateInputName(input) {
+        var letters = /^[A-Za-z]+$/;
+        if (input.match(letters) !== null) {
+            return true;
+        } else {
+            alert('Card holder name format is incorrect.');
+            return false;
+        }
+    }
+
+
+
+</script>

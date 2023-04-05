@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class SubscriptionController extends Controller
 {
