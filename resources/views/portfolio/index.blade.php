@@ -2,18 +2,18 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h4 class="fw-bold fs-4 mb-2">Photos*</h4>
+            <h4 class="fw-bold fs-4 mb-2">{{__('main.photos')}}</h4>
         </div>
         <div class="col-md-6">
             <div class="sec-box">
-                <p class="text-black-50 mb-1 fs-6">* Max 12 photos you can upload. Only JPEG, JPG and PNG format are accepted.</p>
-                <p class="fw-bold text-black mb-3">* Try to upload 300X300 center photo for better ranking and visibility.</p>
+                <p class="text-black-50 mb-1 fs-6">* {{__('main.photos_max')}}</p>
+                <p class="fw-bold text-black mb-3">* {{__('main.photos_upload_tip')}}</p>
                 <form action="{{route('upload.image')}}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <input type="file" name="image" id="fileInput" class="form-control d-none" onchange="showPreview(event)">
                     <div class="d-grid gap-2 mx-auto col-sm-10 mt-3">
-                        <button type="button" onclick="document.getElementById('fileInput').click()" href="" class="btn btn-secondary btn-lg"><i class="fa-solid fa-camera"></i> &nbsp; Add photo</button>
+                        <button type="button" onclick="document.getElementById('fileInput').click()" href="" class="btn btn-secondary btn-lg"><i class="fa-solid fa-camera"></i> &nbsp; {{__('main.photos_add')}}</button>
                     </div>
 
                     <h4 class="fs-6 fw-bold text-black-50 p-1 text-center preview-title" id="preview-title" style="display: none;">Preview</h4>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="d-grid gap-2 mx-auto col-sm-10 mt-3">
-                        <button type="submit" class="btn btn-dark btn-lg"><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Upload</button>
+                        <button type="submit" class="btn btn-dark btn-lg"><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; {{__('main.photos_upload')}}</button>
                     </div>
                 </form>
             </div>
@@ -37,22 +37,22 @@
                             <img src="{{asset('storage/image/' . $image->file_name . '.' . $image->ext)}}" class="img-fluid img-thumbnail img grid-photo" alt="">
                             <div class="d-grid gap-2 col-12 mt-2">
                                 @if($image->profile_photo == 0)
-                                    <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark btn-sm">Mark it profile photo</a>
+                                    <a href="{{route('mark.profile.photo', [$image->id])}}" class="btn btn-dark btn-sm">{{__('main.photos_set_profile')}}</a>
                                 @endif
 
                                 @if($image->contest_photo == 0)
-                                    <a href="{{route('mark.contest.photo', [$image->id, $contest_id ?? 0])}}" class="btn btn-light btn-sm">Mark it contest photo</a>
+                                    <a href="{{route('mark.contest.photo', [$image->id, $contest_id ?? 0])}}" class="btn btn-light btn-sm">{{__('main.mark_contest_photo')}}</a>
                                 @endif
 
                                 @if(count($data->portfolios) > 1 && $image->contest_photo === 0 && $image->profile_photo === 0)
                                     <a onclick="return confirm('Are you sure?');" href="{{route('delete.photo', [$image->id])}}" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Delete
+                                        <i class="fas fa-trash"></i> {{__('main.delete')}}
                                     </a>
                                 @endif
 
                                 @if($image->contest_photo === 1 && $image->profile_photo === 1)
-                                    <p class="fw-bold text-success text-center mb-1">Default</p>
-                                    <p class="fst-italic fw-semibold text-dark fs-6">Mark another photo as profile and contest photo then you can delete the default photo.</p>
+                                    <p class="fw-bold text-success text-center mb-1">{{__('main.default')}}</p>
+                                    <p class="fst-italic fw-semibold text-dark fs-6">{{__('main.mark_photo_err')}}</p>
                                 @endif
 
                             </div>

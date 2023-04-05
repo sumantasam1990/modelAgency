@@ -341,7 +341,7 @@ class AdminController extends Controller
         if($status === 1)
         {
             User::whereId($uid)->update(['status' => 1]); // Approve
-            $contestService->putUserIntoParticipants($uid);
+            //$contestService->putUserIntoParticipants($uid);
         } else
         {
             User::whereId($uid)

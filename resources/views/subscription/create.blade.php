@@ -10,26 +10,33 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-row justify-content-between">
-                            <h4 class="card-title fw-bold mb-4">Payment Details</h4>
+                            <h4 class="card-title fw-bold mb-4">{{__('main.Payments_Details')}}</h4>
                             <p class="">
                                 <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 100px;">
                             </p>
                         </div>
 
+                        <div class="text-danger">
+                            <ul style="list-style: none;">
+                                <li style="list-style: none;" id="_one"></li>
+                                <li style="list-style: none;" id="_two"></li>
+                                <li style="list-style: none;" id="_three"></li>
+                            </ul>
+                        </div>
 
                         <form id="payment_form">
                             @csrf
                             <input type="hidden" id="_fgty" name="_encrypted">
                             <div class="form-group">
-                                <label for="cardNumber">Card Number*</label>
+                                <label for="cardNumber">{{__('main.Card_Number')}}*</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <label for="expiryDate">Expiry Date*</label>
-                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YYYY" required>
+                                    <label for="expiryDate">{{__('main.Expiry_Date')}}*</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="{{__('main.MM/YYYY')}}" required>
                                 </div>
                                 <div class="col-6 form-group">
                                     <label for="cvv">CVV*</label>
@@ -37,11 +44,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="cardHolder">Cardholder Name*</label>
+                                <label for="cardHolder">{{__('main.Cardholder_name')}}*</label>
                                 <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Maximum of 50 alphanumeric characters." required max="50">
                             </div>
                             <div class="form-group">
-                                <label for="cardHolder">Tax ID(CPF)*</label>
+                                <label for="cardHolder">{{__('main.Tax_ID')}}*</label>
                                 <input type="text" class="form-control" name="tax" id="tax" placeholder="000.000.000-00" required>
                             </div>
                             <div class="d-grid gap-2 mx-auto col-10 mt-3">
@@ -61,28 +68,3 @@
 
 @endsection
 
-<script>
-    function validateInputCard(input) {
-        var stripped = input.replace(/\D/g, '');
-
-        if (stripped.length === 16) {
-            return true;
-        } else {
-            alert('Card number is invalid.');
-            return false;
-        }
-    }
-
-    function validateInputName(input) {
-        var letters = /^[A-Za-z]+$/;
-        if (input.match(letters) !== null) {
-            return true;
-        } else {
-            alert('Card holder name format is incorrect.');
-            return false;
-        }
-    }
-
-
-
-</script>

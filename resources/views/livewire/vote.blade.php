@@ -1,7 +1,7 @@
 <div>
     @if(count($data) === 0)
         <p class="fw-bold">
-            Right now we don't have any contest open.
+            {{__('main.vote_no_contest')}}
         </p>
         <p>
             <i class="fa-solid fa-check-to-slot fs-1"></i>

@@ -439,6 +439,11 @@ contest div animation from left to right
     border: 2px solid #444;
 }
 
+.bot {
+    bottom: 0;
+    left: 30%;
+}
+
 
 @media only screen and (min-width: 320px) and (max-width: 800px) {
 
@@ -495,6 +500,11 @@ contest div animation from left to right
         .box {
             padding: 40px;
         }
+    }
+
+    .bot {
+        bottom: -40px;
+        left: 30%;
     }
 
 

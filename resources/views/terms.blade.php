@@ -16,7 +16,7 @@
             </p>
 
             <p>
-                Definições:
+                <strong>Definições:</strong> <br>
                 "Usuário": refere-se à pessoa física que acessa eumodelo e aceita os termos de serviço.
                 "Conta": refere-se à conta criada pelo usuário em www.eumodelo.com para acessar e utilizar seus serviços.
                 "Dados pessoais": refere-se a qualquer informação pessoal fornecida pelo usuário no momento do cadastro eumodelo, como nome, endereço, e-mail e número de telefone.
@@ -25,13 +25,13 @@
             </p>
 
             <p>
-                Cláusula 1 - Descrição dos serviços oferecidos
+                <strong>Cláusula 1 - Descrição dos serviços oferecidos</strong> <br>
                 A eumodelo oferece um serviço online de assinatura que permite aos usuários criar e gerenciar perfis profissionais de modelos e digital influencers. Os assinantes têm acesso a recursos adicionais, como compartilhar informações sobre sua experiência e habilidades, adicionar fotos e se conectar com outros profissionais do setor. Além disso, a eumodelo oferece a oportunidade de participar de concursos de beleza, onde os usuários podem competir por prêmios em dinheiro, e também a oportunidade de se apresentar para produtores artísticos e ter acesso a informações e oportunidades exclusivas do setor.
                 É importante destacar que o acesso aos recursos da eumodelo está disponível apenas para assinantes, e que os usuários que não são assinantes terão acesso limitado à eumodelo, podendo preencher apenas a ficha de cadastro. A eumodelo se reserva o direito de adicionar, remover ou modificar seus serviços a qualquer momento sem aviso prévio aos usuários.
             </p>
 
             <p>
-                Cláusula 2 - Regras de uso eumodelo
+                <strong>Cláusula 2 - Regras de uso eumodelo</strong> <br>
                 2.1 Ao acessar eumodelo, o usuário concorda em cumprir as regras de uso estabelecidas neste documento.
                 2.2 Os usuários menores de idade podem utilizar eumodelo, desde que tenham a permissão de seus pais ou responsáveis legais. Se você é pai/mãe ou responsável legal e permite que uma criança use nossos serviços, estes termos se aplicam a você e você é responsável pelas atividades da criança em nosso website. A eumodelo não se responsabiliza pelo uso indevido por parte de usuários menores de idade sem a devida autorização dos pais ou responsáveis legais.
                 2.3 É proibido o uso da eumodelo para fins ilegais ou que possam violar os direitos de terceiros.
@@ -46,7 +46,7 @@
             </p>
 
             <p>
-                Cláusula 3 - Concurso de Beleza eumodelo
+                <strong>Cláusula 3 - Concurso de Beleza eumodelo</strong> <br>
                 3.1 Inscrição automática: todos os assinantes eumodelo estão automaticamente inscritos nos concursos de beleza em suas respectivas categorias.
                 3.2 Votação: a votação é realizada pelos próprios assinantes eumodelo, que não podem votar nos concursos em que estão concorrendo.
                 3.3 Limites de votação: cada assinante pode votar uma vez em cada concurso.
@@ -64,7 +64,7 @@
             </p>
 
             <p>
-                Cláusula 4 - Direitos e responsabilidades dos usuários
+                <strong>Cláusula 4 - Direitos e responsabilidades dos usuários</strong> <br>
                 4.1 Os usuários da eumodelo são responsáveis por todas as informações que disponibilizam em seus perfis, incluindo informações pessoais, fotos e outras mídias.
                 4.2 Ao utilizar a eumodelo, os usuários concordam em cumprir todas as leis aplicáveis, incluindo as leis de direitos autorais e propriedade intelectual.
                 4.3 Os usuários concordam em utilizar a eumodelo apenas para fins legítimos e não para divulgar conteúdo difamatório, ofensivo ou ilegal.
@@ -75,7 +75,7 @@
             </p>
 
             <p>
-                Cláusula 5 - Política de privacidade e uso de dados pessoais
+                <strong>Cláusula 5 - Política de privacidade e uso de dados pessoais</strong> <br>
                 5.1 A eumodelo coleta e armazena dados pessoais fornecidos pelos usuários, tais como nome completo, endereço de e-mail, telefone, endereço físico, entre outros, para fins de cadastro e utilização dos serviços oferecidos.
                 5.2 O uso desses dados pessoais será exclusivamente para a prestação dos serviços oferecidos pela eumodelo e para comunicação entre a eumodelo e os usuários.
                 5.3 A eumodelo se compromete a manter os dados pessoais dos usuários em sigilo e segurança, adotando medidas técnicas e organizacionais adequadas para proteção contra acesso não autorizado, divulgação, alteração ou destruição.
@@ -85,7 +85,7 @@
             </p>
 
             <p>
-                Cláusula 6 - Propriedade intelectual e direitos autorais
+                <strong>Cláusula 6 - Propriedade intelectual e direitos autorais</strong> <br>
                 6.1 Todos os materiais e conteúdos disponibilizados na eumodelo, incluindo, mas não limitado a textos, imagens, gráficos, fotografias, vídeos, áudios, códigos, designs e logotipos são de propriedade exclusiva da eumodelo ou de terceiros que autorizaram seu uso.
                 6.2 É expressamente proibido aos usuários utilizar, copiar, reproduzir, modificar, distribuir, transmitir, exibir, publicar, vender, licenciar ou explorar comercialmente quaisquer materiais ou conteúdos disponibilizados na eumodelo sem a autorização prévia e por escrito da eumodelo ou de seus titulares.
                 6.3 Os usuários reconhecem e concordam que a violação dos direitos de propriedade intelectual da eumodelo ou de terceiros poderá acarretar na responsabilização civil e/ou criminal do infrator, sem prejuízo das medidas judiciais cabíveis.
@@ -93,7 +93,7 @@
             </p>
 
             <p>
-                Cláusula 7 - Limitações de responsabilidade
+                <strong>Cláusula 7 - Limitações de responsabilidade</strong> <br>
                 7.1 A eumodelo não se responsabiliza por quaisquer danos diretos ou indiretos, lucros cessantes, danos morais, danos emergentes ou quaisquer outros danos decorrentes do uso da eumodelo ou impossibilidade de uso.
                 7.2 A eumodelo não se responsabiliza pelo conteúdo postado pelos usuários, bem como não garante a veracidade, qualidade, segurança ou legalidade dos mesmos.
                 7.3 A eumodelo não se responsabiliza por eventuais problemas técnicos, como interrupções ou quedas no serviço, falhas de segurança ou quaisquer outros problemas que possam prejudicar a utilização da eumodelo, exceto nos casos em que a responsabilidade for prevista em lei.
@@ -103,7 +103,7 @@
             </p>
 
             <p>
-                Cláusula 8 - Cancelamento e rescisão do contrato
+                <strong>Cláusula 8 - Cancelamento e rescisão do contrato</strong> <br>
                 8.1 O usuário pode cancelar sua conta na eumodelo a qualquer momento, sem justificativa ou penalização.
                 8.2 A eumodelo se reserva o direito de rescindir o contrato com o usuário, com ou sem aviso prévio, caso haja violação dos termos de uso ou se a eumodelo considerar que o usuário está prejudicando a experiência de outros usuários.
                 8.3 Caso haja rescisão do contrato por parte da eumodelo, o usuário será notificado por e-mail e terá acesso aos seus dados e conteúdos pelo período máximo de 30 dias, contados a partir da data de rescisão. Após esse período, a eumodelo se reserva o direito de excluir todos os dados e conteúdos do usuário.
@@ -111,7 +111,7 @@
             </p>
 
             <p>
-                Cláusula9 - Cancelamento da assinatura e rescisão do contrato
+                <strong>Cláusula9 - Cancelamento da assinatura e rescisão do contrato</strong> <br>
                 9.1 O usuário poderá solicitar o cancelamento de sua assinatura a qualquer momento, acessando o menu Assinatura, no painel do usuário na eumodelo.
                 9.2 O cancelamento terá efeito no final do ciclo de cobrança atual, não havendo reembolso de valores já pagos.
                 9.3 A eumodelo reserva o direito de rescindir o contrato com o usuário, com ou sem aviso prévio, caso haja violação dos termos de uso ou se a eumodelo considerar que o usuário está prejudicando a experiência de outros usuários.
@@ -121,7 +121,7 @@
             </p>
 
             <p>
-                Cláusula 10 - Foro de eleição e lei aplicável
+                <strong>Cláusula 10 - Foro de eleição e lei aplicável</strong> <br>
                 10.1 Todos os litígios decorrentes ou relacionados ao presente Termo de Serviço serão submetidos ao foro da comarca de Goiânia, Estado de Goiás renunciando as partes a qualquer outro, por mais privilegiado que seja.
                 10.2 Este Termo de Serviço será regido e interpretado de acordo com as leis brasileiras, em especial, a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais) e o Marco Civil da Internet (Lei nº 12.965/2014). Qualquer conflito de leis será resolvido em favor das leis brasileiras.
             </p>

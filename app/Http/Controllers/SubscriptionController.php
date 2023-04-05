@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\User;
+use App\Services\ContestService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,7 @@ class SubscriptionController extends Controller
         return view('subscription.create');
     }
 
-    public function checkout(Request $request)
+    public function checkout(Request $request, ContestService $contestService)
     {
         $client = new Client();
 
@@ -148,6 +149,8 @@ class SubscriptionController extends Controller
 
                 User::whereId(Auth::user()->id)
                     ->update(['subscribed' => 1]);
+
+                $contestService->putUserIntoParticipants(Auth::user()->id);
             }
 
             return response()->json($paymentArray);

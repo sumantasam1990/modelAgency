@@ -27,7 +27,7 @@
                     </h2>
 
                     <p class="d-grid gap-2 col-12">
-                        <a class="btn btn-outline-light btn-sm fw-bold" href="{{route('profile', [auth()->user()->username])}}"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a class="btn btn-outline-light btn-sm fw-bold" href="{{route('profile', [auth()->user()->username])}}"><i class="fa-solid fa-user"></i> {{__('main.my_profile')}}</a>
                     </p>
 
                     <ul class="mt-4 header-ul">
@@ -47,11 +47,11 @@
 
 
 
-                        <li class="{{ (request()->is('model/contests/vote')) ? 'vote' : '' }} vote"><a href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; Vote</a> </li>
+                        <li class="{{ (request()->is('model/contests/vote')) ? 'vote' : '' }} vote"><a href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; {{__('main.vote')}}</a> </li>
 
-                        <li class="{{ (request()->is('model/my/contest')) ? 'active' : '' }}"><a href="{{route('my.contests')}}"><i class="fa-solid fa-list"></i> &nbsp; My Contests</a> </li>
-                        <li class="{{ (request()->is('model/my/results')) ? 'active' : '' }}"><a href="{{route('my.results')}}"><i class="fa-solid fa-bell"></i> &nbsp; Notifications</a> </li>
-                        <li class="{{ (request()->is('model/winners')) ? 'active' : '' }}"><a href="{{route('winners')}}"><i class="fa-sharp fa-solid fa-trophy"></i> &nbsp; Winners</a> </li>
+                        <li class="{{ (request()->is('model/my/contest')) ? 'active' : '' }}"><a href="{{route('my.contests')}}"><i class="fa-solid fa-list"></i> &nbsp; {{__('main.my_contests')}}</a> </li>
+                        <li class="{{ (request()->is('model/my/results')) ? 'active' : '' }}"><a href="{{route('my.results')}}"><i class="fa-solid fa-bell"></i> &nbsp; {{__('main.notifications')}}</a> </li>
+                        <li class="{{ (request()->is('model/winners')) ? 'active' : '' }}"><a href="{{route('winners')}}"><i class="fa-sharp fa-solid fa-trophy"></i> &nbsp; {{__('main.winners')}}</a> </li>
 
 {{--                        <div class="dropdown mb-3 {{ (request()->is('model/portfolio')) ? 'active' : '' }}">--}}
 {{--                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
@@ -63,21 +63,21 @@
 {{--                            </ul>--}}
 {{--                        </div>--}}
 
-                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; Photos</a> </li>
+                        <li class="{{ (request()->is('model/portfolio')) ? 'active' : '' }}"><a href="{{route('portfolio')}}"><i class="fa-solid fa-camera-retro"></i> &nbsp; {{__('main.photos')}}</a> </li>
 
-                        <li style="margin-left: 30px;" class="mb-0 {{ (request()->is('model/edit/profile')) ? 'active' : '' }}"><a href="{{route('edit.profile')}}"><i class="fa-solid fa-user-pen"></i> &nbsp; Edit Profile</a> </li>
+                        <li class="{{ (request()->is('model/edit/profile')) ? 'active' : '' }}"><a href="{{route('edit.profile')}}"><i class="fa-solid fa-user-pen"></i> &nbsp; {{__('main.edit_profile')}}</a> </li>
 
-                        <li style="margin-left: 30px; padding: 6px;" class="{{ (request()->is('model/about/me')) ? 'active' : '' }}"><a href="{{route('about.me')}}"><i class="fa-solid fa-user-check"></i> &nbsp; About Me</a> </li>
+                        <li class="{{ (request()->is('model/about/me')) ? 'active' : '' }}"><a href="{{route('about.me')}}"><i class="fa-solid fa-user-check"></i> &nbsp; {{__('main.about_me')}}</a> </li>
 
-                        <li class="{{ (request()->is('model/help')) ? 'active' : '' }}"><a href="{{route('help')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; Help</a> </li>
+                        <li class="{{ (request()->is('model/help')) ? 'active' : '' }}"><a href="{{route('help')}}"><i class="fa-solid fa-person-circle-question"></i> &nbsp; {{__('main.help')}}</a> </li>
 
-                        <li class="{{ (request()->is('model/subscription/now') || request()->is('model/subscription')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; Subscription</a> </li>
+                        <li class="{{ (request()->is('model/subscription/now') || request()->is('model/subscription')) ? 'active' : '' }}"><a href="{{route('subscription.now')}}"><i class="fa-solid fa-wallet"></i> &nbsp; {{__('main.subscription')}}</a> </li>
 
                         @auth()
-                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Sign Out</a> </li>
+                            <li><a href="{{route('logout')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; {{__('main.sign_out')}}</a> </li>
                         @else
-                            <li class="active"><a href="{{route('register')}}"><i class="fa-solid fa-user-plus"></i> &nbsp; Register</a> </li>
-                            <li><a href="{{route('login')}}"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; Sign In</a> </li>
+                            <li class="active"><a href="{{route('register')}}"><i class="fa-solid fa-user-plus"></i> &nbsp; {{__('main.register')}}</a> </li>
+                            <li><a href="{{route('login')}}"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; {{__('main.signin')}}</a> </li>
                         @endauth
 
 

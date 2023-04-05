@@ -80,29 +80,79 @@ form.addEventListener('submit', (event) => {
     document.getElementById('_paybtn').disabled = true;
     document.getElementById('pay_proc_msg').style.display = 'block';
 
-    let token = getCCToken();
+    //validation call
+    var number = document.getElementById('cardNumber').value;
+    var holder = document.getElementById('cardHolder').value;
+    var tax = document.getElementById('tax').value;
 
-    const formData = new FormData(form);
-     formData.append('encrypted', token);
+    var card_no = validateInputCard(number);
+    var card_name = validateInputName(holder);
+    var card_cpf = validateInputtaxId(tax);
 
-    fetch('/model/checkout', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data);
-            if ( data.status === 'PAID') {
-                window.location.href='/model/success';
-            } else {
-                window.location.href='/model/error';
-            }
-            // Process response from PHP file
+    //end validation
+
+    if (card_no && card_name && card_cpf) {
+        let token = getCCToken();
+
+        const formData = new FormData(form);
+        formData.append('encrypted', token);
+
+        fetch('/model/checkout', {
+            method: 'POST',
+            body: formData
         })
-        .catch(error => {
-            console.error(error);
-            // Handle error
-        });
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data);
+                if ( data.status === 'PAID') {
+                    window.location.href='/model/success';
+                } else {
+                    window.location.href='/model/error';
+                }
+                // Process response from PHP file
+            })
+            .catch(error => {
+                console.error(error);
+                // Handle error
+            });
+    } else {
+        document.getElementById('_paybtn').disabled = false;
+        console.log('else');
+    }
 });
 
+// validation
+function validateInputCard(input) {
+    document.getElementById('_two').innerHTML = '';
+    var stripped = input.replace(/\D/g, '');
 
+    if (stripped.length === 16) {
+        return true;
+    } else {
+        document.getElementById('_two').innerHTML = 'Card number is invalid.';
+        return false;
+    }
+}
+
+function validateInputName(input) {
+    document.getElementById('_one').innerHTML = '';
+    var lettersAndSpaces = /^[A-Za-z\s]{1,50}$/;
+    if (input.match(lettersAndSpaces) !== null) {
+        return true;
+    } else {
+        document.getElementById('_one').innerHTML = 'Card holder name format is incorrect.';
+        return false;
+    }
+}
+
+function validateInputtaxId(input) {
+    document.getElementById('_three').innerHTML = '';
+    var stripped = input.replace(/\D/g, '');
+
+    if (stripped.length === 11) {
+        return true;
+    } else {
+        document.getElementById('_three').innerHTML = 'CPF ID/Tax ID format is incorrect.';
+        return false;
+    }
+}

@@ -1,7 +1,7 @@
 @extends('header')
 @section('content')
 <div class="row">
-    <h4 class="fw-bold fs-4 mb-3">Help</h4>
+    <h4 class="fw-bold fs-4 mb-3">{{__('main.Help')}}</h4>
     <div class="col-md-6 sec-box">
 
         <div class="accordion accordion-flush" id="accordionFlushExample">

@@ -5,9 +5,9 @@
         @csrf
 
         <div class="col-md-6">
-            <h4 class="fw-bold fs-4 mb-3">Update Account</h4>
+            <h4 class="fw-bold fs-4 mb-3">{{__('main.edit_profile_update_account')}}</h4>
             <div class="form-group mb-2">
-                <label>Name*</label>
+                <label>{{__('main.edit_profile_name')}}*</label>
                 <input type="text" name="_name" value="{{$user->name ?? ''}}" placeholder="eg. John doe" class="form-control @error('_name') is-invalid @enderror">
                 @if ($errors->has('_name'))
                     <span class="text-danger">{{ $errors->first('_name') }}</span>
@@ -32,25 +32,25 @@
                 {{--                            </div>--}}
                 <div class="col-6">
                     <div class="form-group mb-2">
-                        <label>District*</label>
+                        <label>{{__('main.edit_profile_district')}}*</label>
                         <input type="text" name="_district" value="{{$user->district ?? ''}}" placeholder="" class="form-control @error('_district') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group mb-2">
-                        <label>WhatsApp*</label>
+                        <label>{{__('main.edit_profile_whatsapp')}}*</label>
                         <input type="text" name="_wp" value="{{$user->wp ?? ''}}" placeholder="" class="form-control @error('_wp') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group mb-2">
-                        <label>Gender*</label>
+                        <label>{{__('main.edit_profile_gender')}}*</label>
                         <select class="form-control @error('_gender') is-invalid @enderror" name="_gender">
                             <option value="" selected>Select</option>
-                            <option {{$user->gender == 'Female' ? 'selected' : ''}}>Female</option>
-                            <option {{$user->gender == 'Male' ? 'selected' : ''}}>Male</option>
-                            <option value="male_trans" {{$user->gender == 'male_trans' ? 'selected' : ''}}>Male trans</option>
-                            <option value="female_trans" {{$user->gender == 'female_trans' ? 'selected' : ''}}>Female trans</option>
+                            <option value="Female" {{$user->gender == 'Female' ? 'selected' : ''}}>{{__('main.edit_profile_female')}}</option>
+                            <option value="Male" {{$user->gender == 'Male' ? 'selected' : ''}}>{{__('main.edit_profile_male')}}</option>
+                            <option value="male_trans" {{$user->gender == 'male_trans' ? 'selected' : ''}}>{{__('main.edit_profile_male_trans')}}</option>
+                            <option value="female_trans" {{$user->gender == 'female_trans' ? 'selected' : ''}}>{{__('main.edit_profile_female_trans')}}</option>
                         </select>
                     </div>
                 </div>
@@ -58,29 +58,29 @@
                     <div class="form-group mb-2">
                         <label>Civil Status*</label>
                         <select class="form-control @error('_civil_status') is-invalid @enderror" name="_civil_status">
-                            <option value="">Choose</option>
-                            <option {{$user->civil == 'Single' ? 'selected' : ''}}>Single</option>
-                            <option {{$user->civil == 'Married' ? 'selected' : ''}}>Married</option>
-                            <option value="relationship" {{$user->civil == 'relationship' ? 'selected' : ''}}>In a relationship</option>
+                            <option value="">{{__('main.edit_profile_choose')}}</option>
+                            <option {{$user->civil == 'Single' ? 'selected' : ''}} value="Single">{{__('main.edit_profile_single')}}</option>
+                            <option {{$user->civil == 'Married' ? 'selected' : ''}} value="Married">{{__('main.edit_profile_married')}}</option>
+                            <option value="relationship" {{$user->civil == 'relationship' ? 'selected' : ''}}>{{__('main.edit_profile_in_a_relationship')}}</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <h4 class="fw-bold fs-4 mt-3">Body Characteristics</h4>
+            <h4 class="fw-bold fs-4 mt-3">{{__('main.edit_profile_body_characteristics')}}</h4>
 
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Age*</label>
+                        <label>{{__('main.edit_profile_age')}}*</label>
                         <input type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Height(m)*</label>
+                        <label>{{__('main.edit_profile_height')}}*</label>
                         <select class="form-control" name="_height">
-                            <option value="">Choose</option>
+                            <option value="">{{__('main.choose')}}</option>
                             @foreach(range(20, 220) as $number)
                                 <option {{$user->height === number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>
                             @endforeach
@@ -95,12 +95,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Skin color*</label>
+                        <label>{{__('main.edit_profile_skin_color')}}*</label>
                         <select class="form-control" name="_skin">
-                            <option value="">Choose</option>
-                            <option {{$user->skin ? 'selected' : ''}}>White</option>
-                            <option {{$user->skin == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->skin == 'Black' ? 'selected' : ''}}>Black</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option value="White" {{$user->skin == 'White' ? 'selected' : ''}}>{{__('main.edit_profile_white')}}</option>
+                            <option {{$user->skin == 'Brown' ? 'selected' : ''}} value="Brown">{{__('main.edit_profile_brown')}}</option>
+                            <option {{$user->skin == 'Black' ? 'selected' : ''}} value="Black">{{__('main.edit_profile_black')}}</option>
                         </select>
                     </div>
                 </div>
@@ -109,40 +109,40 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Bust*</label>
+                        <label>{{__('main.edit_profile_bust')}}*</label>
 {{--                        <input type="number" name="bust" value="{{$user->bust ?? ''}}" placeholder="" class="form-control">--}}
                         <select class="form-control" name="bust">
-                            <option value="">Choose</option>
-                            <option {{$user->bust == 'Small' ? 'selected' : ''}}>Small</option>
-                            <option {{$user->bust == 'Medium' ? 'selected' : ''}}>Medium</option>
-                            <option {{$user->bust == 'Large' ? 'selected' : ''}}>Large</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option value="Small" {{$user->bust == 'Small' ? 'selected' : ''}}>{{__('main.edit_profile_small')}}</option>
+                            <option {{$user->bust == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
+                            <option {{$user->bust == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Waist*</label>
+                        <label>{{__('main.edit_profile_waist')}}*</label>
 {{--                        <input type="number" name="waist" value="{{$user->waist}}" placeholder="" class="form-control">--}}
 
                         <select class="form-control" name="waist">
-                            <option value="">Choose</option>
-                            <option {{$user->waist == 'Thin' ? 'selected' : ''}}>Thin</option>
-                            <option {{$user->waist == 'Medium' ? 'selected' : ''}}>Medium</option>
-                            <option {{$user->waist == 'Large' ? 'selected' : ''}}>Large</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option {{$user->waist == 'Thin' ? 'selected' : ''}} value="Thin">{{__('main.Thin')}}</option>
+                            <option {{$user->waist == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
+                            <option {{$user->waist == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
 
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Hips*</label>
+                        <label>{{__('main.edit_profile_hips')}}*</label>
 {{--                        <input type="number" name="hips" value="{{$user->hips}}" placeholder="" class="form-control">--}}
 
                         <select class="form-control" name="hips">
-                            <option value="">Choose</option>
-                            <option {{$user->hips == 'Small' ? 'selected' : ''}}>Small</option>
-                            <option {{$user->hips == 'Medium' ? 'selected' : ''}}>Medium</option>
-                            <option {{$user->hips == 'Large' ? 'selected' : ''}}>Large</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option {{$user->hips == 'Small' ? 'selected' : ''}} value="Small">{{__('main.edit_profile_small')}}</option>
+                            <option {{$user->hips == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
+                            <option {{$user->hips == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Dress Size*</label>
+                        <label>{{__('main.Dress_Size')}}*</label>
                         <select class="form-control" name="dress">
                             @foreach($arr as $a)
                                 <option {{$user->dress == $a ? 'selected' : ''}} value="{{$a}}">{{$a}}</option>
@@ -161,30 +161,30 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Hair Color(m)*</label>
+                        <label>{{__('main.Hair_Color')}}*</label>
                         <select class="form-control" name="hair">
-                            <option value="">Choose</option>
-                            <option {{$user->hair == 'Bald' ? 'selected' : ''}}>Bald</option>
-                            <option {{$user->hair == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->hair == 'Blonde' ? 'selected' : ''}}>Blonde</option>
-                            <option {{$user->hair == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->hair == 'Gray' ? 'selected' : ''}}>Gray</option>
-                            <option {{$user->hair == 'White' ? 'selected' : ''}}>White</option>
-                            <option {{$user->hair == 'Red' ? 'selected' : ''}}>Red</option>
-                            <option {{$user->hair == 'Colored' ? 'selected' : ''}}>Colored</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option {{$user->hair == 'Bald' ? 'selected' : ''}} value="Bald">{{__('main.Bald')}}</option>
+                            <option {{$user->hair == 'Black' ? 'selected' : ''}} value="Black">{{__('main.Black')}}</option>
+                            <option {{$user->hair == 'Blonde' ? 'selected' : ''}} value="Blonde">{{__('main.Blond')}}</option>
+                            <option {{$user->hair == 'Brown' ? 'selected' : ''}} value="Brown">{{__('main.Brown')}}</option>
+                            <option {{$user->hair == 'Gray' ? 'selected' : ''}} value="Gray">{{__('main.Grey')}}</option>
+                            <option {{$user->hair == 'White' ? 'selected' : ''}} value="White">{{__('main.White')}}</option>
+                            <option {{$user->hair == 'Red' ? 'selected' : ''}} value="Red">{{__('main.Red')}}</option>
+                            <option {{$user->hair == 'Colored' ? 'selected' : ''}} value="Colored">{{__('main.Colored')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
-                        <label>Eyes color*</label>
+                        <label>{{__('main.Eyes_Color')}}*</label>
                         <select class="form-control" name="eyes">
-                            <option value="">Choose</option>
-                            <option {{$user->eyes == 'Brown' ? 'selected' : ''}}>Brown</option>
-                            <option {{$user->eyes == 'Black' ? 'selected' : ''}}>Black</option>
-                            <option {{$user->eyes == 'Green' ? 'selected' : ''}}>Green</option>
-                            <option {{$user->eyes == 'Blue' ? 'selected' : ''}}>Blue</option>
-                            <option {{$user->eyes == 'Honey' ? 'selected' : ''}}>Honey</option>
+                            <option value="">{{__('main.choose')}}</option>
+                            <option {{$user->eyes == 'Brown' ? 'selected' : ''}} value="Brown">{{__('main.Brown')}}</option>
+                            <option {{$user->eyes == 'Black' ? 'selected' : ''}} value="Black">{{__('main.Black')}}</option>
+                            <option {{$user->eyes == 'Green' ? 'selected' : ''}} value="Green">{{__('main.Green')}}</option>
+                            <option {{$user->eyes == 'Blue' ? 'selected' : ''}} value="Blue">{{__('main.Blue')}}</option>
+                            <option {{$user->eyes == 'Honey' ? 'selected' : ''}} value="Honey">{{__('main.Honey')}}</option>
                         </select>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                         <input type="checkbox" {{in_array('fitness', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="fitness">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Fitness
+                            {{__('main.Fitness')}}
                         </label>
                     </div>
                 </div>
@@ -205,7 +205,7 @@
                         <input type="checkbox" {{in_array('tatoo', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="tatoo">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Tatoo
+                            {{__('main.Tatoo')}}
                         </label>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                         <input type="checkbox" {{in_array('piercing', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="piercing">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Piercing
+                            {{__('main.Piercing')}}
                         </label>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                         <input type="checkbox" {{in_array('silicone', explode(',', $user->other)) ? 'checked' : ''}} class="form-check-input" name="other[]"
                                value="silicone">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Silicone
+                            {{__('main.Silicone')}}
                         </label>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
         </div>
 
         <div class="col-md-6">
-            <h4 class="fw-bold fs-4 mt-3">Main Social Networks</h4>
+            <h4 class="fw-bold fs-4 mt-3">{{__('main.Main_Social_Networks')}}</h4>
 
             <div class="row mt-2">
                 <div class="col-md-4">
@@ -277,7 +277,7 @@
 
             <div class="row mt-2">
                 <div class="col-md-4">
-                    <input type="text" name="social_other_label" value="{{$user->preferences['social']['other']['label'] ?? ''}}" placeholder="Name of social media" class="form-control fw-bold">
+                    <input type="text" name="social_other_label" value="{{$user->preferences['social']['other']['label'] ?? ''}}" placeholder="{{__('main.Name_of_social_media')}}" class="form-control fw-bold">
 
                 </div>
                 <div class="col-md-4">
@@ -297,24 +297,24 @@
                 </div>
             </div>
 
-            <h4 class="fw-bold fs-4 mt-3">Bank Details</h4>
+            <h4 class="fw-bold fs-4 mt-3">{{__('main.Bank_Details')}}</h4>
 
             @php
                 $exp = explode(',', $user->configure_pix->value ?? '');
             @endphp
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <label>Pix Name</label>
-                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="Pix Name" class="form-control border-2 fw-bold">
+                    <label>{{__('main.Pix_name')}}</label>
+                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="{{__('main.Pix_name')}}" class="form-control border-2 fw-bold">
                 </div>
                 <div class="col-md-6">
-                    <label>Pix Email/Code/Phone</label>
-                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="Pix Email Or, Pix Code Or, Pix Phone any one..." class="form-control border-2 fw-bold">
+                    <label>{{__('main.Pix_email/code/phone')}}</label>
+                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="{{__('main.Pix_email/code/phone')}}" class="form-control border-2 fw-bold">
                 </div>
             </div>
 
             <div class="d-grid gap-2 mx-auto col-4 mt-4">
-                <button type="submit" class="btn btn-dark">Update</button>
+                <button type="submit" class="btn btn-dark">{{__('main.Update')}}</button>
             </div>
         </div>
     </form>

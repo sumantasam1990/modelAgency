@@ -2,8 +2,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <h4 class="fw-bold fs-4 mb-1">My Contests</h4>
-            <p class="text-black-50 mb-3 fs-6">List of contest that you have participated.</p>
+            <h4 class="fw-bold fs-4 mb-3">{{__('main.my_contests')}}</h4>
+{{--            <p class="text-black-50 mb-3 fs-6">List of contest that you have participated.</p>--}}
             <div class="row">
                 <div class="col-md-10">
                     @if(count($results_s) === 0)
@@ -16,14 +16,14 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1 ms-3">
                                     <h4 class="fw-bold">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
-                                    <p>End contest: <span class="fw-bold">{{$contest['end']}}</span>.</p>
+                                    <p>{{__('main.end_contest')}}: <span class="fw-bold">{{$contest['end']}}</span>.</p>
 
                                     <div class="accordion accordion-flush bg-warning" id="accordionFlushExample">
 
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="flush-headingOne-{{$contest['contest_id']}}">
                                                     <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{$contest['contest_id']}}" aria-expanded="false" aria-controls="flush-collapseOne-{{$contest['contest_id']}}">
-                                                        Rules
+                                                        {{__('main.rules')}}
                                                     </button>
                                                 </h2>
                                                 <div id="flush-collapseOne-{{$contest['contest_id']}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{$contest['contest_id']}}" >
@@ -40,15 +40,15 @@
                                     <div class="d-flex flex-row justify-content-around align-content-center">
                                         <div class="fs-5 fw-bold">
                                             <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_first_prize']}}
-                                            <p class="fs-6 text-black-50">First Prize</p>
+                                            <p class="fs-6 text-black-50">{{__('main.first_prize')}}</p>
                                         </div>
                                         <div class="fs-5 fw-bold">
                                             <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_second_prize']}}
-                                            <p class="fs-6 text-black-50">Second Prize</p>
+                                            <p class="fs-6 text-black-50">{{__('main.second_prize')}}</p>
                                         </div>
                                         <div class="fs-5 fw-bold">
                                             <i class="fa-sharp fa-solid fa-trophy"></i> ${{$contest['contest_third_prize']}}
-                                            <p class="fs-6 text-black-50">Third Prize</p>
+                                            <p class="fs-6 text-black-50">{{__('main.third_prize')}}</p>
                                         </div>
                                     </div>
 
@@ -56,7 +56,7 @@
                                 <div class="flex-shrink-0">
                                     <img class="image profile-photo" src="{{asset('storage/image/' . ($contest['contest_photo'] === null ? $myContests->portfolio_without_profile_photo->file_name.'.'.$myContests->portfolio_without_profile_photo->ext : $contest['contest_photo']) )}}" alt="contest photo">
                                     <p class="mt-2">
-                                        <a href="{{route('portfolio', [$contest['contest_id']])}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; Change Contest Photo</a>
+                                        <a href="{{route('portfolio', [$contest['contest_id']])}}" class="text-black text-decoration-none mt-2 fw-bold"><i class="fa-solid fa-camera"></i> &nbsp; {{__('main.change_contest_photo')}}</a>
                                     </p>
                                 </div>
                             </div>

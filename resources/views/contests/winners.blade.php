@@ -3,8 +3,8 @@
 
     <div class="row mb-4">
         <div class="col-md-8">
-            <h4 class="fw-bold fs-4 mb-1">Winners</h4>
-            <p class="text-black-50 mb-3 fs-6">List of winners from current month.</p>
+            <h4 class="fw-bold fs-4 mb-1">{{__('main.winners')}}</h4>
+            <p class="text-black-50 mb-3 fs-6">{{__('main.winners_list')}}</p>
 
             <div class="row">
                 <div class="col-md-8">
@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <select name="year" class="form-control">
-                                    <option value="">Choose Year</option>
+                                    <option value="">{{__('main.winners_choose_year')}}</option>
                                     @foreach(range(date('Y'), date('Y')) as $y)
                                         <option {{$y == $request->year ? 'selected' : ''}}>{{$y}}</option>
                                     @endforeach
@@ -22,7 +22,7 @@
 
                             <div class="col-4">
                                 <select name="month" class="form-control">
-                                    <option value="">Choose Month</option>
+                                    <option value="">{{__('main.winners_choose_month')}}</option>
                                     @foreach(range(1, 12) as $m)
                                         <option {{$m == $request->month ? 'selected' : ''}}>{{$m}}</option>
                                     @endforeach
@@ -31,7 +31,7 @@
 
                             <div class="col-4">
                                 <div class="d-grid gap-2 col-12">
-                                    <button type="submit" class="btn btn-dark"><i class="fas fa-search"></i> Search</button>
+                                    <button type="submit" class="btn btn-dark"><i class="fas fa-search"></i> {{__('main.winners_search')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
             <div class="row mt-3">
                 <div class="col-md-10">
                     @if(count($data) === 0)
-                        <p class="fw-semibold">No contest found.</p>
+{{--                        <p class="fw-semibold">No contest found.</p>--}}
                     @endif
                     @foreach($data as $contest)
                         <div class="sec-box mb-3">
@@ -74,7 +74,7 @@
                                                 <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">
                                                 </a>
                                                 <p class="mt-3">
-                                                    <span class="fw-bold">{{$winner['user_name']}}</span>  <br> Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
+                                                    <span class="fw-bold">{{$winner['user_name']}}</span>  <br> {{__('main.total_vote')}}: <span class="fw-bold">{{$winner['total_votes']}}</span>
                                                 </p>
                                                 <p>
                                                     <span class="{{ $position }} fw-bold fs-6">

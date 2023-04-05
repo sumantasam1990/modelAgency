@@ -3,8 +3,8 @@
 
     <div class="row mb-4">
         <div class="col-md-8">
-            <h4 class="fw-bold fs-4 mb-1">My Results</h4>
-            <p class="text-black-50 mb-3 fs-6">Results of contests you participated in..</p>
+            <h4 class="fw-bold fs-4 mb-1">{{__('main.notifications')}}</h4>
+            <p class="text-black-50 mb-3 fs-6">{{__('main.notifications_results')}}</p>
 
             <div class="row mt-3">
                 <div class="col-md-10">
@@ -20,7 +20,7 @@
                                     <h4 class="fw-bold fs-4 text-black">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
 
                                     <p class="text-danger fw-bold mb-1">
-                                        Contest expiry: {{$contest['end']}}
+                                        {{__('main.end_contest')}}: {{$contest['end']}}
                                     </p>
 
                                     <div class="row mt-2">
@@ -33,7 +33,7 @@
 {{--                                                        <img src="{{asset('storage/image/' . $winner['user_image']['image_path'])}}" class="img-fluid img-thumbnail profile-photo" alt="">--}}
 {{--                                                    </a>--}}
                                                     <p class="fs-5">
-                                                        <span class="fw-bold">Total votes: <span class="fw-bold">{{$winner['total_votes']}}</span>
+                                                        <span class="fw-bold">{{__('main.total_vote')}}: <span class="fw-bold">{{$winner['total_votes']}}</span>
                                                     </p>
                                                     @if($winner['rank'] > 0 && $winner['rank'] < 4 && $winner['total_votes'] > 0)
 {{--                                                        <p>--}}

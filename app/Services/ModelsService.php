@@ -329,6 +329,9 @@ class ModelsService
                 User::whereId($customerInfo['id'])
                     ->update(['subscribed' => 1]);
 
+                (new ContestService())->putUserIntoParticipants(Auth::user()->id);
+                //$contestService->putUserIntoParticipants(Auth::user()->id);
+
                 return $paymentArray;
             } else {
                 return null;

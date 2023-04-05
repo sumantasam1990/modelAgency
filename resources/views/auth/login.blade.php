@@ -9,7 +9,7 @@
             <h1 class="fs-2 fw-bold text-capitalize mb-3 text-center">
                 <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 200px;">
             </h1>
-            <h5 class="text-black-50 fs-5 text-center">Access my modeling panel</h5>
+            <h5 class="text-black-50 fs-5 text-center">{{__('main.access_model_info')}}</h5>
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group mb-3 mt-4">
@@ -17,18 +17,18 @@
                     <input required type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
                 <div class="form-group">
-                    <label>Password*</label>
+                    <label>{{__('main.pass')}}*</label>
                     <input required type="password" name="password" class="form-control" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
 
                 <div class="d-grid gap-2 mx-auto col-7 mt-4">
-                    <button type="submit" class="btn btn-dark">Sign In</button>
-                    <a class="btn btn-outline-dark text-capitalize mt-4 fw-bold" data-bs-toggle="modal" data-bs-target="#signup" href="#">Create your account</a>
+                    <button type="submit" class="btn btn-dark">{{__('main.signin')}}</button>
+                    <a class="btn btn-outline-dark text-capitalize mt-4 fw-bold" data-bs-toggle="modal" data-bs-target="#signup" href="#">{{__('main.create_account')}}</a>
                 </div>
 
             </form>
 
-            <div class="mt-3 text-black-50 position-absolute" style="bottom: -40px; left: 30%;">
+            <div class="mt-3 text-black-50 position-absolute bot">
                 <div style="margin-left: 25px;">
                     <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
                     <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
@@ -54,7 +54,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Create Your Account</h1>
+                <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">{{__('main.create_account')}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -62,15 +62,15 @@
                     <form action="{{route('register.post')}}" method="post">
                         @csrf
                         <div class="form-group mb-2">
-                            <label>Name*</label>
-                            <input required type="text" name="_name" placeholder="eg. John doe" class="form-control @error('_name') is-invalid @enderror">
+                            <label>{{__('main.edit_profile_name')}}*</label>
+                            <input required type="text" name="_name" placeholder="" class="form-control @error('_name') is-invalid @enderror">
                             @if ($errors->has('_name'))
                                 <span class="text-danger">{{ $errors->first('_name') }}</span>
                             @endif
                         </div>
                         <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input required type="email" name="email" placeholder="eg. John@example.com" class="form-control @error('email') is-invalid @enderror">
+                            <input required type="email" name="email" placeholder="" class="form-control @error('email') is-invalid @enderror">
                             @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
@@ -78,13 +78,13 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group mb-2">
-                                    <label>Password*</label>
+                                    <label>{{__('main.pass')}}*</label>
                                     <input required type="password" name="password" placeholder="" class="form-control @error('password') is-invalid @enderror">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group mb-2">
-                                    <label>Confirm Password*</label>
+                                    <label>{{__('main.conf_pass')}}*</label>
                                     <input required type="password" name="password_confirmation" placeholder="" class="form-control @error('password_confirmation') is-invalid @enderror">
                                 </div>
                             </div>
@@ -304,12 +304,12 @@
                         <div class="form-check">
                             <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
-                                I Agree <a target="_blank" href="{{route('terms')}}"> Terms & Conditions </a>
+                                <a target="_blank" href="{{route('terms')}}"> {{__('main.iagree_terms')}} </a>
                             </label>
                         </div>
 
                         <div class="d-grid gap-2 mx-auto col-4 mt-4">
-                            <button type="submit" class="btn btn-dark">Sign Up</button>
+                            <button type="submit" class="btn btn-dark">{{__('main.sign_up')}}</button>
                         </div>
 
                     </form>
