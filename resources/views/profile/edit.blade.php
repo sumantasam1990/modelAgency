@@ -82,14 +82,9 @@
                         <select class="form-control" name="_height">
                             <option value="">{{__('main.choose')}}</option>
                             @foreach(range(20, 220) as $number)
-                                <option {{$user->height === number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} meters</option>
+                                <option {{$user->height == number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} </option>
                             @endforeach
-{{--                            @for ($i = 0.1; $i <= 20; $i++)--}}
-{{--                                @for ($j = 0; $j <= 9; $j++)--}}
-{{--                                    @php $value = $i + ($j / 10); @endphp--}}
-{{--                                    <option {{$user->height === $value ? 'selected' : ''}} value="{{ $value }}">{{ $value }} meters</option>--}}
-{{--                                @endfor--}}
-{{--                            @endfor--}}
+
                         </select>
                     </div>
                 </div>

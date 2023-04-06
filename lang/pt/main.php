@@ -8,8 +8,7 @@ return [
     'conf_pass' => 'Confirmar Senha',
     'iagree_terms' => 'Eu li e aceito os Termos de Serviço e Política de Privacidade',
     'sign_up' => 'Cadastrar',
-
-
+    'subscribe' => 'Assinar',
     'premium' => 'Assinatura eumodelo',
     'membership_active' => 'A sua assinatura eumodelo esta ativa!',
     'gotovote' => 'Votar agora',

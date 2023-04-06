@@ -709,6 +709,9 @@ class ContestService
 
     public function putUserIntoParticipants(int $userId)
     {
+        //check if the user is subscribed or not
+
+
         $contests = Contest::with('category')
             ->where('end', '>', now())
             ->whereHas('category', function ($query) use ($userId) {

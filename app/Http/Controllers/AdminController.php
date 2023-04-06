@@ -171,6 +171,8 @@ class AdminController extends Controller
                     ];
                 })->toArray();
 
+                //checking if subscribed or not
+
                 ContestParticipants::insert($participants);
 
                 return redirect()->back()->with('msg', 'Successfully created a contest.');

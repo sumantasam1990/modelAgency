@@ -329,17 +329,21 @@ class ModelsService
                 User::whereId($customerInfo['id'])
                     ->update(['subscribed' => 1]);
 
-                (new ContestService())->putUserIntoParticipants(Auth::user()->id);
-                //$contestService->putUserIntoParticipants(Auth::user()->id);
+                (new ContestService())->putUserIntoParticipants($customerInfo['id']);
 
                 return $paymentArray;
             } else {
+                User::whereId($customerInfo['id'])
+                    ->update(['subscribed' => 0]);
                 return null;
             }
 
             // Do something with $responseData...
 
         } catch (RequestException $e) {
+            User::whereId($customerInfo['id'])
+                ->update(['subscribed' => 0]);
+
             if ($e->hasResponse()) {
                 return response()->json($e->getResponse()->getBody());
             } else {
