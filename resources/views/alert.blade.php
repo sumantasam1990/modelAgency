@@ -17,16 +17,16 @@
     </div>
 </div>
 
-@auth()
-@if(Auth::user()->subscribed === 0 && Auth::user()->email != 'admin@admin.com')
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading fw-bold"><i class="bi bi-check2-circle"></i> PREMIUM ACCOUNT!</h4>
-                <h5 class="fs-5 fw-semibold">Go to premium account only for R$100/month. You can participate to contest and get chance to win prize.</h5>
-                <a class="btn btn-info mt-2 fw-bold text-uppercase" href="{{route('subscription.now')}}">{{__('main.subscribe')}}</a>
-            </div>
-        </div>
-    </div>
-@endif
-@endauth
+{{--@auth()--}}
+{{--@if(Auth::user()->subscribed === 0 && Auth::user()->email != 'admin@admin.com')--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-12">--}}
+{{--            <div class="alert alert-info alert-dismissible fade show" role="alert">--}}
+{{--                <h4 class="alert-heading fw-bold"><i class="bi bi-check2-circle"></i> PREMIUM ACCOUNT!</h4>--}}
+{{--                <h5 class="fs-5 fw-semibold">Go to premium account only for R$100/month. You can participate to contest and get chance to win prize.</h5>--}}
+{{--                <a class="btn btn-info mt-2 fw-bold text-uppercase" href="{{route('subscription.now')}}">{{__('main.subscribe')}}</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--@endif--}}
+{{--@endauth--}}

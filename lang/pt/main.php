@@ -109,7 +109,7 @@ return [
     'Pix_email/code/phone' => 'email,código,telefone ou CPF',
     'Update' => 'Salvar',
     'About_me' => 'Sobre mim',
-    'Write_about_yourself' => 'Apresente-se para os produtores artísticos e um modelo. Diga como está a sua carreira hoje e quais são os seus planos para o futuro.',
+    'Write_about_yourself' => 'Apresente-se para os produtores artísticos eumodelo. Diga como está a sua carreira hoje e quais são os seus planos para o futuro.',
     'Save' => 'Salvar',
     'Success_Saved_Successfully' => 'Salvo_com_sucesso',
     'Help' => 'Ajuda',

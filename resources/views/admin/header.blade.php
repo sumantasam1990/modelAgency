@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Admin Panel - Modeling Agency</title>
+    <title>Admin Panel - Eumodelo</title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/js/app.js'])
+
     @livewireStyles
 
 </head>
@@ -20,7 +21,7 @@
     <div class="row">
         <div class="col-md-2" style="margin: 0; padding: 0;">
             @auth()
-                <div class="left-sidebar">
+                <div class="left-sidebar" id="left-sidebar-id">
                     <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
                         Admin Panel
                     </h2>
@@ -56,6 +57,10 @@
 
         <div class="col-md-10">
             <div class="right-sidebar mt-5">
+                <div class="mb-3">
+                    <button type="button" onclick="menu();" id="men_u" class="menu_btn">Menu</button>
+                    <button style="float: right; display: none;" type="button" class="menu_btn" onclick="menu_off();" id="men_u_off"><i class="fa-solid fa-xmark"></i></button>
+                </div>
                 @include('alert')
 
                 @yield('content')
@@ -68,7 +73,7 @@
 @livewireScripts
 
 <script>
-    let thing;
+    //let thing;
 
     // Livewire.hook('message.sent', () => {
     //     thing.animate([
@@ -78,23 +83,44 @@
     //     ], {duration: 850, easing: 'ease-out'});
     // });
 
-    Livewire.hook('message.received', () => {
-        thing = document.querySelector('[vote-anim]');
+    // Livewire.hook('message.received', () => {
+    //     thing = document.querySelector('[vote-anim]');
+    //
+    // });
+    //
+    // Livewire.hook('message.processed', () => {
+    //     thing.animate([
+    //         {opacity: 0, transform: 'scale(0)'},
+    //         {opacity: 0.5, transform: 'scale(0.5)'},
+    //         {opacity: 1, transform: 'scale(1)'},
+    //     ], {duration: 1000, easing: 'ease-in'});
+    // });
+    //
+    // function voteup(str)
+    // {
+    //     document.getElementById('overlay_'+str).style.display = "block";
+    // }
 
-    });
+    function menu() {
+        var left = document.getElementById('left-sidebar-id');
+        var menu_btn = document.getElementById('men_u');
+        var menuOffBtn = document.getElementById('men_u_off');
 
-    Livewire.hook('message.processed', () => {
-        thing.animate([
-            {opacity: 0, transform: 'scale(0)'},
-            {opacity: 0.5, transform: 'scale(0.5)'},
-            {opacity: 1, transform: 'scale(1)'},
-        ], {duration: 1000, easing: 'ease-in'});
-    });
-
-    function voteup(str)
-    {
-        document.getElementById('overlay_'+str).style.display = "block";
+        left.style.display = 'block';
+        menu_btn.style.display = 'none';
+        menuOffBtn.style.display = 'block';
     }
+
+    function menu_off() {
+        var left = document.getElementById('left-sidebar-id');
+        var menu_btn = document.getElementById('men_u');
+        var menuOffBtn = document.getElementById('men_u_off');
+
+        left.style.display = 'none';
+        menu_btn.style.display = 'block';
+        menuOffBtn.style.display = 'none';
+    }
+
 </script>
 
 

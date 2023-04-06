@@ -27,16 +27,16 @@ Route::get('register', [\App\Http\Controllers\AuthController::class, 'register']
 Route::post('register/post', [\App\Http\Controllers\AuthController::class, 'register_post'])->name('register.post');
 
 Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
-    Route::get('portfolio/{contest_id?}',[\App\Http\Controllers\portfolioController::class, 'index'])->name('portfolio');
-    Route::post('upload/photo', [\App\Http\Controllers\portfolioController::class, 'uploadPhoto'])->name('upload.image');
-    Route::post('links/post', [\App\Http\Controllers\portfolioController::class, 'links_post'])->name('links.post');
-    Route::get('delete/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'delete_photo'])->name('delete.photo');
-    Route::post('add/interest', [\App\Http\Controllers\portfolioController::class, 'add_interest'])->name('add.interest');
-    Route::get('contests/vote', [\App\Http\Controllers\ContestsController::class, 'index_vote'])->name('contest.vote');
-    Route::get('my/contest', [\App\Http\Controllers\ContestsController::class, 'my_contests'])->name('my.contests');
-    Route::get('winners', [\App\Http\Controllers\ContestsController::class, 'winners'])->name('winners');
-    Route::get('winners/search', [\App\Http\Controllers\ContestsController::class, 'winner_search'])->name('winner.search');
-    Route::get('my/results', [\App\Http\Controllers\ContestsController::class, 'my_results'])->name('my.results');
+    Route::get('portfolio/{contest_id?}',[\App\Http\Controllers\portfolioController::class, 'index'])->name('portfolio')->middleware('not_subscribed_redirect');
+    Route::post('upload/photo', [\App\Http\Controllers\portfolioController::class, 'uploadPhoto'])->name('upload.image')->middleware('not_subscribed_redirect');
+    Route::post('links/post', [\App\Http\Controllers\portfolioController::class, 'links_post'])->name('links.post')->middleware('not_subscribed_redirect');
+    Route::get('delete/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'delete_photo'])->name('delete.photo')->middleware('not_subscribed_redirect');
+    Route::post('add/interest', [\App\Http\Controllers\portfolioController::class, 'add_interest'])->name('add.interest')->middleware('not_subscribed_redirect');
+    Route::get('contests/vote', [\App\Http\Controllers\ContestsController::class, 'index_vote'])->name('contest.vote')->middleware('not_subscribed_redirect');
+    Route::get('my/contest', [\App\Http\Controllers\ContestsController::class, 'my_contests'])->name('my.contests')->middleware('not_subscribed_redirect');
+    Route::get('winners', [\App\Http\Controllers\ContestsController::class, 'winners'])->name('winners')->middleware('not_subscribed_redirect');
+    Route::get('winners/search', [\App\Http\Controllers\ContestsController::class, 'winner_search'])->name('winner.search')->middleware('not_subscribed_redirect');
+    Route::get('my/results', [\App\Http\Controllers\ContestsController::class, 'my_results'])->name('my.results')->middleware('not_subscribed_redirect');
     Route::get('help', [\App\Http\Controllers\OtherController::class, 'help'])->name('help');
 
     //subscription
@@ -47,13 +47,13 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::post('webhook/payment', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('webhook.payment');
     Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success');
     Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
-    Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo');
-    Route::get('mark/contest/photo/{id}/{contest_id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo');
+    Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo')->middleware('not_subscribed_redirect');
+    Route::get('mark/contest/photo/{id}/{contest_id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo')->middleware('not_subscribed_redirect');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
     Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
     Route::get('cancel/membership', [\App\Http\Controllers\PaymentController::class, 'cancel_membership'])->name('cancel.membership');
-    Route::get('about/me', [\App\Http\Controllers\ProfileController::class, 'about_me'])->name('about.me');
-    Route::post('about/me/post', [\App\Http\Controllers\ProfileController::class, 'about_post'])->name('about.me.post');
+    Route::get('about/me', [\App\Http\Controllers\ProfileController::class, 'about_me'])->name('about.me')->middleware('not_subscribed_redirect');
+    Route::post('about/me/post', [\App\Http\Controllers\ProfileController::class, 'about_post'])->name('about.me.post')->middleware('not_subscribed_redirect');
 
 
 

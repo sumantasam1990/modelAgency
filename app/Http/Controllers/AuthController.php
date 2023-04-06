@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         }
         return back()->with([
-            'err' => 'The provided credentials do not match our records. Please try again.',
+            'err' => 'As informações estão incorretas. Tente novamente.',
         ]);
     }
 

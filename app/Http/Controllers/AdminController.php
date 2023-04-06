@@ -165,13 +165,16 @@ class AdminController extends Controller
                 $contest->save();
 
                 $participants = $user_ids->map(function ($uid) use ($contest) {
-                    return [
-                        'contest_id' => $contest->id,
-                        'user_id' => $uid->id
-                    ];
-                })->toArray();
 
-                //checking if subscribed or not
+                    //checking if subscribed or not
+                    $subscribeChk = User::where('subscribed', 1)->where('id', $uid->id)->count('id');
+                    if ($subscribeChk === 1) {
+                        return [
+                            'contest_id' => $contest->id,
+                            'user_id' => $uid->id
+                        ];
+                    }
+                })->toArray();
 
                 ContestParticipants::insert($participants);
 

@@ -709,49 +709,50 @@ class ContestService
 
     public function putUserIntoParticipants(int $userId)
     {
-        //check if the user is subscribed or not
+        //checking if subscribed or not
+        $subscribeChk = User::where('subscribed', 1)->where('id', $userId)->count('id');
+        if ($subscribeChk === 1) {
+            $contests = Contest::with('category')
+                ->where('end', '>', now())
+                ->whereHas('category', function ($query) use ($userId) {
+                    $userHeight = User::find($userId)->height;
+                    $dateOfBirth = User::find($userId)->age;
+                    $age = \Carbon\Carbon::parse($dateOfBirth)->diffInMonths(Carbon::now());
+                    $gender = User::find($userId)->gender;
 
 
-        $contests = Contest::with('category')
-            ->where('end', '>', now())
-            ->whereHas('category', function ($query) use ($userId) {
-                $userHeight = User::find($userId)->height;
-                $dateOfBirth = User::find($userId)->age;
-                $age = \Carbon\Carbon::parse($dateOfBirth)->diffInMonths(Carbon::now());
-                $gender = User::find($userId)->gender;
+                    $query->whereRaw("FIND_IN_SET('$gender', _gender) > 0")
+                        ->whereRaw("SUBSTRING_INDEX(_height, ',', 1) <= $userHeight")
+                        ->whereRaw("SUBSTRING_INDEX(_height, ',', -1) >= $userHeight")
+                        ->where(function ($q) use ($userId, $age) {
+                            $q->where('_age', '=', null)
+                                ->orWhere('_age', '=', ',')
+                                ->orWhere('_age', '=', '')
+                                ->orWhereRaw("SUBSTRING_INDEX(_age, ',', 1) <= " . intval($age))
+                                ->whereRaw("SUBSTRING_INDEX(_age, ',', -1) >= " . intval($age));
+                        })
+                        ->where(function ($q) use ($userId) {
+                            $q->where('_dress', '=', null)
+                                ->orWhere('_dress', '=', '')
+                                ->orWhereRaw("FIND_IN_SET('" . User::find($userId)->dress . "', _dress)");
+                        });
+                })
+                ->get();
 
+            $contest_ids = $contests->pluck('id');
 
-                $query->whereRaw("FIND_IN_SET('$gender', _gender) > 0")
-                    ->whereRaw("SUBSTRING_INDEX(_height, ',', 1) <= $userHeight")
-                    ->whereRaw("SUBSTRING_INDEX(_height, ',', -1) >= $userHeight")
-                    ->where(function ($q) use ($userId, $age) {
-                        $q->where('_age', '=', null)
-                            ->orWhere('_age', '=', ',')
-                            ->orWhere('_age', '=', '')
-                            ->orWhereRaw("SUBSTRING_INDEX(_age, ',', 1) <= " . intval($age))
-                            ->whereRaw("SUBSTRING_INDEX(_age, ',', -1) >= " . intval($age));
-                    })
-                    ->where(function ($q) use ($userId) {
-                        $q->where('_dress', '=', null)
-                            ->orWhere('_dress', '=', '')
-                            ->orWhereRaw("FIND_IN_SET('" . User::find($userId)->dress . "', _dress)");
-                    });
-            })
-            ->get();
-
-        $contest_ids = $contests->pluck('id');
-
-        foreach ($contest_ids as $id)
-        {
-            $contestParticipant = ContestParticipants::whereContestId($id)
-                ->where('user_id', $userId)
-                ->count('id');
-            if ($contestParticipant === 0)
+            foreach ($contest_ids as $id)
             {
-                $participant = new ContestParticipants;
-                $participant->contest_id = $id;
-                $participant->user_id = $userId;
-                $participant->save();
+                $contestParticipant = ContestParticipants::whereContestId($id)
+                    ->where('user_id', $userId)
+                    ->count('id');
+                if ($contestParticipant === 0)
+                {
+                    $participant = new ContestParticipants;
+                    $participant->contest_id = $id;
+                    $participant->user_id = $userId;
+                    $participant->save();
+                }
             }
         }
     }

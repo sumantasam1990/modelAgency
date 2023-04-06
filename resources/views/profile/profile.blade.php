@@ -16,7 +16,7 @@
                                 $age = \Carbon\Carbon::createFromFormat('Y-m-d', $data->age)->age;
                             @endphp
                                     @if($age > 12)
-                                        {{$age}} years
+                                        {{$age}} anos
                                     @else
                                         {{$age}} months
                                     @endif

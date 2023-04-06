@@ -75,7 +75,7 @@ class ProfileController extends Controller
                 'dress' => $request->dress,
                 'hair' => $request->hair,
                 'eyes' => $request->eyes,
-                'other' => implode(',', $request->other),
+                'other' => implode(',', $request->other ?? []),
                 'preferences' => $preferences,
             ]);
 

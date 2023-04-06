@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminText;
 use App\Models\BankTransfer;
 use App\Models\Contest;
 use App\Models\ContestVotingResult;
@@ -44,6 +45,9 @@ class ContestsController extends Controller
     public function my_results(ContestService $contestService)
     {
         $data = $contestService->my_results();
-        return view('contests.my_results', compact('data'));
+        $text_prize_sent = AdminText::where('key', '=', 'prize_sent')->select('id', 'value')->first();
+        $text_lose = AdminText::where('key', '=', 'lose')->select('id', 'value')->first();
+        $text_win = AdminText::where('key', '=', 'win')->select('id', 'value')->first();
+        return view('contests.my_results', compact('data', 'text_win', 'text_lose', 'text_prize_sent'));
     }
 }
