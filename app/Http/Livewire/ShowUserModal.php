@@ -15,12 +15,15 @@ class ShowUserModal extends Component
 
     public function showUser()
     {
-        $this->data = User::whereId($this->userId)
+        $this->data = User::where('id', $this->userId)
             ->select('about')
             ->first();
     }
     public function render()
     {
-        return view('livewire.show-user-modal');
+        $this->data = User::where('id', $this->userId)
+            ->select('about')
+            ->first();
+        return view('livewire.show-user-modal', ['data' => $this->data]);
     }
 }

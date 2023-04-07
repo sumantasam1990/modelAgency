@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="cardNumber">{{__('main.Card_Number')}}*</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                    <input type="number" class="form-control" id="cardNumber" placeholder="Digite o número do cartão" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -40,16 +40,16 @@
                                 </div>
                                 <div class="col-6 form-group">
                                     <label for="cvv">CVV*</label>
-                                    <input type="number" class="form-control" name="cvv" id="cvv" placeholder="3 digits" required>
+                                    <input type="number" class="form-control" name="cvv" id="cvv" placeholder="Digite o CVV" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="cardHolder">{{__('main.Cardholder_name')}}*</label>
-                                <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Maximum of 50 alphanumeric characters." required max="50">
+                                <input type="text" class="form-control" name="cardHolder" id="cardHolder" placeholder="Digite o nome do titular do cartão" required max="50">
                             </div>
                             <div class="form-group">
                                 <label for="cardHolder">{{__('main.Tax_ID')}}*</label>
-                                <input type="number" class="form-control" name="tax" id="tax" placeholder="000.000.000-00" required>
+                                <input type="number" class="form-control" name="tax" id="tax" placeholder="Digite o CPF do titular do cartão" required>
                             </div>
                             <div class="d-grid gap-2 mx-auto col-10 mt-3">
                                 <button type="submit" id="_paybtn" class="btn btn-dark btn-block btn-lg">Pagar R$100</button>

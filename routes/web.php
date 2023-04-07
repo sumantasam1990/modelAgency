@@ -129,7 +129,7 @@ Route::get('resend/email/verification', function (Request $request) {
 
     $user->sendEmailVerificationNotification();
 
-    return redirect()->back()->with('msg', 'Verification email sent. Please check your email to verify your account.');
+    return redirect()->back()->with('msg', trans('main.verify_email_msg'));
 })->name('verification-resend');
 
 // testing query ---------------------------------------------------

@@ -18,8 +18,9 @@ class ConfigModal extends Component
     {
         $this->data = $contestService->getAdminModelConfigData($this->userId);
     }
-    public function render()
+    public function render(ContestService $contestService)
     {
-        return view('livewire.config-modal');
+        $this->data = $contestService->getAdminModelConfigData($this->userId);
+        return view('livewire.config-modal', ['data' => $this->data]);
     }
 }

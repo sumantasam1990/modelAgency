@@ -189,7 +189,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Attribute::make(
             get: fn ($value) => Str::slug($value),
-            set: fn ($value) => Str::slug($value),
+            set: fn ($value) => Str::slug($value, '-', 'pt', ['@' => '', '.' => '', 'com' => '']),
         );
     }
 

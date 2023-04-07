@@ -49,8 +49,8 @@
                             <option value="" selected>Select</option>
                             <option value="Female" {{$user->gender == 'Female' ? 'selected' : ''}}>{{__('main.edit_profile_female')}}</option>
                             <option value="Male" {{$user->gender == 'Male' ? 'selected' : ''}}>{{__('main.edit_profile_male')}}</option>
-                            <option value="male_trans" {{$user->gender == 'male_trans' ? 'selected' : ''}}>{{__('main.edit_profile_male_trans')}}</option>
-                            <option value="female_trans" {{$user->gender == 'female_trans' ? 'selected' : ''}}>{{__('main.edit_profile_female_trans')}}</option>
+{{--                            <option value="male_trans" {{$user->gender == 'male_trans' ? 'selected' : ''}}>{{__('main.edit_profile_male_trans')}}</option>--}}
+{{--                            <option value="female_trans" {{$user->gender == 'female_trans' ? 'selected' : ''}}>{{__('main.edit_profile_female_trans')}}</option>--}}
                         </select>
                     </div>
                 </div>

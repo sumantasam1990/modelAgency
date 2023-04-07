@@ -37,7 +37,7 @@
                             <p>
                                 <i class="fa-solid fa-ban"></i>
                                 {{__('main.cancel_membership')}}
-                                <a onclick="return confirm('Are you sure? You will miss all premium features.')" class="text-black text-decoration-none fw-bold" href="{{route('cancel.membership')}}">{{__('main.cancel')}}</a>
+                                <a onclick="return confirm('Tem certeza? Você perderá acesso todos os recursos da sua conta.')" class="text-black text-decoration-none fw-bold" href="{{route('cancel.membership')}}">{{__('main.cancel')}}</a>
                             </p>
                         @endif
 

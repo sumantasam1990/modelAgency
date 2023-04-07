@@ -117,7 +117,6 @@ form.addEventListener('submit', (event) => {
             });
     } else {
         document.getElementById('_paybtn').disabled = false;
-        console.log('else');
     }
 });
 

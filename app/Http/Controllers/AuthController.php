@@ -80,7 +80,7 @@ class AuthController extends Controller
             return $th->getMessage();
         }
 
-        return redirect(route('login'))->with('msg', '<p>Please confirm your email to complete the sign up process. </p> <p>We have emailed you a verification</p>');
+        return redirect(route('login'))->with('msg', '<p>Nós te enviamos um e-mail de verificação. </p> <p>Confirme seu e-mail para poder acessar sua conta eumodelo.</p>');
     }
 
     private function create(array $data)
@@ -95,7 +95,7 @@ class AuthController extends Controller
 //            'gender' => $data['_gender'],
 //            'civil' => $data['_civil_status'],
             'password' => Hash::make($data['password']),
-            'username' => $data['_name'],
+            'username' => $data['_name'].User::where('name', '=', $data['_name'])->count('id'),
 
 //            'age' => $data['_age'],
 //            'bust' => $data['bust'],

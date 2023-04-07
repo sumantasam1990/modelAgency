@@ -139,5 +139,10 @@ return [
     'third_prize' => 'Terceiro Prêmio',
     'change_contest_photo' => 'Alterar foto do concurso',
     'total_vote' => 'votação total',
+    'verify_email' => 'Verifique o seu e-mail',
+    'verify_msg' => 'Por favor, verifique o seu e-mail para acessar o painel eumodelo.',
+    'refresh_msg' => 'Se você já verificou, cique aqui para atualizar.',
+    'resend_veri_email' => 'Reenviar o email de verificação',
+    'verify_email_msg' => 'O email de verificação foi enviado. Verifique seu e-mail para verificar sua conta.',
 ];
 

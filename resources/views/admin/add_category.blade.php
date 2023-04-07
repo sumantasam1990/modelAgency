@@ -82,23 +82,23 @@
                                         </div>
                                     </div>
                                 </div>
-{{--                                <div class="col-md-8">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label>Dress Size</label>--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-10">--}}
-{{--                                                <select name="dress_size[]" multiple class="form-control" style="height: 250px;">--}}
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label>Dress Size</label>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <select name="dress_size[]" multiple class="form-control" style="height: 250px;">
 
-{{--                                                    @foreach($arr as $a)--}}
-{{--                                                        <option value="{{$a}}">{{$a}}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
+                                                    @foreach($arr as $a)
+                                                        <option value="{{$a}}">{{$a}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                        </div>
+                                    </div>
 
-{{--                                </div>--}}
+                                </div>
 
                                 <div class="col-md-4">
                                     <label>Gender</label>
@@ -114,20 +114,20 @@
                                             Male
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="gender[]"
-                                               value="male_trans">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Male trans
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="gender[]"
-                                               value="female_trans">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Female trans
-                                        </label>
-                                    </div>
+{{--                                    <div class="form-check">--}}
+{{--                                        <input type="checkbox" class="form-check-input" name="gender[]"--}}
+{{--                                               value="male_trans">--}}
+{{--                                        <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                            Male trans--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-check">--}}
+{{--                                        <input type="checkbox" class="form-check-input" name="gender[]"--}}
+{{--                                               value="female_trans">--}}
+{{--                                        <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                            Female trans--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
                                     @error('gender')
                                     <div class="text-danger fw-bold">{{$message}}</div>
                                     @enderror

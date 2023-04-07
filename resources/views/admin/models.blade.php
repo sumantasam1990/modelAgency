@@ -115,20 +115,20 @@
                             Female
                         </label>
                     </div>
-                    <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" name="gender[]"
-                               value="male_trans" {{isset(request('gender')[0]) && in_array('male_trans', request('gender')) ? 'checked' : ''}}>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Male trans
-                        </label>
-                    </div>
-                    <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" name="gender[]"
-                               value="female_trans" {{isset(request('gender')[0]) && in_array('female_trans', request('gender')) ? 'checked' : ''}}>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Female trans
-                        </label>
-                    </div>
+{{--                    <div class="mb-2 form-check">--}}
+{{--                        <input type="checkbox" class="form-check-input" name="gender[]"--}}
+{{--                               value="male_trans" {{isset(request('gender')[0]) && in_array('male_trans', request('gender')) ? 'checked' : ''}}>--}}
+{{--                        <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                            Male trans--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
+{{--                    <div class="mb-2 form-check">--}}
+{{--                        <input type="checkbox" class="form-check-input" name="gender[]"--}}
+{{--                               value="female_trans" {{isset(request('gender')[0]) && in_array('female_trans', request('gender')) ? 'checked' : ''}}>--}}
+{{--                        <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                            Female trans--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
 
                     <h5 class="fs-6 fw-bold text-black-50">Civil Status</h5>
                     <div class="mb-2 form-check">
@@ -283,6 +283,8 @@
 {{--                                        href="{{route('add.contest')}}">Notes</a></li>--}}
 
                                 @livewire('config-modal', ['userId' => count($data) > 0 ? $data[0]['uid'] : 0])
+
+
                             </ol>
                         </nav>
                     @else

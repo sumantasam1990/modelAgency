@@ -1,11 +1,10 @@
 <li class="breadcrumb-item">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#userModal" wire:click="showUser">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#userModalhjhhj" >
         About
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userModalhjhhj" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">

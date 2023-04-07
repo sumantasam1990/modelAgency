@@ -19,6 +19,6 @@ class PaymentController extends Controller
         User::whereId(Auth::user()->id)
             ->update(['payment_card_id' => null]);
 
-        return redirect()->back()->with('msg', 'Your membership has been cancelled.');
+        return redirect()->back()->with('msg', 'Sua assinatura foi cancelada!');
     }
 }
