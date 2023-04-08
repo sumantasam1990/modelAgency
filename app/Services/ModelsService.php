@@ -335,6 +335,7 @@ class ModelsService
             } else {
                 User::whereId($customerInfo['id'])
                     ->update(['subscribed' => 0]);
+
                 return null;
             }
 

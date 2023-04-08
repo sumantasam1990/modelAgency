@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -37,6 +38,16 @@ class ProfileController extends Controller
 
     public function update_profile(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            '_gender' => 'required',
+            '_height' => 'required',
+            '_age' => 'required',
+            'dress' => 'required',
+        ]);
+
         $preferences = [
             'social' => [
                 'insta' => [
@@ -59,7 +70,7 @@ class ProfileController extends Controller
 
         User::whereId(Auth::user()->id)
             ->update([
-                'name' => $request->_name,
+                'name' => $request->name,
                 'state' => $request->state,
                 'city' => $request->city[0],
                 'district' => $request->_district,

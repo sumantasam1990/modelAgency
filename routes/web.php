@@ -40,13 +40,13 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('help', [\App\Http\Controllers\OtherController::class, 'help'])->name('help');
 
     //subscription
-    Route::get('subscription/now', [\App\Http\Controllers\SubscriptionController::class, 'subscription'])->name('subscription.now');
-    Route::get('/subscription', [\App\Http\Controllers\SubscriptionController::class, 'create'])->name('subscription.create');
-    Route::post('/checkout', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout.post');
+    Route::get('subscription/now', [\App\Http\Controllers\SubscriptionController::class, 'subscription'])->name('subscription.now')->middleware(['update_info_before_subscribed']);
+    Route::get('/subscription', [\App\Http\Controllers\SubscriptionController::class, 'create'])->name('subscription.create')->middleware(['update_info_before_subscribed']);
+    Route::post('/checkout', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout.post')->middleware(['update_info_before_subscribed']);
     Route::get('/checkout/final/payment', [\App\Http\Controllers\SubscriptionController::class, 'checkout_final']);
     Route::post('webhook/payment', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('webhook.payment');
-    Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success');
-    Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error');
+    Route::get('success', [\App\Http\Controllers\SubscriptionController::class, 'success'])->name('payment.success')->middleware(['update_info_before_subscribed']);
+    Route::get('error', [\App\Http\Controllers\SubscriptionController::class, 'error'])->name('payment.error')->middleware(['update_info_before_subscribed']);
     Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo')->middleware('not_subscribed_redirect');
     Route::get('mark/contest/photo/{id}/{contest_id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo')->middleware('not_subscribed_redirect');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');

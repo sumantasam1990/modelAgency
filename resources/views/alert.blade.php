@@ -17,6 +17,7 @@
     </div>
 </div>
 
+
 {{--@auth()--}}
 {{--@if(Auth::user()->subscribed === 0 && Auth::user()->email != 'admin@admin.com')--}}
 {{--    <div class="row">--}}
