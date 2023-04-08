@@ -18,7 +18,7 @@
             <h4 class="fw-bold fs-4 mb-3">{{__('main.edit_profile_update_account')}}</h4>
             <div class="form-group mb-2">
                 <label>{{__('main.edit_profile_name')}}*</label>
-                <input type="text" name="name" value="{{$user->name ?? ''}}" placeholder="eg. John doe" class="form-control @error('name') is-invalid @enderror">
+                <input required type="text" name="name" value="{{$user->name ?? ''}}" placeholder="eg. John doe" class="form-control @error('name') is-invalid @enderror">
                 @if ($errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
