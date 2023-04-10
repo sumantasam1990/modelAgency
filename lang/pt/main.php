@@ -130,9 +130,10 @@ return [
     'Sign_out' => 'Sair',
     'delete' => 'excluir',
     'mark_contest_photo' => 'Marque a foto do concurso',
-    'mark_photo_err' => 'Marque outra foto como perfil e foto do concurso, então você pode excluir a foto padrão.',
+    'mark_photo_err' => 'Marque outra foto como perfil ou concurso para poder excluir a foto padrão.',
     'default' => 'Padrão',
-    'end_contest' => 'Terminar concurso',
+    'end_contest' => 'Fim do concurso',
+    'start_contest' => 'Início do Concurso',
     'rules' => 'Regras',
     'first_prize' => 'Primeiro prêmio',
     'second_prize' => 'Segundo prêmio',
@@ -144,5 +145,7 @@ return [
     'refresh_msg' => 'Se você já verificou, cique aqui para atualizar.',
     'resend_veri_email' => 'Reenviar o email de verificação',
     'verify_email_msg' => 'O email de verificação foi enviado. Verifique seu e-mail para verificar sua conta.',
+    'payment_err' => 'O pagamento falhou! Por favor tente novamente após alguns minutos ou troque o cartão de crédito.',
+    'try_again' => 'Tentar novamente',
 ];
 

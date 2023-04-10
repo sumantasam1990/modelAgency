@@ -196,7 +196,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->format('jS F Y'),
+            get: fn($value) => Carbon::parse($value)->isoFormat('Do [de] MMMM [de] YYYY'),
         );
     }
 

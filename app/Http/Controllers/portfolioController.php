@@ -74,9 +74,9 @@ class portfolioController extends Controller
                             ->update(['profile_photo' => 1, 'contest_photo' => 1]);
                     }
 
-                    return back()->with('msg', 'Your photo has been uploaded successfully.');
+                    return back()->with('msg', 'Sua foto foi enviada com sucesso.');
                 } else {
-                    return back()->with('err', "You won't upload more than 12 photos.");
+                    return back()->with('err', "Você não pode enviar mais de 12 fotos.");
                 }
             } catch (\Throwable $th) {
                 return back()

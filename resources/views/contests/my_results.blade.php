@@ -17,9 +17,10 @@
                         <div class="sec-box mb-3">
                             <div class="d-flex text-center">
                                 <div class="flex-grow-1 ms-3">
-                                    <h4 class="fw-bold fs-4 text-black">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
+                                    <h4 class="fw-bold fs-4 text-black">{{$contest['contest_name']}}</h4>
 
-                                    <p class="text-danger fw-bold mb-1">
+                                    <p class="text-dark fw-bold mb-1">
+                                        {{__('main.start_contest')}} {{$contest['start']}},
                                         {{__('main.end_contest')}}: {{$contest['end']}}
                                     </p>
 

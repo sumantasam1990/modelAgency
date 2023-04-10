@@ -220,8 +220,8 @@ class ContestService
                 'contest_first_prize' => $group->prize_first,
                 'contest_second_prize' => $group->prize_second,
                 'contest_third_prize' => $group->prize_third,
-                'start' => Carbon::parse($group->start)->format('jS F Y'),
-                'end' => Carbon::parse($group->end)->format('jS F Y'),
+                'start' => Carbon::parse($group->start)->isoFormat('Do [de] MMMM [de] YYYY'),
+                'end' => Carbon::parse($group->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                 'rules' => $group->rules,
                 'contest_photo' => $group->contest_photo,
             ];
@@ -261,8 +261,8 @@ class ContestService
                     'first_prize' => $group[0]->prize_first,
                     'second_prize' => $group[0]->prize_second,
                     'third_prize' => $group[0]->prize_third,
-                    'start' => Carbon::parse($group[0]->start)->format('jS F Y'),
-                    'end' => Carbon::parse($group[0]->end)->format('jS F Y'),
+                    'start' => Carbon::parse($group[0]->start)->isoFormat('Do [de] MMMM [de] YYYY'),
+                    'end' => Carbon::parse($group[0]->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'winners' => $group->map(function ($item) {
                         return [
                             'user_id' => $item->uid,
@@ -329,8 +329,8 @@ class ContestService
                     'first_prize' => $group->first()->prize_first,
                     'second_prize' => $group->first()->prize_second,
                     'third_prize' => $group->first()->prize_third,
-                    'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
-                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
+                    'start' => Carbon::parse($group->first()->start)->isoFormat('Do [de] MMMM [de] YYYY'),
+                    'end' => Carbon::parse($group->first()->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'winners' => $group->map(function ($item) {
                         $accMatch = isset($item->acc_no) && ($item->acc_no == $item->bank || $item->acc_no == $item->pix) ? 0 : 1;
                         return [
@@ -520,8 +520,8 @@ class ContestService
                     'first_prize' => $group->first()->prize_first,
                     'second_prize' => $group->first()->prize_second,
                     'third_prize' => $group->first()->prize_third,
-                    'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
-                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
+                    'start' => Carbon::parse($group->first()->start)->isoFormat('Do [de] MMMM [de] YYYY'),
+                    'end' => Carbon::parse($group->first()->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'bank_status' => $group->first()->bank_status,
                     'winners' => $group->map(function ($item) {
                         return [
@@ -688,8 +688,8 @@ class ContestService
                     'first_prize' => $group->first()->prize_first,
                     'second_prize' => $group->first()->prize_second,
                     'third_prize' => $group->first()->prize_third,
-                    'start' => Carbon::parse($group->first()->start)->format('jS F Y'),
-                    'end' => Carbon::parse($group->first()->end)->format('jS F Y'),
+                    'start' => Carbon::parse($group->first()->start)->isoFormat('Do [de] MMMM [de] YYYY'),
+                    'end' => Carbon::parse($group->first()->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'winners' => $group->take(3)->map(function ($item) {
                         return [
                             'user_id' => $item->uid,

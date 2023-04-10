@@ -91,11 +91,11 @@
                                 <td class="fw-bold">{{$d->name}}</td>
                                 <td class="fw-bold">{{$d->email}}</td>
                                 <td class="fw-bold">{{$d->gender}}</td>
-                                <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->start_date)->format('jS F Y')}}</td>
-                                <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->end_date)->format('jS F Y')}}</td>
+                                <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->start_date)->isoFormat('Do [de] MMMM [de] YYYY')}}</td>
+                                <td class="fw-bold">{{\Carbon\Carbon::parse($d->payment->end_date)->isoFormat('Do [de] MMMM [de] YYYY')}}</td>
                                 <td class="fw-bold text-danger">{{number_format($d->payment->amount, 2)}}</td>
                                 <td>
-                                    @if($d->payment->end_date > \Illuminate\Support\Carbon::today()->format('Y-m-d'))
+                                    @if($d->payment->end_date > \Illuminate\Support\Carbon::today()->isoFormat('Do [de] MMMM [de] YYYY'))
                                         <span class="badge bg-success">Active</span>
                                     @else
                                         <span class="badge bg-danger">Expired/Canceled</span>

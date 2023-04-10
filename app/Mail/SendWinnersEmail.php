@@ -33,7 +33,7 @@ class SendWinnersEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Send Winners Email',
+            subject: 'You Won A Contest',
         );
     }
 

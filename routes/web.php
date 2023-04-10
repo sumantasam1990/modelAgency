@@ -2,12 +2,30 @@
 
 use App\Mail\SendWinnersEmail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+
+
+//Route::get('clear', function () {
+//    try {
+//            \Illuminate\Support\Facades\Artisan::call('cache:clear');
+//            \Illuminate\Support\Facades\Artisan::call('config:clear');
+//            \Illuminate\Support\Facades\Artisan::call('view:clear');
+//            \Illuminate\Support\Facades\Artisan::call('route:clear');
+//
+//            return 'Good Luck!';
+//
+//    } catch (\Throwable $th) {
+//        abort(500, $th->getMessage());
+//    }
+//
+//});
+
 
 Route::get('/', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('privacy', function () {
@@ -138,11 +156,7 @@ Route::get('/test/query', function (\App\Services\ContestService $contestService
     //return $contestService->putUserIntoParticipants(4);
 });
 
-Route::get('test/mailable', function () {
-//    $users = \App\Models\User::all();
-//    return new \App\Mail\SendWinnersEmail($users);
-//    \App\Jobs\SendWinnersEmailsJob::dispatch();
-});
+
 
 
 

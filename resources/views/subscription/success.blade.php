@@ -7,11 +7,11 @@
                     <i class="fa-solid fa-circle-check"></i>
                 </p>
                 <h2 class="fw-bold fs-4 text-dark">
-                    {{__('main.subscription_conf')}} <br /><br /> Your renewal date is <span class="fw-bold">{{\Carbon\Carbon::parse($endDate->end_date)->format('jS F Y')}}</span>
+                    {{__('main.subscription_conf')}} <br /><br /> Sua data de renovação é
+                    <span class="fw-bold">{{\Carbon\Carbon::parse($endDate->end_date)->isoFormat('Do [de] MMMM [de] YYYY')}}</span>
                 </h2>
                 <p class="mt-4">
-                    <a class="btn btn-lg btn-dark" href="{{route('portfolio')}}"><i class="fa-solid fa-camera"></i> &nbsp; Add your photos</a> &nbsp;
-                    <a class="btn btn-lg btn-dark" href="{{route('edit.profile')}}"><i class="fa-solid fa-user"></i> &nbsp; Edit Profile Info</a>
+                    <a class="btn btn-lg btn-dark" href="{{route('portfolio')}}"><i class="fa-solid fa-camera"></i> &nbsp; Adicionar suas fotos</a> &nbsp;
                 </p>
             </div>
         </div>

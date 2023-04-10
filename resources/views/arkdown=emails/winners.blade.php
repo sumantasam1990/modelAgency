@@ -1,15 +1,15 @@
 <x-mail::message>
-# Congratulations!
+# Parabéns!
 
-Congratulations on the {{$data['index']}}nd place in the {{$data['contest_name']}} contest in {{$data['end']}}.
+Parabéns pelo {{$data['index']}} lugar no concurso {{$data['contest_name']}} contest em {{$data['end']}}.
 
 <x-mail::panel>
-    You will receive your prize payment shortly.
+    Você receberá o pagamento em breve.
 </x-mail::panel>
 {{--<x-mail::button :url="''">--}}
 {{--Button Text--}}
 {{--</x-mail::button>--}}
 
-Thanks,<br>
+Atenciosamente,<br>
 {{ config('app.name') }}
 </x-mail::message>

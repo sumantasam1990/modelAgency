@@ -15,8 +15,11 @@
                         <div class="sec-box mb-3">
                             <div class="d-flex">
                                 <div class="flex-grow-1 ms-3">
-                                    <h4 class="fw-bold">{{$contest['contest_name']}} - <span class="text-black-50">{{$contest['start']}}</span></h4>
-                                    <p>{{__('main.end_contest')}}: <span class="fw-bold">{{$contest['end']}}</span>.</p>
+                                    <h4 class="fw-bold">{{$contest['contest_name']}}</h4>
+                                    <p>
+                                        {{__('main.start_contest')}} <span class="fw-bold">{{$contest['start']}}</span>
+                                        {{__('main.end_contest')}}: <span class="fw-bold">{{$contest['end']}}</span>.
+                                    </p>
 
                                     <div class="accordion accordion-flush bg-warning" id="accordionFlushExample">
 

@@ -77,14 +77,14 @@ class Contest extends Model
     public function start(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->format('jS F Y'),
+            get: fn($value) => Carbon::parse($value)->locale('pt')->isoFormat('Do [de] MMMM [de] YYYY'),
         );
     }
 
     public function end(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Carbon::parse($value)->format('jS F Y'),
+            get: fn($value) => Carbon::parse($value)->locale('pt')->isoFormat('Do [de] MMMM [de] YYYY'),
         );
     }
 
