@@ -210,7 +210,7 @@ class ContestService
 
         return Contest::join('contest_participants', 'contests.id', '=', 'contest_participants.contest_id')
             ->where('contest_participants.user_id', \auth()->user()->id)
-            ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->where('end', '>=', Carbon::today()->format('Y-m-d'))
             ->select('contests.id as contest_id', 'contests.title as title', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'contests.start', 'contests.end', 'contests.rules', 'contest_participants.contest_photo')
             ->get()
             ->map(function ($group) {
@@ -220,8 +220,8 @@ class ContestService
                 'contest_first_prize' => $group->prize_first,
                 'contest_second_prize' => $group->prize_second,
                 'contest_third_prize' => $group->prize_third,
-                'start' => Carbon::parse($group->start)->isoFormat('Do [de] MMMM [de] YYYY'),
-                'end' => Carbon::parse($group->end)->isoFormat('Do [de] MMMM [de] YYYY'),
+                'start' => $group->start,
+                'end' => $group->end,
                 'rules' => $group->rules,
                 'contest_photo' => $group->contest_photo,
             ];
@@ -514,6 +514,7 @@ class ContestService
             })
             ->select('contests.id as contest_id', 'contests.title as contest_name', 'start', 'end', 'prize_first', 'prize_second', 'prize_third', 'winners.user_id as uid', 'users.name as user_name', 'username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'bank_transfers.status as bank_status', 'winners.rank as rank')
             ->where('winners.user_id', $loggedInUserId)
+            ->orderByDesc('contest_id')
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {

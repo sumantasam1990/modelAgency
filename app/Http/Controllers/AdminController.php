@@ -136,12 +136,14 @@ class AdminController extends Controller
                 $query->select('user_id', 'file_name', 'ext');
             }])
                 ->select('id')
-                ->whereIn('gender', explode(',', $category->_gender))
+                //->whereIn('gender', explode(',', $category->_gender))
+                ->whereRaw("FIND_IN_SET(gender, ?)", [$category->_gender])
                 ->when($category->_age != ',', function ($q) use($age_from, $age_to) {
                     $q->whereRaw("TIMESTAMPDIFF(MONTH, age, NOW()) BETWEEN ? AND ?", [$age_from, $age_to]);
                 })
                 ->when($category->_dress != null, function ($q) use($category) {
-                    $q->whereIn('dress', explode(',', $category->_dress));
+                    //$q->whereIn('dress', explode(',', $category->_dress));
+                    $q->whereRaw("FIND_IN_SET(dress, ?)", [$category->_dress]);
                 })
                 ->when($height_from != null && $height_to != null, function ($q) use($height_from, $height_to) {
                     $q->whereBetween('height', [(float)$height_from, (float)$height_to]);
@@ -174,7 +176,7 @@ class AdminController extends Controller
                             'user_id' => $uid->id
                         ];
                     }
-                })->toArray();
+                })->filter()->toArray();
 
                 ContestParticipants::insert($participants);
 
@@ -239,7 +241,7 @@ class AdminController extends Controller
     public function category_contests(ContestService $contestService): Factory|View|Application
     {
         $contests = Contest::with(['category'])
-            ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->where('end', '>=', Carbon::today()->format('Y-m-d'))
             ->whereMonth('start', Carbon::today()->month)
             ->paginate(20);
 
