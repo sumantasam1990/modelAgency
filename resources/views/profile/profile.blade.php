@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p class="mb-0 fw-semibold"><span class="fw-bold">{{$data->state_name->nome}}, {{$data->city_name->nome}}</span> </p>
-                            <p class="mb-0 fw-semibold"><span class="fw-bold">{{$data->gender}}</span>, <span class="fw-bold">{{$data->civil}}</span>, <span>
+                            <p class="mb-0 fw-semibold"><span class="fw-bold">{{__('main.genders.'.$data->gender)}}</span>, <span class="fw-bold">{{__('main.marital_status.'.$data->civil)}}</span>, <span>
                             @php
                                 $age = \Carbon\Carbon::createFromFormat('Y-m-d', $data->age)->age;
                             @endphp

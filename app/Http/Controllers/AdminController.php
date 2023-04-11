@@ -201,8 +201,12 @@ class AdminController extends Controller
 
     public function contest_delete($id)
     {
-        Contest::where('id', $id)->delete();
-        return redirect()->back();
+        $contest = Contest::where('id', $id)->first();
+        if ($contest->start > Carbon::today()->isoFormat('Do [de] MMMM [de] YYYY')) {
+            $contest->delete();
+
+        }
+        return redirect()->back()->with('msg', 'Contest has been deleted.');
     }
 
     public function winners(ContestService $contestService, Request $request)

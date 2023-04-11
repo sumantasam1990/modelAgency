@@ -147,5 +147,16 @@ return [
     'verify_email_msg' => 'O email de verificação foi enviado. Verifique seu e-mail para verificar sua conta.',
     'payment_err' => 'O pagamento falhou! Por favor tente novamente após alguns minutos ou troque o cartão de crédito.',
     'try_again' => 'Tentar novamente',
+
+    'genders' => [
+        'Male' => 'Masculino',
+        'Female' => 'Feminino',
+        'Other' => 'Outro'
+    ],
+    'marital_status' => [
+        'Single' => 'Solteiro(a)',
+        'Married' => 'Casado(a)',
+        'relationship' => 'Em um relacionamento',
+    ]
 ];
 

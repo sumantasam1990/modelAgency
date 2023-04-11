@@ -159,7 +159,8 @@ class ContestService
         return Contest::with('users_for_vote.portfolio')
             ->whereNotIn('id', $getAlreadyVotedUsers)
             ->whereNotIn('id', $contestParticipants)
-            ->where('end', '>', Carbon::today()->format('Y-m-d'))
+            ->where('end', '>=', Carbon::today()->format('Y-m-d'))
+            ->where('start', '<=', Carbon::today()->format('Y-m-d') )
             ->whereMonth('start', Carbon::now()->month)
 //            ->whereHas('users', function ($query) {
 //                $query->where('status', 1);

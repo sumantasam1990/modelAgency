@@ -42,10 +42,17 @@
                                     <td class="text-info fw-bold">${{$contest->prize_second}}</td>
                                     <td class="text-danger fw-bold">${{$contest->prize_third}}</td>
                                     <td>
-                                        <div class="d-grid gap-2 col-3 mt-3">
+                                        <div class=" mt-3">
                                             <a href="{{route('admin.contest.stats', [$contest->id])}}" class="btn btn-dark btn-sm">Stats</a>
+
+                                            @if($contest->start > \Illuminate\Support\Carbon::today()->isoFormat('Do [de] MMMM [de] YYYY'))
+                                                <a onclick="return confirm('Are you sure?');" href="{{route('admin.contest.delete', [$contest->id])}}" class="btn btn-danger btn-sm">Delete</a>
+                                            @endif
+
+
                                         </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                             </tbody>

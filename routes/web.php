@@ -92,7 +92,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('category/delete/{id}', [\App\Http\Controllers\AdminController::class, 'category_delete'])->name('category.delete');
     Route::get('add/contest', [\App\Http\Controllers\AdminController::class, 'add_contest'])->name('add.contest');
     Route::post('add/contest/post', [\App\Http\Controllers\AdminController::class, 'add_contest_post'])->name('add.contest.post');
-    Route::get('contest/delete/{id}', [\App\Http\Controllers\AdminController::class, 'contest_delete'])->name('contest.delete');
+    Route::get('contest/delete/{id}', [\App\Http\Controllers\AdminController::class, 'contest_delete'])->name('admin.contest.delete');
     Route::get('contest/winners', [\App\Http\Controllers\AdminController::class, 'winners'])->name('admin.winners');
     Route::get('contest/dashboard', [\App\Http\Controllers\AdminController::class, 'contest_dashboard'])->name('admin.contest.dashboard');
     Route::get('category/contests', [\App\Http\Controllers\AdminController::class, 'category_contests'])->name('admin.category.contests');
@@ -116,6 +116,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('bank/transfer/post', [\App\Http\Controllers\AdminController::class, 'bank_transfer_post'])->name('bank.transfer.post');
     Route::get('contest/info/category/{id}', [\App\Http\Controllers\AdminController::class, 'contest_info_by_category']);
     Route::get('free/subscription/{uid}', [\App\Http\Controllers\SubscriptionController::class, 'free_subscription'])->name('free.subscription');
+
 
 
 
