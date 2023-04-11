@@ -60,8 +60,8 @@ return [
     'edit_profile_whatsapp' => 'Whatsapp',
     'edit_profile_gender' => 'Gênero',
     'edit_profile_select' => 'Selecione',
-    'edit_profile_male' => 'Homem',
-    'edit_profile_female' => 'Mulher',
+    'edit_profile_male' => 'masculino',
+    'edit_profile_female' => 'feminino',
     'edit_profile_female_trans' => 'Mulher trans',
     'edit_profile_male_trans' => 'Homem trans',
     'edit_profile_civil_status' => 'Estado Civil',
@@ -149,14 +149,14 @@ return [
     'try_again' => 'Tentar novamente',
 
     'genders' => [
-        'Male' => 'Masculino',
-        'Female' => 'Feminino',
+        'Male' => 'masculino',
+        'Female' => 'feminino',
         'Other' => 'Outro'
     ],
     'marital_status' => [
-        'Single' => 'Solteiro(a)',
-        'Married' => 'Casado(a)',
-        'relationship' => 'Em um relacionamento',
+        'Single' => 'Solteir@',
+        'Married' => 'Casad@',
+        'relationship' => 'Comprometid@',
     ]
 ];
 
