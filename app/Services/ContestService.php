@@ -245,7 +245,7 @@ class ContestService
                     ->where('portfolios.profile_photo', '=', 1)
                     ->limit(1);
             })
-            ->select('contests.id as contest_id', 'contests.title as contest_name', 'contests.start', 'contests.end', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'winners.user_id as uid', 'users.name as user_name', 'users.username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.winner_photo')
+            ->select('contests.id as contest_id', 'contests.title as contest_name', 'contests.start', 'contests.end', 'contests.prize_first', 'contests.prize_second', 'contests.prize_third', 'winners.user_id as uid', 'users.name as user_name', 'users.username as username', 'winners.total_votes as total_votes', 'portfolios.file_name', 'portfolios.ext', 'winners.winner_photo', 'winners.rank as rank')
             ->whereMonth("contests.start", $month)
             ->whereYear('contests.start', $year)
             ->where('winners.rank', '>', 0)
@@ -272,8 +272,11 @@ class ContestService
                                 'image_path' => $item->winner_photo,
                             ],
                             'total_votes' => $item->total_votes,
+                            'rank' => $item->rank,
                         ];
-                    })->toArray(),
+                    })
+                        ->sortBy('rank') // Order by ascending rank
+                        ->toArray(),
                 ];
             })
             ->values()

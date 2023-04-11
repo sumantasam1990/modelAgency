@@ -44,6 +44,7 @@
                     @if(count($data) === 0)
 {{--                        <p class="fw-semibold">No contest found.</p>--}}
                     @endif
+
                     @foreach($data as $contest)
                         <div class="sec-box mb-3">
                             <div class="d-flex text-center">
@@ -55,7 +56,7 @@
                                     <div class="row mt-4">
                                         @foreach($contest['winners'] as $index => $winner)
                                             @php
-                                                switch($loop->iteration) {
+                                                switch($winner['rank']) {
                                                     case 1:
                                                         $position = 'gold';
                                                         break;
@@ -79,7 +80,7 @@
                                                 <p>
                                                     <span class="{{ $position }} fw-bold fs-6">
                                                         <i class="fa-solid fa-trophy"></i>
-                                                        {{$index+1}}{{$loop->iteration == 1 ? 'st' : ($loop->iteration == 2 ? 'nd' : ($loop->iteration == 3 ? 'rd' : 'th')) }}
+                                                        {{$winner['rank']}}º Lugar
                                                     </span>
                                                 </p>
                                             </div>
