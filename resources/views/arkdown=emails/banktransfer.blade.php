@@ -1,7 +1,7 @@
 <x-mail::message>
 # Olá {{$data['name']}},
 
-valor de R${{$data['prize_money']}} foi enviado para o seu {{$data['to']}} pelo {{$data['contest_name']}} contest. Confira!
+valor de R${{$data['prize_money']}} foi enviado para o seu {{$data['to']}} pelo {{$data['contest_name']}}. Confira!
 
 {{--<x-mail::button :url="''">--}}
 {{--Button Text--}}

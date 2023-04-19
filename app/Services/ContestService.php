@@ -253,6 +253,7 @@ class ContestService
             ->where('winners.rank', '<', 4)
             ->where('total_votes', '>', 0)
             ->where('contests.end', '<', Carbon::now()->format('Y-m-d'))
+            ->orderByDesc('contests.id')
             ->get()
             ->groupBy('contest_id')
             ->map(function ($group) {
@@ -528,7 +529,15 @@ class ContestService
                     'start' => Carbon::parse($group->first()->start)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'end' => Carbon::parse($group->first()->end)->isoFormat('Do [de] MMMM [de] YYYY'),
                     'bank_status' => $group->first()->bank_status,
-                    'winners' => $group->map(function ($item) {
+                    'winners' => $group->map(function ($item) use($group) {
+                        $prize = '';
+                        if ($item->rank === 1) {
+                            $prize = $group->first()->prize_first;
+                        } elseif ($item->rank === 2) {
+                            $prize = $group->first()->prize_second;
+                        } elseif ($item->rank === 3) {
+                            $prize = $group->first()->prize_third;
+                        }
                         return [
                             'user_id' => $item->uid,
                             'user_name' => $item->user_name,
@@ -538,6 +547,7 @@ class ContestService
                             ],
                             'total_votes' => $item->total_votes,
                             'rank' => $item->rank,
+                            'prize' => $prize,
                         ];
                     })->toArray(),
                 ];

@@ -33,7 +33,7 @@ class SendBankTransferEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Prize sent to your bank',
+            subject: 'O prêmio foi enviado para você',
         );
     }
 

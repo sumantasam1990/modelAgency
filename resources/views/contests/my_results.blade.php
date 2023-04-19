@@ -9,9 +9,7 @@
             <div class="row mt-3">
                 <div class="col-md-10">
                     @if(count($data) === 0)
-                        <p class="fw-bold">
-                            No contest found.
-                        </p>
+
                     @endif
                     @foreach($data as $contest)
                         <div class="sec-box mb-3">
@@ -48,18 +46,23 @@
                                                             @php
                                                                 $winnerRank = $winner['rank'] ?? '';
                                                                 $winnerContest = $contest['contest_name'] ?? '';
+                                                                $winnerPrize = $winner['prize'] ?? '';
                                                                 $renderedColumnValue = str_replace('[rank]', $winnerRank, $text_win->value);
                                                                 $renderedColumnValue = str_replace('[contest_name]', $winnerContest, $renderedColumnValue);
+                                                                $renderedColumnValue = str_replace('[prize]', 'R$'.$winnerPrize, $renderedColumnValue);
                                                             @endphp
                                                             {!! $renderedColumnValue !!}
+
                                                         </p>
                                                         @else
                                                         <p class="fw-semibold mt-2">
                                                             @php
                                                                 $winnerRank = $winner['rank'] ?? '';
                                                                 $winnerContest = $contest['contest_name'] ?? '';
+                                                                $winnerPrize = $winner['prize'] ?? '';
                                                                 $renderedColumnValue = str_replace('[rank]', $winnerRank, $text_prize_sent->value);
                                                                 $renderedColumnValue = str_replace('[contest_name]', $winnerContest, $renderedColumnValue);
+                                                                $renderedColumnValue = str_replace('[prize]', 'R$'.$winnerPrize, $renderedColumnValue);
                                                             @endphp
                                                             {!! $renderedColumnValue !!}
 

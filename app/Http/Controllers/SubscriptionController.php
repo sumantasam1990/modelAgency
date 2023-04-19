@@ -134,6 +134,9 @@ class SubscriptionController extends Controller
                     'card_id' => $response['charges'][0]['payment_method']['card']['id'],
                 ];
 
+                // delete user from payment
+                Payment::where('user_id', Auth::user()->id)->delete();
+
                 Payment::updateOrInsert(
                     [
                         'user_id' => Auth::user()->id,

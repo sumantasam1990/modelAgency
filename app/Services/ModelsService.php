@@ -313,6 +313,9 @@ class ModelsService
                     'card_id' => $response['charges'][0]['payment_method']['card']['id'],
                 ];
 
+                // delete user from payment
+                Payment::where('user_id', $customerInfo['id'])->delete();
+
                 Payment::updateOrInsert(
                     [
                         'user_id' => $customerInfo['id'],
