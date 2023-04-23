@@ -148,44 +148,49 @@ class SubscriptionController extends Controller
 
 
             if (isset($response) && !empty($response)) {
-                $cardId = $response['charges'][0]['payment_method']['card']['id'];
+                if ($response['charges'][0]['status'] == 'PAID') {
+                    $cardId = $response['charges'][0]['payment_method']['card']['id'];
 
-                User::whereId(Auth::user()->id)
-                    ->update(['payment_card_id' => $cardId]);
+                    User::whereId(Auth::user()->id)
+                        ->update(['payment_card_id' => $cardId]);
 
-                $paymentArray = [
-                    'order_id' => $response['id'],
-                    'charge_id' => $response['charges'][0]['id'],
-                    'status' => $response['charges'][0]['status'],
-                    'paid' => $response['charges'][0]['amount']['summary']['paid'],
-                    'message' => $response['charges'][0]['payment_response']['message'],
-                    'reference' => $response['charges'][0]['payment_response']['reference'],
-                    'card_id' => $response['charges'][0]['payment_method']['card']['id'],
-                ];
+                    $paymentArray = [
+                        'order_id' => $response['id'],
+                        'charge_id' => $response['charges'][0]['id'],
+                        'status' => $response['charges'][0]['status'],
+                        'paid' => $response['charges'][0]['amount']['summary']['paid'],
+                        'message' => $response['charges'][0]['payment_response']['message'],
+                        'reference' => $response['charges'][0]['payment_response']['reference'] ?? '',
+                        'card_id' => $response['charges'][0]['payment_method']['card']['id'],
+                    ];
 
-                // delete user from payment
-                Payment::where('user_id', Auth::user()->id)->delete();
+                    // delete user from payment
+                    Payment::where('user_id', Auth::user()->id)->delete();
 
-                Payment::updateOrInsert(
-                    [
-                        'user_id' => Auth::user()->id,
-                        'amount' => $response['charges'][0]['amount']['summary']['paid'],
-                        'start_date' => Carbon::today()->format('Y-m-d'),
-                    ],
-                    [
-                        'end_date' => Carbon::now()->addMonth()->format('Y-m-d'),
-                        'preferences' => json_encode($paymentArray),
-                        'transaction_id' => md5(uniqid().time().Auth::user()->email)
-                    ]
-                );
+                    Payment::updateOrInsert(
+                        [
+                            'user_id' => Auth::user()->id,
+                            'amount' => $response['charges'][0]['amount']['summary']['paid'],
+                            'start_date' => Carbon::today()->format('Y-m-d'),
+                        ],
+                        [
+                            'end_date' => Carbon::now()->addMonth()->format('Y-m-d'),
+                            'preferences' => json_encode($paymentArray),
+                            'transaction_id' => md5(uniqid().time().Auth::user()->email)
+                        ]
+                    );
 
-                User::whereId(Auth::user()->id)
-                    ->update(['subscribed' => 1]);
+                    User::whereId(Auth::user()->id)
+                        ->update(['subscribed' => 1]);
 
-                $contestService->putUserIntoParticipants(Auth::user()->id);
+                    $contestService->putUserIntoParticipants(Auth::user()->id);
+                    return response()->json($paymentArray);
+                } else {
+                    return response()->json('error');
+                }
             }
 
-            return response()->json($paymentArray);
+
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
