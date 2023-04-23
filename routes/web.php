@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
 
 //Route::get('clear', function () {
 //    try {
@@ -153,8 +156,8 @@ Route::get('resend/email/verification', function (Request $request) {
 
 // testing query ---------------------------------------------------
 
-Route::get('/test/query', function (\App\Services\ContestService $contestService) {
-    //return $contestService->putUserIntoParticipants(4);
+Route::get('/test/query', function () {
+
 });
 
 

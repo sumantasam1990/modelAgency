@@ -26,6 +26,7 @@
 
                         <form id="payment_form">
                             @csrf
+                            <input type="hidden" id="hd_public_key" value="{{$publicKey}}">
                             <input type="hidden" id="_fgty" name="_encrypted">
                             <div class="form-group">
                                 <label for="cardNumber">{{__('main.Card_Number')}}*</label>
@@ -96,8 +97,6 @@
                 cvv.value = cvv.value.substring(0, 3);
             }
         });
-
-
 
     </script>
 

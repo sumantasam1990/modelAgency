@@ -17,6 +17,34 @@ use Illuminate\Validation\ValidationException;
 
 class SubscriptionController extends Controller
 {
+    private function getPagSeguroPublicKey()
+    {
+        $url = 'https://api.pagseguro.com/public-keys/';
+        $token = '1d5e9025-0203-4db4-92d2-d47a5eee368a58fece184846b1d60a56cd9d1546caece558-0a00-43a4-b077-b5166a422170';
+        $type = 'card';
+
+        $client = new Client([
+            'headers' => [
+                'Authorization' => $token,
+                'Content-Type' => 'application/json',
+                'x-api-version' => '1.0',
+                'x-idempotency-key' => '',
+            ]
+        ]);
+
+        $body = json_encode(['type' => $type]);
+
+        try {
+            $response = $client->post($url, ['body' => $body]);
+            $data = json_decode($response->getBody(), true);
+
+            // Handle the success response
+            return $data['public_key'];
+        } catch (RequestException $e) {
+            // Handle the error response
+            return 'error!';
+        }
+    }
     public function subscription()
     {
         $data = Payment::with(['user' => function($q) {
@@ -32,7 +60,8 @@ class SubscriptionController extends Controller
 
     public function create()
     {
-        return view('subscription.create');
+        $publicKey = $this->getPagSeguroPublicKey();
+        return view('subscription.create', compact('publicKey'));
     }
 
     public function checkout(Request $request, ContestService $contestService)
@@ -42,7 +71,7 @@ class SubscriptionController extends Controller
         try {
             $encrypted = $request->encrypted;
 
-            $response = $client->post('https://sandbox.api.pagseguro.com/orders', [
+            $response = $client->post('https://api.pagseguro.com/orders', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
                     'Content-Type' => 'application/json',
@@ -184,7 +213,7 @@ class SubscriptionController extends Controller
     public function checkout_final($cardId)
     {
         $client = new Client([
-            'base_uri' => 'https://sandbox.api.pagseguro.com/',
+            'base_uri' => 'https://api.pagseguro.com/',
         ]);
 
         try {

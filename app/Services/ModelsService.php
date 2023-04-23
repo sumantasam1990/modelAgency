@@ -218,12 +218,12 @@ class ModelsService
     public function chargeMonthly($cardId, int $amount, $customerInfo): JsonResponse|array|null
     {
         $client = new Client([
-            'base_uri' => 'https://sandbox.api.pagseguro.com/',
+            'base_uri' => 'https://api.pagseguro.com/',
         ]);
 
         try {
 
-            $response = $client->post('https://sandbox.api.pagseguro.com/orders', [
+            $response = $client->post('https://api.pagseguro.com/orders', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('PAGSEGURO_TOKEN'),
                     'Content-Type' => 'application/json',

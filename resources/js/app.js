@@ -44,7 +44,10 @@ expiryDateInput.addEventListener("input", function() {
     }
 });
 
-function getCCToken() {
+// Pagseguro card token generate
+// sandbox public key = MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr+ZqgD892U9/HXsa7XqBZUayPquAfh9xx4iwUbTSUAvTlmiXFQNTp0Bvt/5vK2FhMj39qSv1zi2OuBjvW38q1E374nzx6NNBL5JosV0+SDINTlCG0cmigHuBOyWzYmjgca+mtQu4WczCaApNaSuVqgb8u7Bd9GCOL4YJotvV5+81frlSwQXralhwRzGhj/A57CGPgGKiuPT+AOGmykIGEZsSD9RKkyoKIoc0OS8CPIzdBOtTQCIwrLn2FxI83Clcg55W8gkFSOS6rWNbG5qFZWMll6yl02HtunalHmUlRUL66YeGXdMDC2PuRcmZbGO5a/2tbVppW6mfSWG3NPRpgwIDAQAB
+
+function getCCToken(publicKey) {
     const cardNumber = document.getElementById("cardNumber").value;
     const expiryDate = document.getElementById("expiryDate").value;
     const cvv = document.getElementById("cvv").value;
@@ -53,7 +56,7 @@ function getCCToken() {
     const [month, year] = expiryDate.split("/");
 
     var card = PagSeguro.encryptCard({
-        publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr+ZqgD892U9/HXsa7XqBZUayPquAfh9xx4iwUbTSUAvTlmiXFQNTp0Bvt/5vK2FhMj39qSv1zi2OuBjvW38q1E374nzx6NNBL5JosV0+SDINTlCG0cmigHuBOyWzYmjgca+mtQu4WczCaApNaSuVqgb8u7Bd9GCOL4YJotvV5+81frlSwQXralhwRzGhj/A57CGPgGKiuPT+AOGmykIGEZsSD9RKkyoKIoc0OS8CPIzdBOtTQCIwrLn2FxI83Clcg55W8gkFSOS6rWNbG5qFZWMll6yl02HtunalHmUlRUL66YeGXdMDC2PuRcmZbGO5a/2tbVppW6mfSWG3NPRpgwIDAQAB",
+        publicKey: publicKey,
         holder: cardHolder,
         number: cardNumber,
         expMonth: month,
@@ -84,6 +87,7 @@ form.addEventListener('submit', (event) => {
     var number = document.getElementById('cardNumber').value;
     var holder = document.getElementById('cardHolder').value;
     var tax = document.getElementById('tax').value;
+    var publicKey = document.getElementById('hd_public_key').value;
 
     var card_no = validateInputCard(number);
     var card_name = validateInputName(holder);
@@ -92,7 +96,7 @@ form.addEventListener('submit', (event) => {
     //end validation
 
     if (card_no && card_name && card_cpf) {
-        let token = getCCToken();
+        let token = getCCToken(publicKey);
 
         const formData = new FormData(form);
         formData.append('encrypted', token);
