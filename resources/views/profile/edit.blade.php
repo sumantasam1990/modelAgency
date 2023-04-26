@@ -1,15 +1,16 @@
 @extends('header')
 @section('content')
 
-    @if ($errors->any())
+    @if($errors->any())
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
+
 
     <form action="{{route('update.profile')}}" method="post" class="row mb-3">
         @csrf
@@ -40,6 +41,22 @@
                 {{--                                    <input type="text" name="_city" placeholder="" class="form-control @error('_city') is-invalid @enderror">--}}
                 {{--                                </div>--}}
                 {{--                            </div>--}}
+                <div class="col-md-6">
+                    <label>Endereço</label>
+                    <input type="text" name="street" value="{{ $user->street ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-6">
+                    <label>Numero</label>
+                    <input type="text" name="street_number" value="{{ $user->street_number ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-6">
+                    <label>Complemento</label>
+                    <input type="text" name="complement" value="{{ $user->complement ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-6">
+                    <label>CEP</label>
+                    <input type="text" name="street_code" value="{{ $user->street_code ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
+                </div>
                 <div class="col-6">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_district')}}*</label>
@@ -308,13 +325,17 @@
                 $exp = explode(',', $user->configure_pix->value ?? '');
             @endphp
             <div class="row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label>{{__('main.Pix_name')}}</label>
-                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="{{__('main.Pix_name')}}" class="form-control border-2 fw-bold">
+                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="Digite o nome do responsável pelo Modelo." class="form-control border-2 fw-bold">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label>{{__('main.Pix_email/code/phone')}}</label>
-                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="{{__('main.Pix_email/code/phone')}}" class="form-control border-2 fw-bold">
+                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="Digite o PIX: email, código, CPF ou telefone" class="form-control border-2 fw-bold">
+                </div>
+                <div class="col-md-4">
+                    <label>CPF do Responsável pelo Modelo</label>
+                    <input type="number" name="cpf" value="{{ $user->cpf ?? '' }}" placeholder="Digite o CPF do responsável pelo Modelo" class="form-control border-2 fw-bold" maxlength="11">
                 </div>
             </div>
 

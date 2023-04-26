@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Configure;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -46,6 +43,11 @@ class ProfileController extends Controller
             '_height' => 'required',
             '_age' => 'required',
             'dress' => 'required',
+            'street' => 'nullable|max:125',
+            'street_number' => 'nullable|max:10',
+            'complement' => 'nullable|max:60',
+            'street_code' => 'nullable|numeric',
+            'cpf' => 'nullable|numeric|max:99999999999',
         ]);
 
         $preferences = [
@@ -88,6 +90,11 @@ class ProfileController extends Controller
                 'eyes' => $request->eyes,
                 'other' => implode(',', $request->other ?? []),
                 'preferences' => $preferences,
+                'street' => $request->street,
+                'street_number' => $request->street_number,
+                'complement' => $request->complement,
+                'street_code' => $request->street_code,
+                'cpf' => $request->cpf,
             ]);
 
         if ($request->bank != '')

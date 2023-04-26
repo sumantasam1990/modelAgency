@@ -14,7 +14,7 @@
                 @csrf
                 <div class="form-group mb-3 mt-4">
                     <label>Email*</label>
-                    <input required type="email" name="email" class="form-control" placeholder="eg. john@example.com" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
+                    <input required type="email" name="email" class="form-control" placeholder="" style="background: transparent; border: 1px solid #000; color: #000; font-weight: bold;">
                 </div>
                 <div class="form-group">
                     <label>{{__('main.pass')}}*</label>
@@ -29,19 +29,16 @@
             </form>
 
             <div class="mt-3 text-black-50 position-absolute bot">
-                <div style="margin-left: 25px;">
+                <div style="margin-left: 30px;">
                     <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-4 mr-3"></i></a>
                     <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-4 mr-3"></i></a>
                     <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-4"></i></a>
                 </div>
 
-                <p class="fw-semibold mt-2" style="margin-left: -20px;">
+                <p class="fw-semibold mt-2" style="margin-left: -10px;">
                     CNPJ - 49.582.909/0001-94
                 </p>
             </div>
-
-
-
 
         </div>
     </div>

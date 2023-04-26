@@ -104,9 +104,9 @@ return [
     'Silicone' => 'Silicone',
     'Main_Social_Networks' => 'Redes Sociais',
     'Name_of_social_media' => 'Nome da rede social',
-    'Bank_Details' => 'Receber Pagamentos Pix',
-    'Pix_name' => 'Nome',
-    'Pix_email/code/phone' => 'email,código,telefone ou CPF',
+    'Bank_Details' => 'Dados do Responsável pelo Modelo',
+    'Pix_name' => 'Nome do Responsável pelo Modelo',
+    'Pix_email/code/phone' => 'PIX do Responsável pelo Modelo',
     'Update' => 'Salvar',
     'About_me' => 'Sobre mim',
     'Write_about_yourself' => 'Apresente-se para os produtores artísticos eumodelo. Diga como está a sua carreira hoje e quais são os seus planos para o futuro.',
@@ -157,6 +157,8 @@ return [
         'Single' => 'Solteir@',
         'Married' => 'Casad@',
         'relationship' => 'Comprometid@',
-    ]
+    ],
+    'person_responsible' => 'Person Responsible',
+    'address' => 'Address'
 ];
 

@@ -79,15 +79,15 @@
                     </ul>
 
                     <div class="d-flex flex-column justify-content-center align-content-center align-items-center mt-2">
-                        <h5 class="fs-5 fw-semibold text-black-50">
-                            <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 150px;">
-                        </h5>
+{{--                        <h5 class="fs-5 fw-semibold text-black-50">--}}
+{{--                            <img src="{{asset('images/logo.png')}}" alt="Eumodelo" class="img-fluid" style="width: 150px;">--}}
+{{--                        </h5>--}}
 
-                        <p class="mt-3 text-black-50">
-                            <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-6 mr-3"></i></a>
-                            <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-6 mr-3"></i></a>
-                            <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-6"></i></a>
-                        </p>
+{{--                        <p class="mt-3 text-black-50">--}}
+{{--                            <a class="text-dark" href="https://www.facebook.com/agenciaeumodelo"><i class="fa-brands fa-facebook fs-6 mr-3"></i></a>--}}
+{{--                            <a class="text-dark" target="_blank" href="https://www.instagram.com/eumodelo"><i class="fa-brands fa-instagram fs-6 mr-3"></i></a>--}}
+{{--                            <a class="text-dark" target="_blank" href="https://www.tiktok.com/@eumodelo"><i class="fa-brands fa-tiktok fs-6"></i></a>--}}
+{{--                        </p>--}}
 
 {{--                        <a class="text-light mb-3" href="{{route('logout')}}">Sign out</a>--}}
                         <a class="text-light" href="{{route('privacy')}}">{{__('main.privacy')}}</a>

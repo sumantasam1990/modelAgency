@@ -125,7 +125,7 @@ class portfolioController extends Controller
         try {
             $photo = portfolio::where('user_id', Auth::user()->id)->count('id');
             if ($photo === 1) {
-                return back()->with('err', 'You can not delete your single photo. Upload one more to delete.');
+                return back()->with('err', 'Adicione mais fotos para poder deletar sua única foto.');
             }
             Cache::delete('photo-user-' . Auth::user()->id);
             $avatar = portfolio::findOrFail($id);
@@ -133,7 +133,7 @@ class portfolioController extends Controller
                 $avatar->delete();
             }
 
-            return back()->with("msg", "Your photo has been uploaded successfully.");
+            return back()->with("msg", "Sua foto foi enviada com sucesso!");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -179,7 +179,7 @@ class portfolioController extends Controller
         }
 
         if (Contest::where('start', '>=', now())->where('id', $contest_id)->count('id') === 0) {
-            return redirect()->back()->with('err', 'You can not change your photo for this contest. Because It is already started.');
+            return redirect()->back()->with('err', 'Você não pode mudar a foto de um concurso que já começou.');
         }
 
         $photo = portfolio::where('id', $id)

@@ -8,7 +8,7 @@
                 <div class="col-md-10">
                     @if(count($results_s) === 0)
                         <p class="fw-bold">
-                            No contest found.
+                            Haverá novos concursos em breve.
                         </p>
                     @endif
                     @foreach($results_s as $contest)

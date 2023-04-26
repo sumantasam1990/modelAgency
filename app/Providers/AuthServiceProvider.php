@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
                 ->greeting('Olá!')
                 ->line('Por favor clique no botão abaixo para verificar o seu email.')
                 ->action('Verificar email', $url)
-                ->line('Se você criou essa conta, ignore este email.')
+                ->line('Se você não criou essa conta, ignore este email.')
                 ->salutation('Atencionsamente, eumodelo');
         });
     }

@@ -78,7 +78,7 @@
                                                             @endphp
                                                             {!! $renderedColumnValue !!}
                                                         </p>
-                                                        <p><i class="fa-regular fa-face-frown fs-1"></i></p>
+{{--                                                        <p><i class="fa-regular fa-face-frown fs-1"></i></p>--}}
                                                     @endif
                                                 </div>
                                             @endforeach
