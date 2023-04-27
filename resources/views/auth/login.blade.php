@@ -301,7 +301,7 @@
                         <div class="form-check">
                             <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
-                                <a target="_blank" href="{{route('terms')}}"> {{__('main.iagree_terms')}} </a>
+                                <a class="text-dark" target="_blank" href="{{route('terms')}}"> {{__('main.iagree_terms')}} </a>
                             </label>
                         </div>
 
