@@ -27,7 +27,7 @@ return [
     'about_me' => 'Sobre Mim',
     'help' => 'Ajuda',
     'edit_profile' => 'Cadastro',
-    'subscription' => 'Assinatura',
+    'subscription' => 'Agenciamento',
     'sign_out' => 'Sair',
     'privacy_policy' => 'Política de Privacidade',
     'subscription_policy' => 'Termos de Serviço',
