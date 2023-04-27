@@ -9,6 +9,7 @@ class StateCitySelectBox extends Component
 {
     public $selectedState;
     public $selectedCity = [];
+    public $multiple = 'true';
 
     public function render()
     {

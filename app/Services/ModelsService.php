@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Configure;
 use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
@@ -222,6 +223,15 @@ class ModelsService
         ]);
 
         try {
+
+            $responsibleName = Configure::where('user_id', $customerInfo['id'])
+                ->where('key', 'pix')
+                ->select('value')
+                ->first();
+            $responsibleName = explode(',', $responsibleName->value);
+            if (count($responsibleName) === 0 ) {
+                return null;
+            }
 
             $response = $client->post('https://api.pagseguro.com/orders', [
                 'headers' => [

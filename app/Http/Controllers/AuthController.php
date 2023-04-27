@@ -39,7 +39,12 @@ class AuthController extends Controller
             }
             else
             {
-                return redirect()->intended('model/edit/profile');
+                if (Auth::user()->subscribed === 1) {
+                    return redirect()->intended('model/contests/vote');
+                } else {
+                    return redirect()->intended('model/subscription/now');
+                }
+
             }
 
         }

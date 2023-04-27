@@ -19,7 +19,7 @@ class CheckMinPhotoUpload
     {
         if (Auth::user()->portfolio === null)
         {
-            return redirect(route('portfolio'))->with('err', 'Please upload at least one photo.');
+            return redirect(route('portfolio'))->with('err', 'Por favor adicione no mínimo uma foto.');
         }
         return $next($request);
     }

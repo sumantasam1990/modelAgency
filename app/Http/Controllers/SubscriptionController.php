@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configure;
 use App\Models\Payment;
 use App\Models\User;
 use App\Services\ContestService;
@@ -69,6 +70,15 @@ class SubscriptionController extends Controller
         $client = new Client();
 
         try {
+            $responsibleName = Configure::where('user_id', Auth::id())
+                ->where('key', 'pix')
+                ->select('value')
+                ->first();
+            $responsibleName = explode(',', $responsibleName->value);
+            if (count($responsibleName) === 0 ) {
+                return response()->json('error');
+            }
+
             $encrypted = $request->encrypted;
 
             $response = $client->post('https://api.pagseguro.com/orders', [
@@ -79,7 +89,7 @@ class SubscriptionController extends Controller
                 'json' => [
                     "reference_id" => md5(uniqid().time()),
                     "customer" => [
-                        "name" => Auth::user()->name,
+                        "name" => $responsibleName[0] ?? '',
                         "email" => Auth::user()->email,
                         "tax_id" => $request->tax,
 //                        "phones" => [

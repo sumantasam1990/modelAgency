@@ -10,7 +10,7 @@
     </div>
     <div class="mb-2">
         <h4 class="fw-bold text-black-50 fs-6 mt-2">{{__('main.edit_profile_city')}}</h4>
-        <select class="form-control" name="city[]" multiple wire:model="selectedCity">
+        <select class="form-control" name="city[]" {{$multiple == 'true' ? 'multiple' : ''}} wire:model="selectedCity">
             @foreach ($cities as $city)
                 <option value="{{ $city->id }}">{{ $city->nome }}</option>
             @endforeach

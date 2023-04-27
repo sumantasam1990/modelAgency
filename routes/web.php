@@ -156,142 +156,24 @@ Route::get('resend/email/verification', function (Request $request) {
 
 // testing query ---------------------------------------------------
 
-Route::get('/test/query', function () {
-
-});
-
-
-
-
-
-// php artisan queue:retry uuid for failed jobs
-Route::get('test/payment', function () {
-    // Set your Sandbox PagSeguro credentials
-    $email = 'atilavictorio@outlook.com';
-    $token = '49DF159E0FF44987BDDBF8092FF76CB5';
-
-// Build the POST data
-    $data = [
-        'email' => $email,
-        'token' => $token,
-    ];
-
-// Make the POST request to create a new Sandbox session
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-// Extract the session ID from the response
-    $xml = simplexml_load_string($response);
-    $sessionId = (string) $xml->id;
-
-    return view('subscription.payment', compact('sessionId'));
-});
-
-Route::post('create-payment-with-pre-approval', function (\Illuminate\Http\Request $request) {
-
-    $plan = [
-        'body' => [
-            'reference' => 'plano laravel pagseguro',
-        ],
-
-        'preApproval' => [
-            'name' => 'Plano ouro - mensal',
-            'charge' => 'AUTO', // outro valor pode ser MANUAL
-            'period' => 'MONTHLY', //WEEKLY, BIMONTHLY, TRIMONTHLY, SEMIANNUALLY, YEARLY
-            'amountPerPayment' => '125.00', // obrigatório para o charge AUTO - mais que 1.00, menos que 2000.00
-            'membershipFee' => '50.00', //opcional - cobrado com primeira parcela
-            'trialPeriodDuration' => 30, //opcional
-            'details' => 'Decrição do plano', //opcional
-            'expiration' => [ // opcional
-                'value' => 1, // obrigatório de 1 a 1000000
-                'unit' => 'YEARLY', // obrigatório
-            ],
-        ]
-
-    ];
-
-    $plan = \PagSeguro::plan()->createFromArray($plan);
-    $credentials = \PagSeguro::credentials()->get();
-    $information = $plan->send($credentials);
-    if ($information) {
-        return response()->json(['code' => $information->getCode(), 'date' => $information->getDate(), 'paymentLink' => $information->getLink()]);
-//        print_r($information->getCode());
-//        print_r($information->getDate());
-//        print_r($information->getLink());
-    }
-
-//    $email = 'atilavictorio@outlook.com';
-//    $token = '49DF159E0FF44987BDDBF8092FF76CB5';
+//Route::get('/test/query', function () {
 //
-//    $url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/pre-approvals/request';
-//    //$url = 'https://ws.pagseguro.uol.com.br/v2/pre-approvals/request';
-//
-//
-//    $data = [
-//        'currency' => 'BRL',
-//        'reference' => '123456', // set your own reference code
-//        'senderName' => $request->senderName,
-//        'senderEmail' => $request->senderEmail,
-//        'senderAreaCode' => '11',
-//        'senderPhone' => '999999999',
-//        'senderCPF' => '12345678900',
-//        'senderHash' => $request->senderHash, // get senderHash from frontend
-//        'preApprovalCharge' => 'AUTO',
-//        'preApprovalName' => 'Monthly subscription',
-//        'preApprovalAmountPerPayment' => '100.00',
-//        'preApprovalPeriod' => 'MONTHLY',
-//        'preApprovalFinalDate' => date('Y-m-d', strtotime('+1 year')),
-//    ];
-//
-//    // Build API request
-//    $ch = curl_init();
-//    curl_setopt($ch, CURLOPT_URL, $url);
-//    curl_setopt($ch, CURLOPT_POST, true);
-//    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-//    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-//        "Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1",
-//        "Accept: application/xml;charset=ISO-8859-1",
+//});
+
+//Route::get('get/price', function (Request $request) {
+//    $planCode = '7224F1DC-C2C2-104C-C4D6-AFAB9A22BE37';
+//    $client = new \GuzzleHttp\Client();
+//    $response = $client->get("https://ws.pagseguro.uol.com.br/pre-approvals/{$planCode}", [
+//        'headers' => [
+//            'Authorization' => 'Bearer ' . env('LIVE_TOKEN'),
+//            'Content-Type' => 'application/json',
+//        ]
 //    ]);
-//    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//    curl_setopt($ch, CURLOPT_USERPWD, "$email:$token");
-//    $result = curl_exec($ch);
-//    curl_close($ch);
+//    $planData = json_decode($response->getBody()->getContents(), true);
+//    //$price = $planData['preApproval']['charge']['amount']['value'];
 //
-//    // Parse XML response
-//    return $result;
+//    return $planData;
 //
-//    // Parse API response
-//    $response = new DOMDocument();
-//    $response->loadXML($result);
-//
-//    if ($response->code) {
-//        $paymentLink = "https://sandbox.pagseguro.uol.com.br/v2/pre-approvals/request.html?code={$response->code}";
-//        return response()->json(['success' => true, 'paymentLink' => $paymentLink]);
-//    } else {
-//        return response()->json(['success' => false]);
-//    }
-});
-
-Route::get('get/price', function (Request $request) {
-    $planCode = '7224F1DC-C2C2-104C-C4D6-AFAB9A22BE37';
-    $client = new \GuzzleHttp\Client();
-    $response = $client->get("https://ws.pagseguro.uol.com.br/pre-approvals/{$planCode}", [
-        'headers' => [
-            'Authorization' => 'Bearer ' . env('LIVE_TOKEN'),
-            'Content-Type' => 'application/json',
-        ]
-    ]);
-    $planData = json_decode($response->getBody()->getContents(), true);
-    //$price = $planData['preApproval']['charge']['amount']['value'];
-
-    return $planData;
-
-
-})->name('get.price');
+//})->name('get.price');
 
 

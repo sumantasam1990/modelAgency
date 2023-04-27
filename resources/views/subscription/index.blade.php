@@ -47,15 +47,16 @@
             @else
                 <div class="sec-box border p-4">
                     <h2 class="fs-3 fw-bold">{{__('main.premium')}}</h2>
-                    <h4 class="fw-semibold fs-4 mb-1">{{__('main.membership_active')}}</h4>
+
 {{--                    <p class="fs-6 text-black">Your next renewal date is <span class="fw-bold">{{\Carbon\Carbon::parse($data[0]->end_date)->format('jS F Y')}}</span></p>--}}
                     <div class="d-grid gap-2 col-12 mt-3">
                         <a class="btn-lg btn btn-dark" href="{{route('contest.vote')}}"><i class="fa-solid fa-heart"></i> &nbsp; {{__('main.gotovote')}}</a>
                         @if($data[0]->user->subscribed === 1 && $data[0]->user->payment_card_id === null)
-{{--                            <p class="fw-semibold fs-5 mt-3 text-danger">--}}
-{{--                                You cancelled your membership. We will not charge you from next renewal date.--}}
-{{--                            </p>--}}
+                            <p class="fw-semibold fs-5 mt-3 text-danger">
+                                A sua assinatura eumodelo foi cancelada!
+                            </p>
                         @elseif($data[0]->user->subscribed === 1 && $data[0]->user->payment_card_id !== null)
+                            <h4 class="fw-semibold fs-4 mb-1">{{__('main.membership_active')}}</h4>
                             <p>
                                 <i class="fa-solid fa-ban"></i>
                                 {{__('main.cancel_membership')}}

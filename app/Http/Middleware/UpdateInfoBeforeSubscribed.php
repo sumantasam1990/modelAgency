@@ -18,7 +18,7 @@ class UpdateInfoBeforeSubscribed
     public function handle(Request $request, Closure $next)
     {
         if ((Auth::user()->height == '' || Auth::user()->height == 0.00) || Auth::user()->dress == '' || Auth::user()->age == '') {
-            return redirect(route('edit.profile'))->with('err', 'Please update your state, city, gender, age, height and dress size to subscribe and participate contest.');
+            return redirect(route('edit.profile'))->with('err', 'Por favor, preencha toda a ficha de cadastro para continuar.');
         }
         return $next($request);
     }
