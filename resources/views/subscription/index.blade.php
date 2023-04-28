@@ -72,7 +72,7 @@
             @endif
             @if(count($data) === 0)
                 <div class="sec-box border text-left p-4">
-                    <h4 class="fw-bold fs-3 mb-1">ASSINATURA EUMODELO</h4>
+                    <h4 class="fw-bold fs-3 mb-1">AGENCIAMENTO</h4>
 
                     <div class="p-2">
                         <p>
@@ -80,34 +80,35 @@
                         </p>
 
                         <p>
-                            Para ter acesso completo ao seu painel eumodelo, é necessário se tornar um assinante.
+                            Ao se tornar um modelo agenciado, você poderá:
                         </p>
 
-                        <p>
-                            Com a assinatura, você poderá:
-                        </p>
+{{--                        <p>--}}
+{{--                            Com a assinatura, você poderá:--}}
+{{--                        </p>--}}
 
                         <ul>
-                            <li>Completar seu perfil profissional</li>
+                            <li>Ter um perfil de modelo profissional</li>
                             <li>Adicionar suas melhores fotos</li>
-                            <li>Apresentar-se para produtores artísticos</li>
+                            <li>Apresentar para produtores artísticos</li>
                             <li>Participar de concursos de beleza</li>
                             <li>Competir por prêmios em dinheiro</li>
                         </ul>
 
                         <p class="mt-3">
-                            A assinatura custa R$100 por mês e é cobrada no cartão de crédito pelo Pagseguro. Você poderá cancelar a qualquer momento antes da próxima cobrança.
+                            O agenciamento custa R$100 por mês e é cobrado no cartão de crédito pelo Pagseguro.
+                            Você poderá cancelar o agenciamento a qualquer momento.
                         </p>
 
                         <p>
-                            Clique no botão abaixo para assinar agora e amplie seu potencial com a eumodelo.
+                            Clique no botão abaixo para garantir sua vaga e amplie seu potencial com a eumodelo.
                         </p>
 
                     </div>
 
 
-                    <div class="d-grid gap-2 col-8 mt-4 mx-auto">
-                        <a class="btn btn-dark btn-lg text-uppercase" href="{{route('subscription.create')}}">Assinar</a>
+                    <div class="d-grid gap-2 col-12 mt-4 mx-auto">
+                        <a class="btn btn-dark btn-lg text-uppercase" href="{{route('subscription.create')}}">Garantir minha vaga</a>
                     </div>
                 </div>
             @endif

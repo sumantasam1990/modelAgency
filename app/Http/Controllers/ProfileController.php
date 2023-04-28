@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -35,7 +36,7 @@ class ProfileController extends Controller
 
     public function update_profile(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'name' => 'required',
             'state' => 'required',
             'city' => 'required',
@@ -43,12 +44,22 @@ class ProfileController extends Controller
             '_height' => 'required',
             '_age' => 'required',
             'dress' => 'required',
-            'street' => 'nullable|max:125',
-            'street_number' => 'nullable|max:10',
-            'complement' => 'nullable|max:60',
-            'street_code' => 'nullable|numeric',
-            'cpf' => 'nullable|numeric|max:99999999999',
+            'cpf' => 'required|numeric|max:99999999999',
+            '_wp' => 'required',
+            '_civil_status' => 'required',
+            '_skin' => 'required',
+            'bust' => 'required',
+            'waist' => 'required',
+            'hips' => 'required',
+            'hair' => 'required',
+            'eyes' => 'required',
+        ], [
+            '_wp.required' => 'WhatsApp é necessário',
         ]);
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
 
         $preferences = [
             'social' => [
@@ -112,7 +123,7 @@ class ProfileController extends Controller
             );
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('msg', 'Suas informações foram atualizadas com sucesso.');
     }
 
     public function about_me()

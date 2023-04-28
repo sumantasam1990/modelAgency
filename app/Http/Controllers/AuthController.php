@@ -85,7 +85,7 @@ class AuthController extends Controller
             return $th->getMessage();
         }
 
-        return redirect(route('login'))->with('msg', '<p>Nós te enviamos um e-mail de verificação. </p> <p>Confirme seu e-mail para poder acessar sua conta eumodelo.</p>');
+        return redirect(route('login'))->with('msg', '<p>Nós te enviamos um e-mail de verificação. </p> <p>Confirme seu e-mail para poder acessar sua conta eumodelo.</p><p> Se o email não chegou, verifique sua caixa de spam.</p>');
     }
 
     private function create(array $data)

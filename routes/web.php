@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified'])->prefix('model')->group(function () {
     Route::get('mark/profile/photo/{id}', [\App\Http\Controllers\portfolioController::class, 'mark_profile_photo'])->name('mark.profile.photo')->middleware('not_subscribed_redirect');
     Route::get('mark/contest/photo/{id}/{contest_id}', [\App\Http\Controllers\portfolioController::class, 'mark_contest_photo'])->name('mark.contest.photo')->middleware('not_subscribed_redirect');
     Route::get('edit/profile', [\App\Http\Controllers\ProfileController::class, 'edit_profile'])->name('edit.profile');
-    Route::post('update/profile/info', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
+    Route::post('edit/profile', [\App\Http\Controllers\ProfileController::class, 'update_profile'])->name('update.profile');
     Route::get('cancel/membership', [\App\Http\Controllers\PaymentController::class, 'cancel_membership'])->name('cancel.membership');
     Route::get('about/me', [\App\Http\Controllers\ProfileController::class, 'about_me'])->name('about.me')->middleware('not_subscribed_redirect');
     Route::post('about/me/post', [\App\Http\Controllers\ProfileController::class, 'about_post'])->name('about.me.post')->middleware('not_subscribed_redirect');

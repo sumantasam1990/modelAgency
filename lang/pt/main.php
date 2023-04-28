@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'access_model_info' => 'Acessar meu painel eumodelo',
+    'access_model_info' => 'Acessar o site eumodelo',
     'pass' => 'Senha',
     'signin' => 'Entrar',
-    'create_account' => 'Criar nova conta',
+    'create_account' => 'Cadastrar',
     'conf_pass' => 'Confirmar Senha',
     'iagree_terms' => 'Eu li e aceito os Termos de Serviço e Política de Privacidade',
     'sign_up' => 'Cadastrar',

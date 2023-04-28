@@ -41,32 +41,38 @@
                 {{--                                    <input type="text" name="_city" placeholder="" class="form-control @error('_city') is-invalid @enderror">--}}
                 {{--                                </div>--}}
                 {{--                            </div>--}}
-                <div class="col-md-6">
-                    <label>Endereço</label>
-                    <input type="text" name="street" value="{{ $user->street ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
-                </div>
-                <div class="col-md-6">
-                    <label>Numero</label>
-                    <input type="text" name="street_number" value="{{ $user->street_number ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
-                </div>
-                <div class="col-md-6">
-                    <label>Complemento</label>
-                    <input type="text" name="complement" value="{{ $user->complement ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
-                </div>
-                <div class="col-md-6">
-                    <label>CEP</label>
-                    <input type="text" name="street_code" value="{{ $user->street_code ?? '' }}" placeholder="" class="form-control border-2 fw-bold">
-                </div>
+{{--                <div class="col-md-6">--}}
+{{--                    <label>Endereço</label>--}}
+{{--                    <input type="text" name="street" value="{{ $user->street ?? '' }}" placeholder="" class="form-control border-2 fw-bold">--}}
+{{--                </div>--}}
+{{--                <div class="col-md-6">--}}
+{{--                    <label>Numero</label>--}}
+{{--                    <input type="text" name="street_number" value="{{ $user->street_number ?? '' }}" placeholder="" class="form-control border-2 fw-bold">--}}
+{{--                </div>--}}
+{{--                <div class="col-md-6">--}}
+{{--                    <label>Complemento</label>--}}
+{{--                    <input type="text" name="complement" value="{{ $user->complement ?? '' }}" placeholder="" class="form-control border-2 fw-bold">--}}
+{{--                </div>--}}
+{{--                <div class="col-md-6">--}}
+{{--                    <label>CEP</label>--}}
+{{--                    <input type="text" name="street_code" value="{{ $user->street_code ?? '' }}" placeholder="" class="form-control border-2 fw-bold">--}}
+{{--                </div>--}}
                 <div class="col-6">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_district')}}*</label>
-                        <input type="text" name="_district" value="{{$user->district ?? ''}}" placeholder="" class="form-control @error('_district') is-invalid @enderror">
+                        <input type="text" name="_district" value="{{$user->district ?? old('_district')}}" placeholder="" class="form-control @error('_district') is-invalid @enderror">
+                        @if ($errors->has('_district'))
+                            <span class="text-danger">{{ $errors->first('_district') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_whatsapp')}}*</label>
                         <input type="text" name="_wp" value="{{$user->wp ?? ''}}" placeholder="" class="form-control @error('_wp') is-invalid @enderror">
+                        @if ($errors->has('_wp'))
+                            <span class="text-danger">{{ $errors->first('_wp') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-6">
@@ -79,6 +85,9 @@
 {{--                            <option value="male_trans" {{$user->gender == 'male_trans' ? 'selected' : ''}}>{{__('main.edit_profile_male_trans')}}</option>--}}
 {{--                            <option value="female_trans" {{$user->gender == 'female_trans' ? 'selected' : ''}}>{{__('main.edit_profile_female_trans')}}</option>--}}
                         </select>
+                        @if ($errors->has('_gender'))
+                            <span class="text-danger">{{ $errors->first('_gender') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-6">
@@ -90,6 +99,9 @@
                             <option {{$user->civil == 'Married' ? 'selected' : ''}} value="Married">{{__('main.edit_profile_married')}}</option>
                             <option value="relationship" {{$user->civil == 'relationship' ? 'selected' : ''}}>{{__('main.edit_profile_in_a_relationship')}}</option>
                         </select>
+                        @if ($errors->has('_civil_status'))
+                            <span class="text-danger">{{ $errors->first('_civil_status') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -100,30 +112,38 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_age')}}*</label>
-                        <input required type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control">
+                        <input required type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control @error('_age') is-invalid @enderror">
+                        @if ($errors->has('_age'))
+                            <span class="text-danger">{{ $errors->first('_age') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_height')}}*</label>
-                        <select required class="form-control" name="_height">
+                        <select required class="form-control @error('_height') is-invalid @enderror" name="_height">
                             <option value="">{{__('main.choose')}}</option>
                             @foreach(range(20, 220) as $number)
                                 <option {{$user->height == number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} </option>
                             @endforeach
-
                         </select>
+                        @if ($errors->has('_height'))
+                            <span class="text-danger">{{ $errors->first('_height') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_skin_color')}}*</label>
-                        <select class="form-control" name="_skin">
+                        <select class="form-control @error('_skin') is-invalid @enderror" name="_skin">
                             <option value="">{{__('main.choose')}}</option>
                             <option value="White" {{$user->skin == 'White' ? 'selected' : ''}}>{{__('main.edit_profile_white')}}</option>
                             <option {{$user->skin == 'Brown' ? 'selected' : ''}} value="Brown">{{__('main.edit_profile_brown')}}</option>
                             <option {{$user->skin == 'Black' ? 'selected' : ''}} value="Black">{{__('main.edit_profile_black')}}</option>
                         </select>
+                        @if ($errors->has('_skin'))
+                            <span class="text-danger">{{ $errors->first('_skin') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -133,12 +153,15 @@
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_bust')}}*</label>
 {{--                        <input type="number" name="bust" value="{{$user->bust ?? ''}}" placeholder="" class="form-control">--}}
-                        <select class="form-control" name="bust">
+                        <select class="form-control @error('bust') is-invalid @enderror" name="bust">
                             <option value="">{{__('main.choose')}}</option>
                             <option value="Small" {{$user->bust == 'Small' ? 'selected' : ''}}>{{__('main.edit_profile_small')}}</option>
                             <option {{$user->bust == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
                             <option {{$user->bust == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
+                        @if ($errors->has('bust'))
+                            <span class="text-danger">{{ $errors->first('bust') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -146,12 +169,15 @@
                         <label>{{__('main.edit_profile_waist')}}*</label>
 {{--                        <input type="number" name="waist" value="{{$user->waist}}" placeholder="" class="form-control">--}}
 
-                        <select class="form-control" name="waist">
+                        <select class="form-control @error('waist') is-invalid @enderror" name="waist">
                             <option value="">{{__('main.choose')}}</option>
                             <option {{$user->waist == 'Thin' ? 'selected' : ''}} value="Thin">{{__('main.Thin')}}</option>
                             <option {{$user->waist == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
                             <option {{$user->waist == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
+                        @if ($errors->has('waist'))
+                            <span class="text-danger">{{ $errors->first('waist') }}</span>
+                        @endif
 
                     </div>
                 </div>
@@ -160,12 +186,15 @@
                         <label>{{__('main.edit_profile_hips')}}*</label>
 {{--                        <input type="number" name="hips" value="{{$user->hips}}" placeholder="" class="form-control">--}}
 
-                        <select class="form-control" name="hips">
+                        <select class="form-control @error('hips') is-invalid @enderror" name="hips">
                             <option value="">{{__('main.choose')}}</option>
                             <option {{$user->hips == 'Small' ? 'selected' : ''}} value="Small">{{__('main.edit_profile_small')}}</option>
                             <option {{$user->hips == 'Medium' ? 'selected' : ''}} value="Medium">{{__('main.Medium')}}</option>
                             <option {{$user->hips == 'Large' ? 'selected' : ''}} value="Large">{{__('main.Large')}}</option>
                         </select>
+                        @if ($errors->has('hips'))
+                            <span class="text-danger">{{ $errors->first('hips') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -174,17 +203,20 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.Dress_Size')}}*</label>
-                        <select required class="form-control" name="dress">
+                        <select required class="form-control @error('dress') is-invalid @enderror" name="dress">
                             @foreach($arr as $a)
                                 <option {{$user->dress == $a ? 'selected' : ''}} value="{{$a}}">{{$a}}</option>
                             @endforeach
                         </select>
+                        @if ($errors->has('dress'))
+                            <span class="text-danger">{{ $errors->first('dress') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.Hair_Color')}}*</label>
-                        <select class="form-control" name="hair">
+                        <select class="form-control @error('hair') is-invalid @enderror" name="hair">
                             <option value="">{{__('main.choose')}}</option>
                             <option {{$user->hair == 'Bald' ? 'selected' : ''}} value="Bald">{{__('main.Bald')}}</option>
                             <option {{$user->hair == 'Black' ? 'selected' : ''}} value="Black">{{__('main.Black')}}</option>
@@ -195,12 +227,15 @@
                             <option {{$user->hair == 'Red' ? 'selected' : ''}} value="Red">{{__('main.Red')}}</option>
                             <option {{$user->hair == 'Colored' ? 'selected' : ''}} value="Colored">{{__('main.Colored')}}</option>
                         </select>
+                        @if ($errors->has('hair'))
+                            <span class="text-danger">{{ $errors->first('hair') }}</span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.Eyes_Color')}}*</label>
-                        <select class="form-control" name="eyes">
+                        <select class="form-control @error('eyes') is-invalid @enderror" name="eyes">
                             <option value="">{{__('main.choose')}}</option>
                             <option {{$user->eyes == 'Brown' ? 'selected' : ''}} value="Brown">{{__('main.Brown')}}</option>
                             <option {{$user->eyes == 'Black' ? 'selected' : ''}} value="Black">{{__('main.Black')}}</option>
@@ -208,6 +243,9 @@
                             <option {{$user->eyes == 'Blue' ? 'selected' : ''}} value="Blue">{{__('main.Blue')}}</option>
                             <option {{$user->eyes == 'Honey' ? 'selected' : ''}} value="Honey">{{__('main.Honey')}}</option>
                         </select>
+                        @if ($errors->has('eyes'))
+                            <span class="text-danger">{{ $errors->first('eyes') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -327,15 +365,24 @@
             <div class="row mt-2">
                 <div class="col-md-4">
                     <label>{{__('main.Pix_name')}}</label>
-                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="Digite o nome do responsável pelo Modelo." class="form-control border-2 fw-bold">
+                    <input type="text" name="pix_name" value="{{ $exp[0] ?? '' }}" placeholder="Digite o nome do responsável pelo Modelo." class="form-control @error('pix_name') is-invalid @enderror border-2 fw-bold">
+                    @if ($errors->has('pix_name'))
+                        <span class="text-danger">{{ $errors->first('pix_name') }}</span>
+                    @endif
                 </div>
                 <div class="col-md-4">
                     <label>{{__('main.Pix_email/code/phone')}}</label>
-                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="Digite o PIX: email, código, CPF ou telefone" class="form-control border-2 fw-bold">
+                    <input type="text" name="pix" value="{{ $exp[1] ?? '' }}" placeholder="Digite o PIX: email, código, CPF ou telefone" class="form-control @error('pix') is-invalid @enderror border-2 fw-bold">
+                    @if ($errors->has('pix'))
+                        <span class="text-danger">{{ $errors->first('pix') }}</span>
+                    @endif
                 </div>
                 <div class="col-md-4">
                     <label>CPF do Responsável pelo Modelo</label>
-                    <input type="number" name="cpf" value="{{ $user->cpf ?? '' }}" placeholder="Digite o CPF do responsável pelo Modelo" class="form-control border-2 fw-bold" maxlength="11">
+                    <input type="number" name="cpf" value="{{ $user->cpf ?? '' }}" placeholder="Digite o CPF do responsável pelo Modelo" class="form-control @error('cpf') is-invalid @enderror border-2 fw-bold" maxlength="11">
+                    @if ($errors->has('cpf'))
+                        <span class="text-danger">{{ $errors->first('cpf') }}</span>
+                    @endif
                 </div>
             </div>
 

@@ -106,7 +106,8 @@
 
                     <div class="mb-3">
                         <button type="button" onclick="menu();" id="men_u" class="menu_btn">Menu</button>
-                        <button style="float: right; display: none;" type="button" class="menu_btn" onclick="menu_off();" id="men_u_off"><i class="fa-solid fa-xmark"></i></button>
+                        <button style="float: right; display: none; z-index: 2000;
+    position: relative;" type="button" class="menu_btn" onclick="menu_off();" id="men_u_off"><i class="fa-solid fa-xmark text-light"></i></button>
                     </div>
 
                     @include('alert')
@@ -117,6 +118,8 @@
             </div>
         </div>
     </div>
+
+        <div class="mb-5">&nbsp;</div>
     @endauth
 
     @livewireScripts
