@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -90,7 +91,7 @@ class AuthController extends Controller
 
     private function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['_name'] ?? '',
             'email' => $data['email'] ?? '',
 //            'state' => $data['state'] ?? '',
@@ -113,6 +114,20 @@ class AuthController extends Controller
 //            'height' => $data['_height'],
 //            'hair' => $data['hair'],
         ]);
+
+        // get free trial for 10 days
+        $payment = new Payment;
+        $payment->user_id = $user->id;
+        $payment->amount = 0.00;
+        $payment->start_date = Carbon::today()->format('Y-m-d');
+        $payment->end_date = Carbon::now()->addDays(10)->format('Y-m-d');
+        $payment->transaction_id = "free_trial_10_days";
+        $payment->save();
+
+        User::where('id', $user->id)
+            ->update(['subscribed' => 1, 'payment_card_id' => 'free_trial']);
+
+        return $user;
     }
 
     public function logout(Request $request)

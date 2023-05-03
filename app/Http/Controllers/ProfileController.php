@@ -138,6 +138,6 @@ class ProfileController extends Controller
             ['about' => $request->about]
         );
 
-        return redirect()->back()->with('msg', 'Saved successfully.');
+        return redirect()->back()->with('msg', 'Parabéns! Você habilitou o seu perfil para parcerias.');
     }
 }

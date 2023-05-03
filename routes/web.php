@@ -157,7 +157,22 @@ Route::get('resend/email/verification', function (Request $request) {
 // testing query ---------------------------------------------------
 
 //Route::get('/test/query', function () {
+//    $users = User::where('subscribed', '!=', 1)->get();
+//    $arr = [];
+//    foreach ($users as $user) {
+//        $pay = new \App\Models\Payment;
+//        $pay->user_id = $user->id;
+//        $pay->amount = 0.00;
+//        $pay->start_date = \Carbon\Carbon::now();
+//        $pay->end_date = \Carbon\Carbon::now()->addDays(10);
+//        $pay->transaction_id = "free_trial_10_days";
+//        $pay->save();
 //
+//        User::where('id', $user->id)->update(['subscribed' => 1, 'payment_card_id' => 'free_trial']);
+//        $arr[] = $user->id;
+//    }
+//
+//    dd($arr);
 //});
 
 //Route::get('get/price', function (Request $request) {

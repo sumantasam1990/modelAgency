@@ -24,7 +24,7 @@ return [
     'notifications' => 'Notificações',
     'winners' => 'Vencedores',
     'photos' => 'Fotos',
-    'about_me' => 'Sobre Mim',
+    'about_me' => 'Parcerias',
     'help' => 'Ajuda',
     'edit_profile' => 'Cadastro',
     'subscription' => 'Agenciamento',
@@ -109,7 +109,8 @@ return [
     'Pix_email/code/phone' => 'PIX do Responsável pelo Modelo',
     'Update' => 'Salvar',
     'About_me' => 'Sobre mim',
-    'Write_about_yourself' => 'Apresente-se para os produtores artísticos eumodelo. Diga como está a sua carreira hoje e quais são os seus planos para o futuro.',
+    'Write_about_yourself' => 'Apresente-se, fale das parcerias que você tem interesse e dos seus planos para o futuro.
+Faça um vídeo filmando a tela do seu celular, apresentando o site eumodelo, poste na sua rede social e cole o link aqui para analisarmos as suas habilidades de comunicação em possíveis parcerias.',
     'Save' => 'Salvar',
     'Success_Saved_Successfully' => 'Salvo_com_sucesso',
     'Help' => 'Ajuda',

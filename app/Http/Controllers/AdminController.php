@@ -260,12 +260,12 @@ class AdminController extends Controller
 
     public function stats(ContestService $contestService, Request $request): Factory|View|Application
     {
-        $time_from = Carbon::today()->format('Y-m-d');
+        $time_from = Carbon::today()->subDay()->format('Y-m-d');
         $time_to = Carbon::today()->format('Y-m-d');
 
         if ($request->isMethod('post')) {
             if ($request->time == '1x') {
-                $time_from = Carbon::today()->format('Y-m-d');
+                $time_from = Carbon::today()->subDay()->format('Y-m-d');
                 $time_to = Carbon::today()->format('Y-m-d');
             } elseif ($request->time == '2x') {
                 $time_from = Carbon::now()->startOfMonth()->format('Y-m-d');

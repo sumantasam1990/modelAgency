@@ -57,20 +57,37 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label>Contest Prize*</label>--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <input required type="text" name="contest_price_first" class="form-control" placeholder="First place ($)">--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <input required type="text" name="contest_price_second" class="form-control" placeholder="Second place ($)">--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <input required type="text" name="contest_price_third" class="form-control" placeholder="Third place ($)">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
                                     <div class="mb-3">
-                                        <label>Contest Price*</label>
+                                        <label>Contest Prize (Subscription)*</label>
+                                        <small>Number of days</small>
                                         <div class="row">
                                             <div class="col-4">
-                                                <input required type="text" name="contest_price_first" class="form-control" placeholder="First place ($)">
+                                                <input required type="text" name="contest_price_first" class="form-control" placeholder="First place (days)">
                                             </div>
                                             <div class="col-4">
-                                                <input required type="text" name="contest_price_second" class="form-control" placeholder="Second place ($)">
+                                                <input required type="text" name="contest_price_second" class="form-control" placeholder="Second place (days)">
                                             </div>
                                             <div class="col-4">
-                                                <input required type="text" name="contest_price_third" class="form-control" placeholder="Third place ($)">
+                                                <input required type="text" name="contest_price_third" class="form-control" placeholder="Third place (of days)">
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -86,14 +103,15 @@
                                         <div class="modal-body">
 
                                             <div class="mb-2">
-                            <textarea name="rules" rows="8" class="form-control">
-Allowed only to subscribers users.
-They can vote only in other categories of contests.
-The 3 most voted at the end of the contest will be the winners.
-Everyone who fits the contest category will be participating automatically.
-New entrants are allowed during the running of the contest.
-The amount of votes will only be displayed at the end of the contest.
-Users would not see all models that are participating in a contest category.</textarea>
+                            <textarea name="rules" rows="8" class="form-control">A) A inscrição no concurso é automática.
+B) Os modelos não podem votar nos concursos em que estão participando.
+C) Os 3 modelos mais votados, ao final do concurso, serão os vencedores.
+D) Os vencedores serão informados no menu Notificações
+E) Novos participantes são permitidos durante a realização do concurso.
+F) A quantidade de votos será exibida ao final do concurso.
+G) Os modelos serão apresentados, de forma aleatória, para receber votos.
+H) Os vencedores serão divulgados nas redes sociais eumodelo.
+I) Leia os Termos e Serviços para mais detalhes da realização de concursos.</textarea>
                                             </div>
                                         </div>
                                     </div>

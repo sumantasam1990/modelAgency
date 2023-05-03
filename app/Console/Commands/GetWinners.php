@@ -4,9 +4,12 @@ namespace App\Console\Commands;
 
 use App\Mail\SendWinnersEmail;
 use App\Models\ContestParticipants;
+use App\Models\Payment;
 use App\Models\portfolio;
+use App\Models\User;
 use App\Models\Winner;
 use App\Services\ContestService;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -82,6 +85,30 @@ class GetWinners extends Command
                             'index' => (int)$d['rank'],
                         ];
                         if ($d['total_votes'] > 0) {
+                            //getting subscription
+                            Payment::where('user_id', $d['user_id'])->delete();
+                            $payment = new Payment;
+                            $payment->user_id = $d['user_id'];
+                            $payment->amount = 0.00;
+                            $payment->start_date = Carbon::today()->format('Y-m-d');
+                            if ($d['rank'] == 1) {
+                                $payment->end_date = Carbon::now()->addDays($da['prize_first'])->format('Y-m-d');
+                            }
+                            elseif ($d['rank'] == 2) {
+                                $payment->end_date = Carbon::now()->addDays($da['prize_second'])->format('Y-m-d');
+                            }
+                            elseif ($d['rank'] == 3) {
+                                $payment->end_date = Carbon::now()->addDays($da['prize_third'])->format('Y-m-d');
+                            }
+                            else {
+                                // nothing to do...
+                            }
+
+                            $payment->transaction_id = "free_prize_sub";
+                            $payment->save();
+
+                            User::where('id', $d['user_id'])->update(['subscribed' => 1, 'payment_card_id' => 'free_prize']);
+
                             Mail::to($d['user_email'])->queue(new SendWinnersEmail($array_data));
                         }
                     }
