@@ -80,6 +80,13 @@ body {
     }
 }
 
+.vote:hover {
+    color: #ffffff !important;
+    a:hover {
+        color: #ffffff !important;
+    }
+}
+
 label {
     font-weight: 600;
 }
@@ -111,7 +118,7 @@ label {
 .left-sidebar {
     text-align: left;
     width: 220px;
-    padding: 15px;
+    padding: 10px;
     min-height: 100vh;
     background-color: #383838;
     position: fixed;
@@ -146,6 +153,16 @@ ul li a div {
     align-items: center;
     flex-wrap: wrap;
     align-content: flex-start;
+}
+
+.header-ul li {
+    transition: background 0.5s ease, border-radius 0.8s ease;
+}
+
+.header-ul li:hover {
+    background: #000;
+    border-radius: 12px;
+
 }
 
 ul li a:hover {

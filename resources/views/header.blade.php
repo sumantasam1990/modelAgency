@@ -23,9 +23,21 @@
             <div class="col-md-2" style="margin: 0; padding: 0;">
 
                 <div class="left-sidebar" id="left-sidebar-id" style="height: 100vh;">
-                    <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
-                        {{auth()->user()->name}}
-                    </h2>
+
+                    @php
+                    $img = \App\Models\portfolio::where('user_id', auth()->user()->id)->where('profile_photo', '1')->first();
+                    @endphp
+
+                    <div class="d-flex flex-row justify-content-start align-items-center mb-3 mt-2">
+                        @if($img)
+                            <img class="img-fluid rounded-circle w-25 h-25" src="{{asset('storage/image/' . $img->file_name . '.' . $img->ext)}}" alt="profile photo">
+                        @else
+                            <img class="img-fluid rounded-circle w-25 h-25" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="profile photo">
+                        @endif
+                        <h2 class="text-capitalize fs-5 fw-bold text-light" style="margin-left: 20px;">
+                            {{auth()->user()->name}}
+                        </h2>
+                    </div>
 
 
                     <p class="d-grid gap-2 col-12">

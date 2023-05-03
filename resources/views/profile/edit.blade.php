@@ -19,7 +19,7 @@
             <h4 class="fw-bold fs-4 mb-3">{{__('main.edit_profile_update_account')}}</h4>
             <div class="form-group mb-2">
                 <label>{{__('main.edit_profile_name')}}*</label>
-                <input required type="text" name="name" value="{{$user->name ?? ''}}" placeholder="" class="form-control @error('name') is-invalid @enderror">
+                <input type="text" name="name" value="{{$user->name ?? ''}}" placeholder="" class="form-control @error('name') is-invalid @enderror">
                 @if ($errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -78,7 +78,7 @@
                 <div class="col-6">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_gender')}}*</label>
-                        <select required class="form-control @error('_gender') is-invalid @enderror" name="_gender">
+                        <select class="form-control @error('_gender') is-invalid @enderror" name="_gender">
                             <option value="" selected>Select</option>
                             <option value="Female" {{$user->gender == 'Female' ? 'selected' : ''}}>{{__('main.edit_profile_female')}}</option>
                             <option value="Male" {{$user->gender == 'Male' ? 'selected' : ''}}>{{__('main.edit_profile_male')}}</option>
@@ -112,7 +112,7 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_age')}}*</label>
-                        <input required type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control @error('_age') is-invalid @enderror">
+                        <input type="date" name="_age" value="{{$user->age}}" placeholder="d/m/Y" class="form-control @error('_age') is-invalid @enderror">
                         @if ($errors->has('_age'))
                             <span class="text-danger">{{ $errors->first('_age') }}</span>
                         @endif
@@ -121,7 +121,7 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.edit_profile_height')}}*</label>
-                        <select required class="form-control @error('_height') is-invalid @enderror" name="_height">
+                        <select class="form-control @error('_height') is-invalid @enderror" name="_height">
                             <option value="">{{__('main.choose')}}</option>
                             @foreach(range(20, 220) as $number)
                                 <option {{$user->height == number_format($number / 100, 2) ? 'selected' : ''}} value="{{ number_format($number / 100, 2) }}">{{number_format($number / 100, 2)}} </option>
@@ -203,7 +203,7 @@
                 <div class="col-md-4">
                     <div class="form-group mb-2">
                         <label>{{__('main.Dress_Size')}}*</label>
-                        <select required class="form-control @error('dress') is-invalid @enderror" name="dress">
+                        <select class="form-control @error('dress') is-invalid @enderror" name="dress">
                             @foreach($arr as $a)
                                 <option {{$user->dress == $a ? 'selected' : ''}} value="{{$a}}">{{$a}}</option>
                             @endforeach
